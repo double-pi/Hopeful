@@ -18,17 +18,16 @@ import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.ItemCombinerMenuSlotDefinition;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import javax.annotation.Nullable;
 
 public class AnvilMenu extends ItemCombinerMenu {
     public static final int INPUT_SLOT = 0;
     public static final int SCROLL_SLOT = 1;
     public static final int RESULT_SLOT = 2;
     public boolean used = false;
-    private String itemName;
+    public String name;
 
     public AnvilMenu(int containerId, Inventory playerInventory,
                      RegistryFriendlyByteBuf registryFriendlyByteBuf) {
@@ -45,32 +44,6 @@ public class AnvilMenu extends ItemCombinerMenu {
                 .withSlot(SCROLL_SLOT, 76, 47, (p_266634_) -> p_266634_.is(ModItems.SCROLL))
                 .withResultSlot(RESULT_SLOT, 134, 47)
                 .build();
-    }
-
-    @Nullable
-    private static String validateName(String itemName) {
-        String s = StringUtil.filterText(itemName);
-        return s.length() <= 50 ? s : null;
-    }
-
-    public boolean setItemName(String itemName) {
-        String s = validateName(itemName);
-        if (s != null && !s.equals(this.itemName)) {
-            this.itemName = s;
-//            if (this.getSlot(2).hasItem()) {
-//                ItemStack itemstack = this.getSlot(2).getItem();
-//                if (StringUtil.isBlank(s)) {
-//                    itemstack.remove(DataComponents.CUSTOM_NAME);
-//                } else {
-//                    itemstack.set(DataComponents.CUSTOM_NAME, Component.literal(s));
-//                }
-//            }
-
-            this.createResult();
-            return true;
-        } else {
-            return false;
-        }
     }
 
 
@@ -94,31 +67,61 @@ public class AnvilMenu extends ItemCombinerMenu {
 
         HopefulMod.LOGGER.error("stack: "+stack);
         player.playSound(SoundEvents.ANVIL_USE);
+        if(player.getRandom().nextFloat()>0.8)
+            access.execute((level, blockPos) -> {
+
+                if(player.hasInfiniteMaterials())
+                    return;
+                BlockState blockState = level.getBlockState(blockPos);
+                BlockState newAnvil = AnvilBlock.damage(blockState);
+                assert newAnvil != null;
+                level.setBlockAndUpdate(blockPos, newAnvil);
+            });
 
     }
 
-    public void createResult() { //TODO: Add Name
+    public void createResult() {
         ItemStack base = this.inputSlots.getItem(INPUT_SLOT);
         ItemStack scrollItem = this.inputSlots.getItem(SCROLL_SLOT);
         ItemStack result = base.copy();
 
-        if(scrollItem.has(ModDataComponentTypes.SCROLL)) {
+        HopefulMod.LOGGER.error("creating result...");
+        String pickedName = pickName(this.name);
+        if(scrollItem.isEmpty() && pickedName ==null)
+            return;
+
+        // scroll segment
+        if(!scrollItem.isEmpty()) {
             Scroll scroll = scrollItem.get(ModDataComponentTypes.SCROLL).value();
             if(base.isEmpty() || !ScrollHelper.supportsScroll(base, scroll)) {
-
                 this.resultSlots.setItem(RESULT_SLOT,ItemStack.EMPTY);
                 used = false;
                 return;
             }
             used = true;
             ScrollHelper.enchant(result, scroll);
-        } else {
-            if(!StringUtil.isBlank(itemName)){
-                HopefulMod.LOGGER.error("loading name: "+itemName);
-                result.set(DataComponents.CUSTOM_NAME,Component.literal(itemName));
-            }
         }
-        resultSlots.setItem(RESULT_SLOT,result);
 
+        HopefulMod.LOGGER.error("picked name is "+pickedName);
+        // name segment
+        if(pickedName != null){
+            if(pickedName.isBlank())
+                result.remove(DataComponents.CUSTOM_NAME);
+            else
+                result.set(DataComponents.CUSTOM_NAME, Component.literal(pickedName));
+        }
+
+        resultSlots.setItem(RESULT_SLOT,result);
+    }
+
+    public String pickName(String name){
+        ItemStack base = this.inputSlots.getItem(INPUT_SLOT);
+        if(name==null)
+            return null;
+        if(base.isEmpty())
+            return null;
+        if(base.getHoverName().getString().equals(name))
+            return null;
+        return StringUtil.filterText(name);
     }
 }

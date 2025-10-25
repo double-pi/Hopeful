@@ -6,10 +6,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ServerboundRenameItemPacket;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.StringUtil;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
@@ -66,20 +66,20 @@ public class AnvilScreen extends ItemCombinerScreen<AnvilMenu> {
     }
 
     private void onNameChanged(String name) {
-        HopefulMod.LOGGER.error("name changed");
-        Slot slot = this.menu.getSlot(0);
-        if (slot.hasItem()) {
-            String s = name;
-//            if (!slot.getItem().has(DataComponents.CUSTOM_NAME) && name.equals(slot.getItem().getHoverName().getString())) {
-//                s = "";
-//            }
+        String validatedName=this.menu.pickName(name);
+        if(validatedName==null)
+            return;
+        HopefulMod.LOGGER.error("calling create Result with "+validatedName);
+        menu.name = validatedName;
+        this.menu.createResult();
+        this.minecraft.player.connection.send(new ServerboundRenameItemPacket(validatedName));
 
-            if (this.menu.setItemName(s)) {
-                HopefulMod.LOGGER.error("wroking?");
-                this.minecraft.player.connection.send(new ServerboundRenameItemPacket(s));
-            }
-        }
+
     }
+
+
+
+
     public void resize(Minecraft minecraft, int width, int height) {
         String s = this.name.getValue();
         this.init(minecraft, width, height);
@@ -91,7 +91,7 @@ public class AnvilScreen extends ItemCombinerScreen<AnvilMenu> {
             this.minecraft.player.closeContainer();
         }
 
-        return !this.name.keyPressed(keyCode, scanCode, modifiers) && !this.name.canConsumeInput() ? super.keyPressed(keyCode, scanCode, modifiers) : true;
+        return this.name.keyPressed(keyCode, scanCode, modifiers) || this.name.canConsumeInput() || super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
@@ -106,23 +106,21 @@ public class AnvilScreen extends ItemCombinerScreen<AnvilMenu> {
     }
 
     public void slotChanged(AbstractContainerMenu containerToSend, int slotInd, ItemStack stack) {
-        if (!this.menu.getSlot(0).hasItem()){
-            this.name.setValue("");
-            HopefulMod.LOGGER.error("clear");
+//        if (!this.menu.getSlot(0).hasItem()){
+//            this.name.setValue("");
+//            HopefulMod.LOGGER.error("clear");
+//            return;
+//        }
+        if(slotInd!=0)
             return;
-        }
-
         this.name.setValue(stack.isEmpty() ? "" : stack.getHoverName().getString());
         this.name.setEditable(true);
         this.setFocused(this.name);
     }
 
     protected void renderErrorIcon(GuiGraphics guiGraphics, int x, int y) {
-        if(!this.menu.getSlot(AnvilMenu.INPUT_SLOT).hasItem())
-            return;
-        if(this.menu.getSlot(AnvilMenu.RESULT_SLOT).hasItem())
-            return;
-        guiGraphics.blitSprite(ERROR_SPRITE, x + 99, y + 45, 28, 21);
+        if(!this.menu.getSlot(AnvilMenu.RESULT_SLOT).hasItem() && this.menu.getSlot(AnvilMenu.INPUT_SLOT).hasItem())
+            guiGraphics.blitSprite(ERROR_SPRITE, x + 99, y + 45, 28, 21);
     }
 
     public void renderToolExperience(GuiGraphics guiGraphics){
