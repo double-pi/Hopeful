@@ -72,13 +72,9 @@ public class AnvilScreen extends ItemCombinerScreen<AnvilMenu> {
         HopefulMod.LOGGER.error("calling create Result with "+validatedName);
         menu.name = validatedName;
         this.menu.createResult();
-        this.minecraft.player.connection.send(new ServerboundRenameItemPacket(validatedName));
-
+        //this.minecraft.player.connection.send(new ServerboundRenameItemPacket(validatedName));
 
     }
-
-
-
 
     public void resize(Minecraft minecraft, int width, int height) {
         String s = this.name.getValue();
@@ -111,11 +107,16 @@ public class AnvilScreen extends ItemCombinerScreen<AnvilMenu> {
 //            HopefulMod.LOGGER.error("clear");
 //            return;
 //        }
-        if(slotInd!=0)
-            return;
-        this.name.setValue(stack.isEmpty() ? "" : stack.getHoverName().getString());
-        this.name.setEditable(true);
-        this.setFocused(this.name);
+        if(slotInd==AnvilMenu.RESULT_SLOT && stack.isEmpty()) {
+            this.name.setValue("");
+            this.name.setEditable(false);
+        }
+        if(slotInd==AnvilMenu.INPUT_SLOT) {
+            this.name.setValue(stack.isEmpty() ? "" : stack.getHoverName().getString());
+            this.name.setEditable(true);
+            this.setFocused(this.name);
+        }
+
     }
 
     protected void renderErrorIcon(GuiGraphics guiGraphics, int x, int y) {

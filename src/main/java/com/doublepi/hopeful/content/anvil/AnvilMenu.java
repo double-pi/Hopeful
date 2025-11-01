@@ -59,13 +59,15 @@ public class AnvilMenu extends ItemCombinerMenu {
     protected void onTake(Player player, ItemStack stack) {
         ItemStack base = this.inputSlots.getItem(INPUT_SLOT);
         base.shrink(1);
-        this.inputSlots.setItem(INPUT_SLOT, base);
+        //this.inputSlots.setItem(INPUT_SLOT, base);
 
         ItemStack scroll = this.inputSlots.getItem(SCROLL_SLOT);
-        scroll.shrink(1);
-        this.inputSlots.setItem(SCROLL_SLOT, scroll);
-
+        if(!scroll.isEmpty()) {
+            scroll.shrink(1);
+            //this.inputSlots.setItem(SCROLL_SLOT, scroll);
+        }
         HopefulMod.LOGGER.error("stack: "+stack);
+
         player.playSound(SoundEvents.ANVIL_USE);
         if(player.getRandom().nextFloat()>0.8)
             access.execute((level, blockPos) -> {
@@ -82,14 +84,16 @@ public class AnvilMenu extends ItemCombinerMenu {
 
     public void createResult() {
         ItemStack base = this.inputSlots.getItem(INPUT_SLOT);
+        if(base.isEmpty())
+            return;
         ItemStack scrollItem = this.inputSlots.getItem(SCROLL_SLOT);
         ItemStack result = base.copy();
 
-        HopefulMod.LOGGER.error("creating result...");
         String pickedName = pickName(this.name);
         if(scrollItem.isEmpty() && pickedName ==null)
             return;
 
+        HopefulMod.LOGGER.error("create result...");
         // scroll segment
         if(!scrollItem.isEmpty()) {
             Scroll scroll = scrollItem.get(ModDataComponentTypes.SCROLL).value();
@@ -110,7 +114,7 @@ public class AnvilMenu extends ItemCombinerMenu {
             else
                 result.set(DataComponents.CUSTOM_NAME, Component.literal(pickedName));
         }
-
+        HopefulMod.LOGGER.error("result's name: "+result.getHoverName());
         resultSlots.setItem(RESULT_SLOT,result);
     }
 
