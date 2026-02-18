@@ -2,10 +2,14 @@ package com.doublepi.hopeful.content.scrolls;
 
 import com.doublepi.hopeful.HopefulMod;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
+import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.Level;
+
+import java.util.stream.Stream;
 
 public class ScrollHelper {
 
@@ -23,6 +27,9 @@ public class ScrollHelper {
         setScore(item, getScore(item) + scroll.scorePerLevel());
     }
 
+    public static Stream<Holder.Reference<Scroll>> getAllScrolls(Level level){
+        return level.holderLookup(ModResourceRegistries.SCROLL_REGISTRY_KEY).listElements();
+    }
 
     public static boolean supportsScroll(ItemStack item, Scroll scroll){
         int maxScore = getMaxScore(item);
