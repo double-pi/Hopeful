@@ -6,6 +6,7 @@
     "AbstractHorseMixin",
     "AnvilMixin",
     "FireworkItemMixin",
+    "ItemMixin",
     "LeavesBlockMixin",
     "PlayerMixin",
     "ServerPlayerMixin"
