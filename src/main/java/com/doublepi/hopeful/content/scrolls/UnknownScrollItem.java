@@ -1,5 +1,6 @@
 package com.doublepi.hopeful.content.scrolls;
 
+import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +23,9 @@ public class UnknownScrollItem extends Item {
             return InteractionResultHolder.consume(itemStack);
         player.giveExperiencePoints(10);
         itemStack.consume(1,player);
+        var allScrolls = level.holderLookup(ModResourceRegistries.SCROLL_REGISTRY_KEY).listElements().toList();
+        ItemStack scrollItem = ScrollItem.createFromScroll(allScrolls.get((int) (Math.random()*allScrolls.size())).value());
+        player.getInventory().add(scrollItem);
         player.playSound(SoundEvents.BOOK_PAGE_TURN);
         player.awardStat(Stats.ITEM_USED.get(this));
         return InteractionResultHolder.consume(itemStack);

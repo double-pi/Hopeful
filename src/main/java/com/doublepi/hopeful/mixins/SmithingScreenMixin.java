@@ -64,20 +64,17 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         int size = 110;
         int increment = size/maxStatus;
 
-        int xPos = this.leftPos + 7 + (size-increment*maxStatus)/2;
+        int xPos = this.leftPos + 3 + (size-increment*maxStatus)/2;
         int yPos = this.topPos + 40;
         for (int i = 0; i < Math.min(prevStatus, nextStatus); i++) {
-            System.out.print("full");
             guiGraphics.blitSprite(FULL_BAR_SPRITE, xPos+i*increment,yPos, increment,4);
         }
         if(addedToStatus >= 0) {
             for (int i = prevStatus; i < nextStatus; i++) {
-                System.out.print("add");
                 guiGraphics.blitSprite(TO_ADD_BAR_SPRITE, xPos + i * increment, yPos, increment, 4);
             }
         }else{
             for (int i = nextStatus; i < prevStatus; i++) {
-                System.out.print("remove");
                 guiGraphics.blitSprite(TO_REMOVE_BAR_SPRITE, xPos + i * increment, yPos, increment, 4);
             }
         }
