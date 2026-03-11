@@ -2,7 +2,6 @@ package com.doublepi.hopeful;
 
 import com.doublepi.hopeful.registries.*;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -36,6 +35,7 @@ public class HopefulMod {
         ModGamerules.register();
         ModEntities.register(modEventBus);
         ModEffects.register(modEventBus);
+        ModRecipes.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event){
