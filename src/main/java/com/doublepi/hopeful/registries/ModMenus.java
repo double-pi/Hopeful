@@ -1,7 +1,6 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.content.anvil.AnvilMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -16,8 +15,6 @@ public class ModMenus {
     public static final DeferredRegister<MenuType<?>> MENUS =
             DeferredRegister.create(Registries.MENU, HopefulMod.MODID);
 
-    public static final DeferredHolder<MenuType<?>, MenuType<AnvilMenu>> NEW_ANVIL_MENU =
-            registerMenuType("new_anvil_menu", AnvilMenu::new);
 
     private static <T extends AbstractContainerMenu>DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
                                                                                                               IContainerFactory<T> factory) {
