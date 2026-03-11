@@ -12,6 +12,7 @@
     "ServerPlayerMixin"
   ],
   "client": [
+    "SmithingScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
