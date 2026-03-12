@@ -1,11 +1,12 @@
 {
   "title":{
-    "translate": "scroll.hopeful.echo"
+    "translate": "scroll.hopeful.echoes"
   },
   "type": "blessing",
   "max_level": 1,
   "score_per_level": 3,
   "enchantments": [
-    "minecraft:multishot","minecraft:swift_sneak"
+    "minecraft:multishot",
+    "minecraft:swift_sneak"
   ]
 }

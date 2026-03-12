@@ -1,6 +1,5 @@
 {
   "tab.hopeful.scrolls": "Hopeful's Scrolls",
-  "container.hopeful.anvil": "Repair, Name, & Apply",
 
   "block.hopeful.chokeslate": "Chokeslate",
   "item.hopeful.unknown_scroll": "Unknown Scroll",
@@ -9,19 +8,33 @@
   "scroll.hopeful.type.curse": "Curse",
   "scroll.hopeful.type.deal": "Deal",
 
-  "scroll.hopeful.luck": "Luck",
-  "scroll.hopeful.unbreaking": "Unbreaking",
-  "scroll.hopeful.punch": "Punch",
+
+  "scroll.hopeful.acceleration": "Acceleration",
   "scroll.hopeful.binding": "Binding",
-  "scroll.hopeful.echo": "The Echoed",
-  "scroll.hopeful.flame": "Flame",
-  "scroll.hopeful.fins": "Fins",
-  "scroll.hopeful.spiked": "The Spiked",
-  "scroll.hopeful.vanish": "Vanishing",
+  "scroll.hopeful.channeling": "Channeling",
+  "scroll.hopeful.echoes": "Echoes",
   "scroll.hopeful.endless": "Endless",
-  "scroll.hopeful.eternal": "Eternal",
-  "scroll.hopeful.precision": "Precision",
+  "scroll.hopeful.extermination": "Extermination",
+  "scroll.hopeful.fins": "Fins",
+  "scroll.hopeful.flame": "Flame",
+  "scroll.hopeful.gills": "Gills",
   "scroll.hopeful.impact": "Impact",
+  "scroll.hopeful.luck": "Luck",
+  "scroll.hopeful.mending": "Mending",
+  "scroll.hopeful.penetration": "Penetration",
+  "scroll.hopeful.precision": "Precision",
+  "scroll.hopeful.punch": "Punch",
+  "scroll.hopeful.returning": "Returning",
+  "scroll.hopeful.spread": "Spread",
+  "scroll.hopeful.thorns": "Thorns",
+  "scroll.hopeful.unbreaking": "Unbreaking",
+  "scroll.hopeful.undead": "Undead",
+  "scroll.hopeful.vanishing": "Vanishing",
+  "scroll.hopeful.weight": "Weight",
+  "scroll.hopeful.wind": "Wind",
+
+
+
 
   "enchantment.hopeful.fatigue_curse": "Curse of Fatigue",
   "enchantment.hopeful.fatigue_curse.desc": "Decreases mining speed.",

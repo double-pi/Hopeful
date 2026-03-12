@@ -6,6 +6,8 @@
   "max_level": 3,
   "score_per_level": 2,
   "enchantments": [
-    "minecraft:efficiency","minecraft:sharpness"
+    "minecraft:efficiency",
+    "minecraft:sharpness",
+    "minecraft:power"
   ]
 }

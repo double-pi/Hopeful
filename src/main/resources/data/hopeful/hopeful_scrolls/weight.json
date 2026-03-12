@@ -1,0 +1,13 @@
+{
+  "title":
+  {
+    "translate": "scroll.hopeful.weight"
+  },
+  "type": "blessing",
+  "max_level": 3,
+  "score_per_level": 1,
+  "enchantments": [
+    "minecraft:density",
+    "minecraft:blast_protection"
+  ]
+}
