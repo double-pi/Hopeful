@@ -1,5 +1,6 @@
 package com.doublepi.hopeful.mixins;
 
+import com.doublepi.hopeful.content.scrolls.ScrollHelper;
 import com.doublepi.hopeful.content.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModResourceRegistries;
@@ -32,16 +33,22 @@ public class ItemMixin {
         var listOfScrolls = new ArrayList<ItemStack>();
 
         assert enchants != null;
+        ItemEnchantments.Mutable remaining = new ItemEnchantments.Mutable(enchants);
+
         enchants.keySet().forEach(enchantmentHolder ->
             allScrolls.forEach(scrollReference -> {
 
             if(scrollReference.value().enchantments().contains(enchantmentHolder)){
                 for (int i = 0; i < enchants.getLevel(enchantmentHolder); i++) {
                     listOfScrolls.add(ScrollItem.createFromScroll(scrollReference.value()));
+                    remaining.set(enchantmentHolder,remaining.getLevel(enchantmentHolder)-1);
                 }
             }
         }));
-        stack.setCount(0);
+        if(remaining.keySet().isEmpty())
+            stack.setCount(0);
+        else
+            stack.set(DataComponents.STORED_ENCHANTMENTS,remaining.toImmutable());
         listOfScrolls.forEach(entity::spawnAtLocation);
 
     }
@@ -60,15 +67,18 @@ public class ItemMixin {
         var listOfScrolls = new ArrayList<ItemStack>();
 
         assert enchants != null;
+        ItemEnchantments.Mutable remaining = new ItemEnchantments.Mutable(enchants);
+
         enchants.keySet().forEach(enchantmentHolder ->
             allScrolls.forEach(scrollReference -> {
                     if(scrollReference.value().enchantments().contains(enchantmentHolder)){
                         for (int i = 0; i < enchants.getLevel(enchantmentHolder); i++) {
                             listOfScrolls.add(ScrollItem.createFromScroll(scrollReference.value()));
+                            remaining.set(enchantmentHolder,remaining.getLevel(enchantmentHolder)-1);
                         }
                     }
                 }));
-        stack.set(DataComponents.ENCHANTMENTS,ItemEnchantments.EMPTY);
+        stack.set(DataComponents.ENCHANTMENTS,remaining.toImmutable());
         listOfScrolls.forEach(entity::spawnAtLocation);
     }
 }

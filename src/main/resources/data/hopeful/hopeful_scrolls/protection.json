@@ -1,0 +1,11 @@
+{
+  "title":{
+    "translate": "scroll.hopeful.protection"
+  },
+  "type": "blessing",
+  "max_level": 3,
+  "score_per_level": 2,
+  "enchantments": [
+    "minecraft:protection"
+  ]
+}
