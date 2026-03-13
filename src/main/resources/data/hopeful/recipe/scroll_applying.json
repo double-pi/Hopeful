@@ -4,7 +4,7 @@
     "item": "minecraft:lapis_lazuli"
   },
   "base": {
-    "tag": "minecraft:enchantable/durability"
+    "tag": "c:enchantables"
   },
   "template": {
     "item": "hopeful:scroll"

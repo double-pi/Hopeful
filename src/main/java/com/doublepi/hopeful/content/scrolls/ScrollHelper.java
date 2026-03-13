@@ -51,18 +51,13 @@ public class ScrollHelper {
         return false;
     }
 
-    public static int enchantabilityToScore(int enchantability){
-        if(enchantability==1)
-            return 5;
-        return enchantability;
-    }
-
     public static int getMaxScore(ItemStack stack){
         int enchantability = stack.getEnchantmentValue();
-        if(!stack.is(ItemTags.DURABILITY_ENCHANTABLE))
-            return 0;
-        return enchantabilityToScore(enchantability);
+        if(stack.getMaxStackSize()!=1) return 0;
+        if(enchantability==0) return 5;
+        return (int)(enchantability * 0.5);
     }
+
     public static int getScore(ItemStack stack){
         if(!stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS)){
             stack.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,0);

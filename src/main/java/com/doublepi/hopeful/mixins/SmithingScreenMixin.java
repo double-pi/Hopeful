@@ -47,12 +47,13 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
 
 
     public void hopeful$renderToolExperience(GuiGraphics guiGraphics){
-        System.out.println("gaming");
         var menu = this.getMenu();
-        if(menu.getSlot(BASE_SLOT).getItem().getEnchantmentValue() == 0)
-            return;
-        int prevStatus = ScrollHelper.getScore(this.menu.getSlot(BASE_SLOT).getItem());
+        if(!this.menu.getSlot(BASE_SLOT).hasItem()) return;
         int maxStatus = ScrollHelper.getMaxScore(this.menu.getSlot(BASE_SLOT).getItem());
+        System.out.println("print: "+maxStatus);
+        if(maxStatus == 0) return;
+        int prevStatus = ScrollHelper.getScore(this.menu.getSlot(BASE_SLOT).getItem());
+
 
         int addedToStatus = 0;
         if(menu.getSlot(RESULT_SLOT).hasItem()){
@@ -64,7 +65,7 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         int size = 110;
         int increment = size/maxStatus;
 
-        int xPos = this.leftPos + 3 + (size-increment*maxStatus)/2;
+        int xPos = this.leftPos + 6 + (size-increment*maxStatus)/2;
         int yPos = this.topPos + 40;
         for (int i = 0; i < Math.min(prevStatus, nextStatus); i++) {
             guiGraphics.blitSprite(FULL_BAR_SPRITE, xPos+i*increment,yPos, increment,4);
