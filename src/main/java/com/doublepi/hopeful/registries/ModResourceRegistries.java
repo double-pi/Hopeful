@@ -10,7 +10,8 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent;
 
 public class ModResourceRegistries {
     public static final ResourceKey<Registry<Scroll>> SCROLL_REGISTRY_KEY =
-            ResourceKey.createRegistryKey(ResourceLocation.parse(HopefulMod.MODID+"_scrolls"));
+            ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(
+                    HopefulMod.MODID, "scrolls"));
 
     @SubscribeEvent
     public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {

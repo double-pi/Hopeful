@@ -2,6 +2,7 @@ package com.doublepi.hopeful.content.scrolls;
 
 import com.doublepi.hopeful.registries.ModResourceRegistries;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -25,7 +26,9 @@ public record Scroll(Component title, ScrollType scrollType, int maxLevel, int s
                     ScrollType.CODEC.fieldOf("type").forGetter(Scroll::scrollType),
                     ExtraCodecs.intRange(0,255).fieldOf("max_level").forGetter(Scroll::maxLevel),
                     ExtraCodecs.intRange(-16,16).fieldOf("score_per_level").forGetter(Scroll::scorePerLevel),
-                    RegistryCodecs.homogeneousList(Registries.ENCHANTMENT).fieldOf("enchantments").forGetter(Scroll::enchantments))
+                    RegistryCodecs.homogeneousList(Registries.ENCHANTMENT)
+                            .validate(DataResult::success)
+                            .fieldOf("enchantments").forGetter(Scroll::enchantments))
                     .apply(scrollInstance, Scroll::new)
             ));
 

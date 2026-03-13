@@ -1,0 +1,10 @@
+{
+  "values": [
+    "minecraft:quick_charge",
+    "minecraft:riptide",
+    {
+      "id": "enchantments_plus:radiance",
+      "required": false
+    }
+  ]
+}

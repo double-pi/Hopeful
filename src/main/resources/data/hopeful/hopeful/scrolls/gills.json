@@ -1,0 +1,9 @@
+{
+  "title":{
+    "translate": "scroll.hopeful.gills"
+  },
+  "type": "blessing",
+  "max_level": 3,
+  "score_per_level": 1,
+  "enchantments": "#hopeful:hopeful/gills"
+}
