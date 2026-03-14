@@ -5,10 +5,13 @@ import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class ScrollHelper {
@@ -69,5 +72,18 @@ public class ScrollHelper {
         stack.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,value);
     }
 
+    public static void addOrSpawn(Entity entity, ArrayList<ItemStack> stacks){
+        if(!(entity instanceof Player p)) {
+            stacks.forEach(entity::spawnAtLocation);
+            return;
+        }
+
+        stacks.forEach(stack->{
+            boolean success = p.getInventory().add(stack);
+            if(!success) {
+                entity.spawnAtLocation(stack).setNoPickUpDelay();
+            }
+        });
+    }
 
 }

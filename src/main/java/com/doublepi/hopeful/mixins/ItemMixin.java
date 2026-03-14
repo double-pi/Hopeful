@@ -7,6 +7,7 @@ import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
@@ -30,7 +31,7 @@ public class ItemMixin {
             return;
 
         var enchants = stack.get(DataComponents.STORED_ENCHANTMENTS);
-        var allScrolls = level.holderLookup(ModResourceRegistries.SCROLL_REGISTRY_KEY).listElements().toList();
+        var allScrolls = ScrollHelper.getAllScrolls(level).toList();
         var listOfScrolls = new ArrayList<ItemStack>();
 
         assert enchants != null;
@@ -51,10 +52,7 @@ public class ItemMixin {
         else
             stack.set(DataComponents.STORED_ENCHANTMENTS,remaining.toImmutable());
 
-        if(entity instanceof Player p)
-            listOfScrolls.forEach(p.getInventory()::add);
-        else
-            listOfScrolls.forEach(entity::spawnAtLocation);
+        ScrollHelper.addOrSpawn(entity,listOfScrolls);
 
     }
 
@@ -66,7 +64,7 @@ public class ItemMixin {
             return;
 
         var enchants = stack.get(DataComponents.ENCHANTMENTS);
-        var allScrolls = level.holderLookup(ModResourceRegistries.SCROLL_REGISTRY_KEY).listElements().toList();
+        var allScrolls = ScrollHelper.getAllScrolls(level).toList();
         var listOfScrolls = new ArrayList<ItemStack>();
 
         assert enchants != null;
@@ -82,9 +80,8 @@ public class ItemMixin {
                     }
                 }));
         stack.set(DataComponents.ENCHANTMENTS,remaining.toImmutable());
-        if(entity instanceof Player p)
-            listOfScrolls.forEach(p.getInventory()::add);
-        else
-            listOfScrolls.forEach(entity::spawnAtLocation);
+        ScrollHelper.addOrSpawn(entity,listOfScrolls);
     }
+
+
 }
