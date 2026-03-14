@@ -7,6 +7,7 @@ import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -40,7 +41,7 @@ public class ItemMixin {
 
             if(scrollReference.value().enchantments().contains(enchantmentHolder)){
                 for (int i = 0; i < enchants.getLevel(enchantmentHolder); i++) {
-                    listOfScrolls.add(ScrollItem.createFromScroll(scrollReference.value()));
+                    listOfScrolls.add(ScrollItem.createFromScroll(scrollReference));
                     remaining.set(enchantmentHolder,remaining.getLevel(enchantmentHolder)-1);
                 }
             }
@@ -49,15 +50,17 @@ public class ItemMixin {
             stack.setCount(0);
         else
             stack.set(DataComponents.STORED_ENCHANTMENTS,remaining.toImmutable());
-        listOfScrolls.forEach(entity::spawnAtLocation);
+
+        if(entity instanceof Player p)
+            listOfScrolls.forEach(p.getInventory()::add);
+        else
+            listOfScrolls.forEach(entity::spawnAtLocation);
 
     }
 
     @Inject(method="inventoryTick", at=@At("HEAD"))
     public void fixTools(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
         if(!(stack.has(DataComponents.ENCHANTMENTS)) || stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS))
-            return;
-        if(!(entity instanceof LivingEntity p))
             return;
         if(level.isClientSide)
             return;
@@ -73,12 +76,15 @@ public class ItemMixin {
             allScrolls.forEach(scrollReference -> {
                     if(scrollReference.value().enchantments().contains(enchantmentHolder)){
                         for (int i = 0; i < enchants.getLevel(enchantmentHolder); i++) {
-                            listOfScrolls.add(ScrollItem.createFromScroll(scrollReference.value()));
+                            listOfScrolls.add(ScrollItem.createFromScroll(scrollReference));
                             remaining.set(enchantmentHolder,remaining.getLevel(enchantmentHolder)-1);
                         }
                     }
                 }));
         stack.set(DataComponents.ENCHANTMENTS,remaining.toImmutable());
-        listOfScrolls.forEach(entity::spawnAtLocation);
+        if(entity instanceof Player p)
+            listOfScrolls.forEach(p.getInventory()::add);
+        else
+            listOfScrolls.forEach(entity::spawnAtLocation);
     }
 }

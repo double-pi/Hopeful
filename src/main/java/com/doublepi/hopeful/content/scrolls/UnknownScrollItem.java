@@ -24,7 +24,7 @@ public class UnknownScrollItem extends Item {
         player.giveExperiencePoints(10);
         itemStack.consume(1,player);
         var allScrolls = level.holderLookup(ModResourceRegistries.SCROLL_REGISTRY_KEY).listElements().toList();
-        ItemStack scrollItem = ScrollItem.createFromScroll(allScrolls.get((int) (Math.random()*allScrolls.size())).value());
+        ItemStack scrollItem = ScrollItem.createFromScroll(allScrolls.get((int) (Math.random()*allScrolls.size())));
         player.getInventory().add(scrollItem);
         player.playSound(SoundEvents.BOOK_PAGE_TURN);
         player.awardStat(Stats.ITEM_USED.get(this));

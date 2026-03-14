@@ -15,6 +15,6 @@ public class ModResourceRegistries {
 
     @SubscribeEvent
     public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
-        event.dataPackRegistry(SCROLL_REGISTRY_KEY, Scroll.CODEC, Scroll.CODEC, builder -> builder.maxId(256));
+        event.dataPackRegistry(SCROLL_REGISTRY_KEY, Scroll.CODEC, Scroll.CODEC, builder -> builder.maxId(512).sync(true));
     }
 }

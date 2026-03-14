@@ -36,7 +36,7 @@ public record Scroll(Component title, ScrollType scrollType, int maxLevel, int s
             RegistryFixedCodec.create(ModResourceRegistries.SCROLL_REGISTRY_KEY);
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Scroll>> STREAM_CODEC =
-            ByteBufCodecs.holderRegistry(ModResourceRegistries.SCROLL_REGISTRY_KEY);;
+            ByteBufCodecs.holderRegistry(ModResourceRegistries.SCROLL_REGISTRY_KEY);
 
     @Override
     public Component title() {

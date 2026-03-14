@@ -25,9 +25,9 @@ public class ScrollItem extends Item {
         return false;
     }
 
-    public static ItemStack createFromScroll(Scroll instance) {
+    public static ItemStack createFromScroll(Holder<Scroll> instance) {
         ItemStack itemstack = new ItemStack(ModItems.SCROLL.get());
-        itemstack.set(ModDataComponentTypes.SCROLL, Holder.direct(instance));
+        itemstack.set(ModDataComponentTypes.SCROLL, instance);
         return itemstack;
     }
 

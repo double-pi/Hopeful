@@ -9,11 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.SmithingMenu;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import org.apache.logging.log4j.core.layout.HtmlLayout;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -50,7 +46,6 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         var menu = this.getMenu();
         if(!this.menu.getSlot(BASE_SLOT).hasItem()) return;
         int maxStatus = ScrollHelper.getMaxScore(this.menu.getSlot(BASE_SLOT).getItem());
-        System.out.println("print: "+maxStatus);
         if(maxStatus == 0) return;
         int prevStatus = ScrollHelper.getScore(this.menu.getSlot(BASE_SLOT).getItem());
 

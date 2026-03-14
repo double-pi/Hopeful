@@ -41,7 +41,7 @@ public class ModCreativeTabs {
 
     private static void generateScrolls(CreativeModeTab.Output output, HolderLookup<Scroll> scrolls) {
         scrolls.listElements()
-                .map(scrollRef -> ScrollItem.createFromScroll(scrollRef.value()))
+                .map(ScrollItem::createFromScroll)
                         .forEach(itemStack -> output.accept(itemStack,
                         CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS));
     }
