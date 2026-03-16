@@ -37,8 +37,8 @@
 
 
 
-  "enchantment.hopeful.fatigue_curse": "Curse of Fatigue",
-  "enchantment.hopeful.fatigue_curse.desc": "Decreases mining speed.",
+  "enchantment.hopeful.fins_curse": "Curse of Fins",
+  "enchantment.hopeful.fins_curse.desc": "Decreases mining speed.",
   "enchantment.hopeful.fragile_curse": "Curse of Fragility",
   "enchantment.hopeful.fragile_curse.desc": "Causes items to lose durability faster.",
   "enchantment.hopeful.eternal": "Eternal",
@@ -47,11 +47,12 @@
   "tooltip.hopeful.disabled_elytra_boosting": "Elytra Boosting is disabled.",
   "tooltip.hopeful.enchant_status": "Experience Point",
   "tooltip.hopeful.max_level": "Max Level:",
-  "tooltip.hopeful.when_used_in_forge": "When Forged:",
+  "tooltip.hopeful.for_details": "Hold [Shift] for Descriptions",
 
   "tag.item.hopeful.anvil_mends": "Anvil Mends",
 
   "entity.hopeful.mourner": "Mourner",
   "item.hopeful.mourner_spawn_egg": "Mourner Spawn Egg"
+
 
 }

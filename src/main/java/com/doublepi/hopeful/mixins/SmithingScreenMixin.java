@@ -77,6 +77,5 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         for (int i = Math.max(prevStatus, nextStatus); i < maxStatus; i++) {
             guiGraphics.blitSprite(EMPTY_BAR_SPRITE, xPos+i*increment,yPos, increment,4);
         }
-        System.out.println(" ");
     }
 }
