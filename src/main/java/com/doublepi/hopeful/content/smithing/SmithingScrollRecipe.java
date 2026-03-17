@@ -28,8 +28,7 @@ public record SmithingScrollRecipe(Ingredient template, Ingredient base,
 
 
     public boolean matches(SmithingRecipeInput input, Level level) {
-        //return this.template.test(input.template()) && /*this.base.test(input.base()) &&*/ this.addition.test(input.addition());
-        return true;
+        return input.template().has(ModDataComponentTypes.SCROLL);
     }
 
     public ItemStack assemble(SmithingRecipeInput input, HolderLookup.Provider registries) {
