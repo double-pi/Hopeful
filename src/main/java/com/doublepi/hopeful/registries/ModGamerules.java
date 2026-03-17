@@ -24,7 +24,17 @@ public class ModGamerules {
     public static final GameRules.Key<GameRules.BooleanValue> LEAVES_FALL =
     createBoolean("doLeavesFall", GameRules.Category.MISC, false);
 
+    // XP Stuff
     public static final GameRules.Key<GameRules.BooleanValue> KEEP_EXP =
     createBoolean("keepExperience", GameRules.Category.PLAYER, true);
+
+//    public static final GameRules.Key<GameRules.BooleanValue> DISPLAY_XP =
+//            createBoolean("displayXP", GameRules.Category.PLAYER, true);
+//
+//    public static final GameRules.Key<GameRules.IntegerValue> XP_POINTS_PER_LEVEL =
+//            GameRules.register("XPPointsPerLevel", GameRules.Category.PLAYER,
+//                    GameRules.IntegerValue.create(64,
+//                    (minecraftServer, intValue)
+//                            -> LOGGER.info("set value to {}", intValue.get())));
 
 }

@@ -5,5 +5,6 @@
   "type": "blessing",
   "max_level": 1,
   "score_per_level": 3,
-  "enchantments": "#hopeful:hopeful/mending"
+  "enchantments": "#hopeful:hopeful/mending",
+  "xp_levels_needed": 5
 }

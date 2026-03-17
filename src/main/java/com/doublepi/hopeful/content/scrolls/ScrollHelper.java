@@ -25,8 +25,6 @@ public class ScrollHelper {
             boolean isNotMaxLevel = item.getEnchantmentLevel(enchantment)< scroll.maxLevel();
             if(itemSupportsEnchantment && isNotMaxLevel && getScore(item) < getMaxScore(item)){
                 int newLevel = item.getEnchantmentLevel(enchantment) + 1;
-                HopefulMod.LOGGER.error("Item enchanted to lvl "+ newLevel+ " score was changed from "+getScore(item)+
-                        " to "+ (getScore(item) + scroll.scorePerLevel()));
                 item.enchant(enchantment, newLevel);
             }
         }
@@ -78,6 +76,14 @@ public class ScrollHelper {
 
     public static void setScore(ItemStack stack, int value){
         stack.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,value);
+    }
+
+    public static Holder<Scroll> getFromEnchant(Holder<Enchantment> holder, Level level){
+        var scrolls = getAllScrolls(level).toList();
+        for (int i = 0; i < scrolls.size(); i++) {
+            if(scrolls.get(i).value().enchantments().contains(holder)) return scrolls.get(i);
+        }
+        return null;
     }
 
     public static void addOrSpawn(Entity entity, ArrayList<ItemStack> stacks){

@@ -19,13 +19,14 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.enchantment.Enchantment;
 
-public record Scroll(Component title, ScrollType scrollType, int maxLevel, int scorePerLevel, HolderSet<Enchantment> enchantments) {
+public record Scroll(Component title, ScrollType scrollType, int maxLevel, int scorePerLevel, int xpLevels, HolderSet<Enchantment> enchantments) {
     public static final Codec<Scroll> CODEC =
             RecordCodecBuilder.create((scrollInstance ->scrollInstance.group(
                     ComponentSerialization.CODEC.fieldOf("title").forGetter(Scroll::title),
                     ScrollType.CODEC.fieldOf("type").forGetter(Scroll::scrollType),
                     ExtraCodecs.intRange(0,255).fieldOf("max_level").forGetter(Scroll::maxLevel),
                     ExtraCodecs.intRange(-16,16).fieldOf("score_per_level").forGetter(Scroll::scorePerLevel),
+                    Codec.INT.optionalFieldOf("xp_levels_needed",0).forGetter(Scroll::xpLevels),
                     RegistryCodecs.homogeneousList(Registries.ENCHANTMENT)
                             .validate(DataResult::success)
                             .fieldOf("enchantments").forGetter(Scroll::enchantments))
@@ -55,6 +56,11 @@ public record Scroll(Component title, ScrollType scrollType, int maxLevel, int s
     @Override
     public int scorePerLevel() {
         return scorePerLevel;
+    }
+
+    @Override
+    public int xpLevels() {
+        return xpLevels;
     }
 
     @Override

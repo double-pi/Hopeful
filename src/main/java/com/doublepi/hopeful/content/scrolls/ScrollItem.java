@@ -1,6 +1,7 @@
 package com.doublepi.hopeful.content.scrolls;
 
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
+import com.doublepi.hopeful.registries.ModGamerules;
 import com.doublepi.hopeful.registries.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -15,8 +16,8 @@ import net.neoforged.fml.ModList;
 import java.util.List;
 
 public class ScrollItem extends Item {
-    private final Style justGray = Style.EMPTY.applyFormat(ChatFormatting.GRAY);
-    private final Style italicGray = justGray.applyFormat(ChatFormatting.ITALIC);
+    public final Style justGray = Style.EMPTY.applyFormat(ChatFormatting.GRAY);
+    public final Style italicGray = justGray.applyFormat(ChatFormatting.ITALIC);
 
     public ScrollItem(Properties properties) {
         super(properties);
@@ -57,8 +58,13 @@ public class ScrollItem extends Item {
                         .append(" ")
                         .append(Component.translatable("enchantment.level."+scroll.maxLevel()))
                         .withStyle(justGray));
-        tooltipComponents.add(Component.empty());
 
+        //TODO: Send gamerule to client
+        /*if(context.level().getGameRules().getBoolean(ModGamerules.USE_XP_FOR_SCROLLS))
+            tooltipComponents.add(Component.translatable("tooltip.hopeful.xp")
+                    .append(": "+scroll.xpLevels()).withStyle(justGray));
+        else*/
+        tooltipComponents.add(Component.empty());
         // Enchantment list
         boolean isLoaded = ModList.get().isLoaded("enchdesc");
         boolean isShifted = tooltipFlag.hasShiftDown();

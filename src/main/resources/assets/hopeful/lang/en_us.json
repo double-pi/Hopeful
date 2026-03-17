@@ -48,6 +48,7 @@
   "tooltip.hopeful.enchant_status": "Experience Point",
   "tooltip.hopeful.max_level": "Max Level:",
   "tooltip.hopeful.for_details": "Hold [Shift] for Descriptions",
+  "tooltip.hopeful.xp": "Required: %1$s lvls",
 
   "tag.item.hopeful.anvil_mends": "Anvil Mends",
 

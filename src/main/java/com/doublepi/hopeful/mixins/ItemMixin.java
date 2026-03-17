@@ -3,15 +3,13 @@ package com.doublepi.hopeful.mixins;
 import com.doublepi.hopeful.content.scrolls.ScrollHelper;
 import com.doublepi.hopeful.content.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
-import com.doublepi.hopeful.registries.ModResourceRegistries;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(Item.class)
 public class ItemMixin {
@@ -64,22 +63,30 @@ public class ItemMixin {
             return;
 
         var enchants = stack.get(DataComponents.ENCHANTMENTS);
-        var allScrolls = ScrollHelper.getAllScrolls(level).toList();
-        var listOfScrolls = new ArrayList<ItemStack>();
-
         assert enchants != null;
+        var enchantList = enchants.keySet().stream().toList();
         ItemEnchantments.Mutable remaining = new ItemEnchantments.Mutable(enchants);
 
-        enchants.keySet().forEach(enchantmentHolder ->
-            allScrolls.forEach(scrollReference -> {
-                    if(scrollReference.value().enchantments().contains(enchantmentHolder)){
-                        for (int i = 0; i < enchants.getLevel(enchantmentHolder); i++) {
-                            listOfScrolls.add(ScrollItem.createFromScroll(scrollReference));
-                            remaining.set(enchantmentHolder,remaining.getLevel(enchantmentHolder)-1);
-                        }
-                    }
-                }));
+        var listOfScrolls = new ArrayList<ItemStack>();
+
+        int enchantability = ScrollHelper.getMaxScore(stack);
+        int currentScore = 0;
+
+        boolean overloaded = false;
+        for (Holder<Enchantment> enchantHolder : enchantList) {
+            var scroll = ScrollHelper.getFromEnchant(enchantHolder, level);
+            for (int i = 0; i < enchants.getLevel(enchantHolder); i++) {
+                if(currentScore + scroll.value().scorePerLevel() > enchantability || overloaded) {
+                    overloaded = true;
+                    listOfScrolls.add(ScrollItem.createFromScroll(scroll));
+                    remaining.set(enchantHolder, remaining.getLevel(enchantHolder)-1);
+                }else{
+                    currentScore += scroll.value().scorePerLevel();
+                }
+            }
+        }
         stack.set(DataComponents.ENCHANTMENTS,remaining.toImmutable());
+        stack.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,currentScore);
         ScrollHelper.addOrSpawn(entity,listOfScrolls);
     }
 
