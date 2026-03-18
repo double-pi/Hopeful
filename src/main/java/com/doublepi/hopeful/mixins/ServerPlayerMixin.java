@@ -2,12 +2,12 @@ package com.doublepi.hopeful.mixins;
 
 import com.doublepi.hopeful.registries.ModGamerules;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,11 +22,12 @@ public abstract class ServerPlayerMixin extends Player {
     }
 
     @Inject(method = "restoreFrom",at = @At("TAIL"))
-    public void _OnRestoreFrom(ServerPlayer player, boolean keepEverything, CallbackInfo ci) {
-        Level level = this.level();
-        if(level.isClientSide()) return;
-        boolean keepExperience = level.getGameRules().getBoolean(ModGamerules.KEEP_EXP);
-        boolean keepInventory = level.getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY);
+    public void _OnRestoreFrom(ServerPlayer player, boolean restoreAll, CallbackInfo ci) {
+
+        if(level().isClientSide()) return;
+        ServerLevel level = (ServerLevel) this.level();
+        boolean keepExperience = level.getGameRules().get(ModGamerules.KEEP_EXP);
+        boolean keepInventory = level.getGameRules().get(GameRules.KEEP_INVENTORY);
 
         if (keepInventory) {
             for(int i = 0; i < this.getInventory().getContainerSize(); ++i) {

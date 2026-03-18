@@ -1,6 +1,7 @@
 package com.doublepi.hopeful.mixins;
 
 import com.doublepi.hopeful.registries.ModGamerules;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -29,7 +30,7 @@ public abstract class PlayerMixin extends LivingEntity{
     @Inject(method = {"getBaseExperienceReward"},at = {@At("HEAD")},cancellable = true)
     public void _onGetExperience(CallbackInfoReturnable<Integer> cir) {
         if(level().isClientSide()) return;
-        boolean keepExperience = this.level().getGameRules().getBoolean(ModGamerules.KEEP_EXP);
+        boolean keepExperience = ((ServerLevel)this.level()).getGameRules().get(ModGamerules.KEEP_EXP);
         if (keepExperience) {
             cir.setReturnValue(0);
         }else{

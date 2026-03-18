@@ -28,11 +28,12 @@ public class SmithingScrollRecipe extends SimpleSmithingRecipe{
         this.addition = addition;
     }
     public static final MapCodec<SmithingScrollRecipe> MAP_CODEC = RecordCodecBuilder.mapCodec((i) -> 
-            i.group(CommonInfo.MAP_CODEC.forGetter((o) -> o.commonInfo),
+            i.group(
+                    CommonInfo.MAP_CODEC.forGetter((o) -> o.commonInfo),
                     Ingredient.CODEC.fieldOf("template").forGetter((o) -> o.template),
-                    Ingredient.CODEC.fieldOf("base").forGetter((o) -> o.base), 
-                    Ingredient.CODEC.fieldOf("addition").forGetter((o) -> o.addition)
-                    .apply(i, SmithingScrollRecipe::new)));
+                    Ingredient.CODEC.fieldOf("base").forGetter((o) -> o.base),
+                    Ingredient.CODEC.fieldOf("addition").forGetter((o) -> o.addition))
+                    .apply(i, SmithingScrollRecipe::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, SmithingScrollRecipe> STREAM_CODEC = StreamCodec.composite(
             CommonInfo.STREAM_CODEC, (o) -> o.commonInfo,
             Ingredient.CONTENTS_STREAM_CODEC, (o) -> o.template,
@@ -89,6 +90,7 @@ public class SmithingScrollRecipe extends SimpleSmithingRecipe{
     public RecipeSerializer<SmithingScrollRecipe> getSerializer() {
         return SERIALIZER;
     }
-    
+
+    //TODO: display?
 
 }

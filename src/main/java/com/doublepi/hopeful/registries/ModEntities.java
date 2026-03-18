@@ -15,9 +15,9 @@ public class ModEntities {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES =
             DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, HopefulMod.MODID);
 
-    public static final Supplier<EntityType<MournerEntity>> MOURNER =
-            ENTITY_TYPES.register("mourner", () -> EntityType.Builder.of(MournerEntity::new, MobCategory.CREATURE)
-                    .sized(0.75f, 0.95f).build("mourner"));
+//    public static final Supplier<EntityType<MournerEntity>> MOURNER =
+//            ENTITY_TYPES.register("mourner", () -> EntityType.Builder.of(MournerEntity::new, MobCategory.CREATURE)
+//                    .sized(0.75f, 0.95f).build("mourner"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

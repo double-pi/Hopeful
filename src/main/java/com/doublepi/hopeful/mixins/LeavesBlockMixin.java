@@ -23,7 +23,9 @@ public abstract class LeavesBlockMixin {
     public void tickInjected(BlockState state, ServerLevel level, BlockPos pos,
                              RandomSource random, CallbackInfo ci){
         //Credit to Levaltru on bsky for the idea!
-        boolean leavesFall = level.getGameRules().getBoolean(ModGamerules.LEAVES_FALL);
+        if(level.isClientSide())return;
+
+        boolean leavesFall = ((ServerLevel)level).getGameRules().get(ModGamerules.LEAVES_FALL);
         if(this.decaying(state) && leavesFall && FallingBlock.isFree(level.getBlockState(pos.below())))
             FallingBlockEntity.fall(level,pos,state);
     }

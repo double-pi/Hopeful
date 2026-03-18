@@ -31,7 +31,7 @@ public class GameEvents {
     @SubscribeEvent
     public static void saplingReplant(ItemExpireEvent event){
         ItemEntity itemEntity = event.getEntity();
-        // TODO: Fix Gamerules
+
         if(itemEntity.level().isClientSide()) return;
         ServerLevel level = (ServerLevel) itemEntity.level();
         if(!level.getGameRules().get(ModGamerules.SAPLINGS_REPLACE))

@@ -2,6 +2,7 @@ package com.doublepi.hopeful.mixins;
 
 import com.doublepi.hopeful.registries.ModGamerules;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -21,8 +22,8 @@ public class FireworkItemMixin {
                             InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         if(level.isClientSide())
             return;
-        boolean isAllowed = level.getGameRules().getBoolean(ModGamerules.FIREWORK_BOOSTING);
-        player.displayClientMessage(Component.translatable("tooltip.hopeful.disabled_elytra_boosting"), true);
-        if(!isAllowed) cir.setReturnValue(InteractionResultHolder.pass(player.getItemInHand(hand)));
+        boolean isAllowed = ((ServerLevel) level).getGameRules().get(ModGamerules.FIREWORK_BOOSTING);
+        player.sendOverlayMessage(Component.translatable("tooltip.hopeful.disabled_elytra_boosting"));
+        if(!isAllowed) cir.setReturnValue(InteractionResult.PASS);
     }
 }

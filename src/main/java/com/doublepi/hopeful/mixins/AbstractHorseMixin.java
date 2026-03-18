@@ -32,10 +32,11 @@ public abstract class AbstractHorseMixin{
 //    }
     // TODO: Figure out mixin - use https://github.com/NordAct/Leaf-Me-Alone/blob/26.1-independent/src/main/resources/leafmealone.mixins.json
     @Inject(method = "createOffspringAttribute", at=@At("HEAD"))
-    private static double createOffspringAttribute(double value1, double value2, double min, double max, RandomSource random) {
+    private static double createOffspringAttribute(double value1, double value2, double min, double max, RandomSource random, CallbackInfoReturnable<Double> ci) {
         if(max<=min)
             throw new IllegalArgumentException("Incorrect Range for Attribute");
         double deviation = (max-min)/10;
+        ci.setReturnValue((value1+value2)/2+deviation* random.nextGaussian());
         return (value1+value2)/2+deviation* random.nextGaussian();
     }
 
