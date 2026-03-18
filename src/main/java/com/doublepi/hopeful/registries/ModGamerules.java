@@ -1,32 +1,38 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.gamerules.GameRuleCategory;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
+import static net.minecraft.world.level.gamerules.GameRules.registerBoolean;
+
 public class ModGamerules {
+
+    public static final DeferredRegister<@NotNull GameRule<?>> GAMERULES = DeferredRegister.create(Registries.GAME_RULE, HopefulMod.MODID);
     private static final Logger LOGGER = HopefulMod.LOGGER;
 
-    public static void register() {
-
+    public static void register(IEventBus modbus) {
+        GAMERULES.register(modbus);
     }
-    public static GameRules.Key<GameRules.BooleanValue> createBoolean(String name, GameRules.Category category, boolean defaultValue){
-        return GameRules.register(name, category, GameRules.BooleanValue.create(defaultValue,
-                        (minecraftServer, booleanValue)
-                                -> LOGGER.info("set value to {}", booleanValue.get())));
-    }
-    public static final GameRules.Key<GameRules.BooleanValue> SAPLINGS_REPLACE =
-    createBoolean("doSaplingsRegrow",GameRules.Category.MISC,false);
 
-    public static final GameRules.Key<GameRules.BooleanValue> FIREWORK_BOOSTING =
-    createBoolean("fireworkBoosting",GameRules.Category.PLAYER, false);
+    public static final GameRule<Boolean> SAPLINGS_REPLACE =
+    registerBoolean("doSaplingsRegrow", GameRuleCategory.MISC,false);
 
-    public static final GameRules.Key<GameRules.BooleanValue> LEAVES_FALL =
-    createBoolean("doLeavesFall", GameRules.Category.MISC, false);
+    public static final GameRule<Boolean> FIREWORK_BOOSTING =
+    registerBoolean("fireworkBoosting",GameRuleCategory.PLAYER, false);
+
+    public static final GameRule<Boolean> LEAVES_FALL =
+    registerBoolean("doLeavesFall", GameRuleCategory.MISC, false);
 
     // XP Stuff
-    public static final GameRules.Key<GameRules.BooleanValue> KEEP_EXP =
-    createBoolean("keepExperience", GameRules.Category.PLAYER, true);
+    public static final GameRule<Boolean> KEEP_EXP =
+    registerBoolean("keepExperience", GameRuleCategory.PLAYER, true);
 
 //    public static final GameRules.Key<GameRules.BooleanValue> DISPLAY_XP =
 //            createBoolean("displayXP", GameRules.Category.PLAYER, true);

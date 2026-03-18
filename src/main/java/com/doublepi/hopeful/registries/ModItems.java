@@ -4,8 +4,8 @@ import com.doublepi.hopeful.HopefulMod;
 import com.doublepi.hopeful.content.scrolls.ScrollItem;
 import com.doublepi.hopeful.content.scrolls.UnknownScrollItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -19,7 +19,7 @@ public class ModItems {
             ()-> new UnknownScrollItem(new Item.Properties()));
 
     public static final DeferredItem<Item> MOURNER_SPAWN_EGG = ITEMS.register("mourner_spawn_egg",
-            ()-> new DeferredSpawnEggItem(ModEntities.MOURNER,0xdebd47, 0xccbfbe, new Item.Properties()));
+            ()-> new SpawnEggItem(new Item.Properties().spawnEgg(ModEntities.MOURNER.get())));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

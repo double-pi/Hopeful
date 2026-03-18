@@ -6,6 +6,8 @@ import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModEventBusEvents;
 import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -56,9 +58,9 @@ public class ScrollHelper {
     }
 
     public static int getMaxScore(ItemStack stack){
-        Holder<Item> item = stack.getItemHolder();
+        Holder<Item> item = stack.typeHolder();
         if(item.getData(ModEventBusEvents.ITEM_ENCHANTABILITY_DATA) == null){
-            int enchantability = stack.getEnchantmentValue();
+            int enchantability = stack.get(DataComponents.ENCHANTABLE).value();
             if(stack.getMaxStackSize()!=1) return 0;
             if(enchantability==0) return 5;
             return (int)(enchantability * 0.5);
@@ -88,14 +90,16 @@ public class ScrollHelper {
 
     public static void addOrSpawn(Entity entity, ArrayList<ItemStack> stacks){
         if(!(entity instanceof Player p)) {
-            stacks.forEach(entity::spawnAtLocation);
+            stacks.forEach(stack -> {
+                entity.spawnAtLocation((ServerLevel) entity.level(),stack);
+            });
             return;
         }
 
         stacks.forEach(stack->{
             boolean success = p.getInventory().add(stack);
             if(!success) {
-                entity.spawnAtLocation(stack).setNoPickUpDelay();
+                entity.spawnAtLocation((ServerLevel) entity.level(),stack).setNoPickUpDelay();
             }
         });
     }

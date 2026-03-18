@@ -16,9 +16,9 @@ public class ModRecipes {
             DeferredRegister.create(Registries.RECIPE_SERIALIZER, HopefulMod.MODID);
 //    public static final DeferredRegister<RecipeType<?>> TYPES =
 //            DeferredRegister.create(Registries.RECIPE_TYPE, HopefulMod.MODID);
-
+    //TODO: Figure this out
     public static final Supplier<RecipeSerializer<SmithingScrollRecipe>> SMITHING_SCROLL_SERIALIZER =
-            RECIPE_SERIALIZERS.register("smithing_scroll", SmithingScrollRecipe.Serializer::new);
+            RECIPE_SERIALIZERS.register("smithing_scroll", SmithingScrollRecipe.SERIALIZER);
 
 //    public static final DeferredHolder<RecipeType<?>, RecipeType<SmithingScrollRecipe>> SMITHING_SCROLL_TYPE =
 //            TYPES.register("smithing_scroll", () -> new RecipeType<>() {

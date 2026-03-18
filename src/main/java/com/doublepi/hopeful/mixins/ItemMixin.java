@@ -6,7 +6,6 @@ import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -18,15 +17,14 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(Item.class)
 public class ItemMixin {
-    @Inject(method="inventoryTick",at=@At("HEAD"))
+    @Inject(method="net.minecraft.world.item.Item#inventoryTick",at=@At("HEAD"))
     public void removingBooks(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
-        if(!(stack.getItem() instanceof EnchantedBookItem))
+        if(level.isClientSide())
             return;
-        if(level.isClientSide)
+        if(!stack.has(DataComponents.STORED_ENCHANTMENTS))
             return;
 
         var enchants = stack.get(DataComponents.STORED_ENCHANTMENTS);

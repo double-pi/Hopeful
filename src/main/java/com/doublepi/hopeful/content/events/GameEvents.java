@@ -5,6 +5,8 @@ import com.doublepi.hopeful.registries.ModGamerules;
 import com.doublepi.hopeful.registries.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
@@ -20,21 +22,24 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
-import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
+import net.neoforged.neoforge.event.entity.player.AnvilCraftEvent;
 import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
 
-@EventBusSubscriber(modid = HopefulMod.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = HopefulMod.MODID)
 public class GameEvents {
 
     @SubscribeEvent
     public static void saplingReplant(ItemExpireEvent event){
-        ItemEntity itemEntity = event.getEntity() ;
-        if(!itemEntity.getServer().getGameRules().getBoolean(ModGamerules.SAPLINGS_REPLACE))
+        ItemEntity itemEntity = event.getEntity();
+        // TODO: Fix Gamerules
+        if(itemEntity.level().isClientSide()) return;
+        ServerLevel level = (ServerLevel) itemEntity.level();
+        if(!level.getGameRules().get(ModGamerules.SAPLINGS_REPLACE))
             return;
         if(!itemEntity.getItem().is(ItemTags.SAPLINGS))
             return;
         BlockPos pos = event.getEntity().getOnPos();
-        Level level = event.getEntity().level();
+
         if(!level.getBlockState(pos).is(BlockTags.DIRT))
             return;
         if(!level.getBlockState(pos.above()).is(BlockTags.REPLACEABLE))
@@ -46,7 +51,7 @@ public class GameEvents {
     }
 
     @SubscribeEvent
-    public static void removeRepairCost(AnvilRepairEvent event){
+    public static void removeRepairCost(AnvilCraftEvent event){
         event.getOutput().remove(DataComponents.REPAIR_COST);
     }
 
@@ -72,7 +77,7 @@ public class GameEvents {
             if(flag){
                 player.playSound(SoundEvents.ANVIL_PLACE,0.5F,
                         0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
-                player.getCooldowns().addCooldown(itemStack.getItem(), 10);
+                player.getCooldowns().addCooldown(itemStack, 10);
                 player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
                 itemStack.consume(1, player);
             }

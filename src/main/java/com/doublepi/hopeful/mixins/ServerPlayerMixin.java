@@ -16,13 +16,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin extends Player {
 
-    public ServerPlayerMixin(Level level, BlockPos pos, float yRot, GameProfile gameProfile) {
-        super(level, pos, yRot, gameProfile);
+
+    public ServerPlayerMixin(Level level, GameProfile gameProfile) {
+        super(level, gameProfile);
     }
 
     @Inject(method = "restoreFrom",at = @At("TAIL"))
     public void _OnRestoreFrom(ServerPlayer player, boolean keepEverything, CallbackInfo ci) {
         Level level = this.level();
+        if(level.isClientSide()) return;
         boolean keepExperience = level.getGameRules().getBoolean(ModGamerules.KEEP_EXP);
         boolean keepInventory = level.getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY);
 

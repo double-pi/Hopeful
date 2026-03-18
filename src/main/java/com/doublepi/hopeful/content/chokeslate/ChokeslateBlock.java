@@ -52,7 +52,7 @@ public class ChokeslateBlock extends Block {
             return false;
         int count = 0;
         for(Direction direction : Direction.values()){
-            Block neighbor = level.getBlockState(targetPos.offset(direction.getNormal())).getBlock();
+            Block neighbor = level.getBlockState(targetPos.offset(direction.getUnitVec3i())).getBlock();
             count += neighbor == ModBlocks.CHOKESLATE.get()? 1:0;
         }
         return (count>=3);
@@ -64,7 +64,7 @@ public class ChokeslateBlock extends Block {
             return false;
         int count = 0;
         for(Direction direction : Direction.values()){
-            Block neighbor = level.getBlockState(targetPos.offset(direction.getNormal())).getBlock();
+            Block neighbor = level.getBlockState(targetPos.offset(direction.getUnitVec3i())).getBlock();
             count += neighbor == ModBlocks.CHOKESLATE.get()? 1:0;
         }
         return (count>=3);

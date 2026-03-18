@@ -28,6 +28,7 @@ public abstract class PlayerMixin extends LivingEntity{
 
     @Inject(method = {"getBaseExperienceReward"},at = {@At("HEAD")},cancellable = true)
     public void _onGetExperience(CallbackInfoReturnable<Integer> cir) {
+        if(level().isClientSide()) return;
         boolean keepExperience = this.level().getGameRules().getBoolean(ModGamerules.KEEP_EXP);
         if (keepExperience) {
             cir.setReturnValue(0);

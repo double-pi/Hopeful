@@ -4,10 +4,11 @@ import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 public class UnknownScrollItem extends Item {
@@ -17,10 +18,13 @@ public class UnknownScrollItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
-        ItemStack itemStack = player.getItemInHand(usedHand);
+    public InteractionResult useOn(UseOnContext context) {
+        Player player = context.getPlayer();
+        Level level = context.getLevel();
+        InteractionHand hand = context.getHand();
+        ItemStack itemStack = player.getItemInHand(hand);
         if(level.isClientSide())
-            return InteractionResultHolder.consume(itemStack);
+            return InteractionResult.CONSUME;
         player.giveExperiencePoints(10);
         itemStack.consume(1,player);
         var allScrolls = ScrollHelper.getAllScrolls(level).toList();
@@ -28,7 +32,7 @@ public class UnknownScrollItem extends Item {
         player.getInventory().add(scrollItem);
         player.playSound(SoundEvents.BOOK_PAGE_TURN);
         player.awardStat(Stats.ITEM_USED.get(this));
-        return InteractionResultHolder.consume(itemStack);
+        return InteractionResult.CONSUME;
     }
 
 }

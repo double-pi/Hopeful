@@ -11,9 +11,11 @@ import net.minecraft.network.chat.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.neoforged.fml.ModList;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class ScrollItem extends Item {
     public final Style justGray = Style.EMPTY.applyFormat(ChatFormatting.GRAY);
@@ -44,8 +46,8 @@ public class ScrollItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, context, display, tooltipComponents, tooltipFlag);
 
         // Basics
         if(!stack.has(ModDataComponentTypes.SCROLL))
@@ -53,7 +55,7 @@ public class ScrollItem extends Item {
         Scroll scroll = stack.get(ModDataComponentTypes.SCROLL).value();
 
         // Max level
-        tooltipComponents.add(
+        tooltipComponents.accept(
                 Component.translatable("tooltip.hopeful.max_level")
                         .append(" ")
                         .append(Component.translatable("enchantment.level."+scroll.maxLevel()))
@@ -64,7 +66,7 @@ public class ScrollItem extends Item {
             tooltipComponents.add(Component.translatable("tooltip.hopeful.xp")
                     .append(": "+scroll.xpLevels()).withStyle(justGray));
         else*/
-        tooltipComponents.add(Component.empty());
+        tooltipComponents.accept(Component.empty());
         // Enchantment list
         boolean isLoaded = ModList.get().isLoaded("enchdesc");
         boolean isShifted = tooltipFlag.hasShiftDown();
@@ -76,13 +78,13 @@ public class ScrollItem extends Item {
                 var holder = scroll.enchantments().get(i);
                 var enchant = holder.value();
                 var name = holder.getRegisteredName().replace(':','.');
-                tooltipComponents.add(enchant.description());
-                tooltipComponents.add(Component.translatable("enchantment."+name+".desc").withStyle(italicGray));
+                tooltipComponents.accept(enchant.description());
+                tooltipComponents.accept(Component.translatable("enchantment."+name+".desc").withStyle(italicGray));
             }
         }else{
             // Display Description Suggestion
             if(isLoaded) {
-                tooltipComponents.add(Component.translatable("tooltip.hopeful.for_details"));
+                tooltipComponents.accept(Component.translatable("tooltip.hopeful.for_details"));
             }
             // Display Normal List
             MutableComponent enchantmentList = Component.empty();
@@ -91,7 +93,7 @@ public class ScrollItem extends Item {
                 if (i != numOfEnchants - 1)
                     enchantmentList.append(", ").withStyle(italicGray);
             }
-            tooltipComponents.add(enchantmentList);
+            tooltipComponents.accept(enchantmentList);
         }
 
         // Score per Level
@@ -103,7 +105,7 @@ public class ScrollItem extends Item {
             scoreComponent.append("+"+(-scorePerLevel)).withStyle(ChatFormatting.GREEN);
         scoreComponent.append(CommonComponents.space());
         scoreComponent.append(Component.translatable("tooltip.hopeful.enchant_status"));
-        tooltipComponents.add(scoreComponent);
+        tooltipComponents.accept(scoreComponent);
     }
 
 }

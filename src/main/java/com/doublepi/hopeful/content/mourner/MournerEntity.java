@@ -9,11 +9,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.*;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.animal.horse.Llama;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -42,10 +37,10 @@ public class MournerEntity extends TamableAnimal {
         if(player.getItemInHand(hand).is(Items.AMETHYST_SHARD)) {
             player.getItemInHand(hand).consume(1,player);
             setTame(true, false);
-            setOwnerUUID(player.getUUID());
+            setOwner(player);
             return InteractionResult.CONSUME;
         }
-        if(getOwnerUUID() == player.getUUID()){
+        if(getOwner().is(player)){
             this.setOrderedToSit(true);
             return InteractionResult.SUCCESS;
         }
