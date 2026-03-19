@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ItemMixin {
     @Inject(method="inventoryTick",at=@At("HEAD"))
     public void removingBooks(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
-        if(!(stack.getItem() instanceof EnchantedBookItem))
+        if(!(stack.has(DataComponents.STORED_ENCHANTMENTS)))
             return;
         if(level.isClientSide)
             return;
@@ -57,7 +57,13 @@ public class ItemMixin {
 
     @Inject(method="inventoryTick", at=@At("HEAD"))
     public void fixTools(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
-        if(!(stack.has(DataComponents.ENCHANTMENTS)) || stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS))
+        //Semi-temporary fix to my "everything with status" bug (also, handles disenchanting) TODO: Remove this later
+        if(!stack.isEnchanted()) {
+            stack.remove(ModDataComponentTypes.ENCHANTABILITY_STATUS);
+            return;
+        }
+
+        if(stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS))
             return;
         if(level.isClientSide)
             return;
