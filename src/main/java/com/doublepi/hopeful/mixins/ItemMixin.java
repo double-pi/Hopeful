@@ -56,39 +56,6 @@ public class ItemMixin {
         ScrollHelper.addOrSpawn(entity,listOfScrolls);
     }
 
-//    @Inject(method="net.minecraft.world.item.Item#inventoryTick",at=@At("HEAD"))
-//    public void removingBooks(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
-//        if(level.isClientSide())
-//            return;
-//        if(!stack.has(DataComponents.STORED_ENCHANTMENTS))
-//            return;
-//
-//        var enchants = stack.get(DataComponents.STORED_ENCHANTMENTS);
-//        var allScrolls = ScrollHelper.getAllScrolls(level).toList();
-//        var listOfScrolls = new ArrayList<ItemStack>();
-//
-//        assert enchants != null;
-//        ItemEnchantments.Mutable remaining = new ItemEnchantments.Mutable(enchants);
-//
-//        enchants.keySet().forEach(enchantmentHolder ->
-//            allScrolls.forEach(scrollReference -> {
-//
-//            if(scrollReference.value().enchantments().contains(enchantmentHolder)){
-//                for (int i = 0; i < enchants.getLevel(enchantmentHolder); i++) {
-//                    listOfScrolls.add(ScrollItem.createFromScroll(scrollReference));
-//                    remaining.set(enchantmentHolder,remaining.getLevel(enchantmentHolder)-1);
-//                }
-//            }
-//        }));
-//        if(remaining.keySet().isEmpty())
-//            stack.setCount(0);
-//        else
-//            stack.set(DataComponents.STORED_ENCHANTMENTS,remaining.toImmutable());
-//
-//        ScrollHelper.addOrSpawn(entity,listOfScrolls);
-//
-//    }
-
     @Inject(method="inventoryTick", at=@At("HEAD"))
     public void fixTools(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot, CallbackInfo cb) {
         if(!(stack.has(DataComponents.ENCHANTMENTS)) || stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS))

@@ -20,7 +20,7 @@ public class HopefulMod {
     public static final String MODID = "hopeful";
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public HopefulMod(IEventBus modEventBus, ModContainer modContainer){
+    public HopefulMod(IEventBus modEventBus){
         modEventBus.addListener(this::commonSetup);
 
         NeoForge.EVENT_BUS.register(this);

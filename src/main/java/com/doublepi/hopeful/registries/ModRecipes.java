@@ -20,8 +20,7 @@ public class ModRecipes {
 
 
     public static void register(IEventBus event){
-        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER,
-                Identifier.fromNamespaceAndPath(HopefulMod.MODID,"smithing_scroll"),
+        RECIPE_SERIALIZERS.register("smithing_scroll", ()->
                 SmithingScrollRecipe.SERIALIZER);
         RECIPE_SERIALIZERS.register(event);
 //        TYPES.register(event);

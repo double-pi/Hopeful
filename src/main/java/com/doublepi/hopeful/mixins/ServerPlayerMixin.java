@@ -26,7 +26,7 @@ public abstract class ServerPlayerMixin extends Player {
 
         if(level().isClientSide()) return;
         ServerLevel level = (ServerLevel) this.level();
-        boolean keepExperience = level.getGameRules().get(ModGamerules.KEEP_EXP);
+        boolean keepExperience = level.getGameRules().get(ModGamerules.KEEP_EXP.get());
         boolean keepInventory = level.getGameRules().get(GameRules.KEEP_INVENTORY);
 
         if (keepInventory) {

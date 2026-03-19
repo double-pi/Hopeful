@@ -22,7 +22,7 @@ public class FireworkItemMixin {
                             InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir){
         if(level.isClientSide())
             return;
-        boolean isAllowed = ((ServerLevel) level).getGameRules().get(ModGamerules.FIREWORK_BOOSTING);
+        boolean isAllowed = ((ServerLevel) level).getGameRules().get(ModGamerules.FIREWORK_BOOSTING.get());
         player.sendOverlayMessage(Component.translatable("tooltip.hopeful.disabled_elytra_boosting"));
         if(!isAllowed) cir.setReturnValue(InteractionResult.PASS);
     }

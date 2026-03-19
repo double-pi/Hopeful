@@ -34,7 +34,7 @@ public class GameEvents {
 
         if(itemEntity.level().isClientSide()) return;
         ServerLevel level = (ServerLevel) itemEntity.level();
-        if(!level.getGameRules().get(ModGamerules.SAPLINGS_REPLACE))
+        if(!level.getGameRules().get(ModGamerules.SAPLINGS_REPLACE.value()))
             return;
         if(!itemEntity.getItem().is(ItemTags.SAPLINGS))
             return;
@@ -51,7 +51,7 @@ public class GameEvents {
     }
 
     @SubscribeEvent
-    public static void removeRepairCost(AnvilCraftEvent event){
+    public static void removeRepairCost(AnvilCraftEvent.Post event){
         event.getOutput().remove(DataComponents.REPAIR_COST);
     }
 
