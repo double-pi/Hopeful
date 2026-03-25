@@ -1,7 +1,6 @@
 package com.doublepi.hopeful.mixins;
 
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
-import com.doublepi.hopeful.registries.ModGamerules;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -9,8 +8,6 @@ import net.minecraft.world.inventory.ItemCombinerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.SmithingRecipe;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,8 +15,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import javax.annotation.Nullable;
 
 @Mixin(SmithingMenu.class)
 public abstract class SmithingMenuMixin extends ItemCombinerMenu {
@@ -36,7 +31,7 @@ public abstract class SmithingMenuMixin extends ItemCombinerMenu {
 
         if(!this.inputSlots.getItem(0).has(ModDataComponentTypes.SCROLL)) return;
         var scroll = inputSlots.getItem(0).get(ModDataComponentTypes.SCROLL).value();
-        int xpRequired = scroll.xpLevels();
+        int xpRequired = scroll.requiredXPLevels();
 
         boolean hasEnoughXP = player.experienceLevel >= xpRequired;
         boolean hasInfiniteXP = player.hasInfiniteMaterials();
@@ -50,7 +45,7 @@ public abstract class SmithingMenuMixin extends ItemCombinerMenu {
     void removeXP(Player player, ItemStack stack, CallbackInfo ci){
         if(!this.inputSlots.getItem(0).has(ModDataComponentTypes.SCROLL)) return;
         var scroll = inputSlots.getItem(0).get(ModDataComponentTypes.SCROLL).value();
-        int xpRequired = scroll.xpLevels();
+        int xpRequired = scroll.requiredXPLevels();
         boolean hasInfiniteXP = player.hasInfiniteMaterials();
         if(!hasInfiniteXP)
             player.giveExperienceLevels(-xpRequired);

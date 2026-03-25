@@ -2,16 +2,13 @@ package com.doublepi.hopeful.mixins;
 
 import com.doublepi.hopeful.HopefulMod;
 import com.doublepi.hopeful.content.scrolls.ScrollHelper;
-import com.doublepi.hopeful.content.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
-import com.doublepi.hopeful.registries.ModGamerules;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.client.gui.screens.inventory.SmithingScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.SmithingMenu;
@@ -19,9 +16,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.w3c.dom.css.RGBColor;
-
-import java.awt.*;
 
 @Mixin(SmithingScreen.class)
 public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMenu> {
@@ -49,10 +43,10 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
 
     public void hopeful$renderXPRequirement(GuiGraphics guiGraphics){
         if(!this.menu.getSlot(TEMPLATE_SLOT).getItem().has(ModDataComponentTypes.SCROLL)) return;
-        int xpNeeded = this.menu.getSlot(TEMPLATE_SLOT).getItem().get(ModDataComponentTypes.SCROLL).value().xpLevels();
+        int xpNeeded = this.menu.getSlot(TEMPLATE_SLOT).getItem().get(ModDataComponentTypes.SCROLL).value().requiredXPLevels();
 
         int color = this.minecraft.player.experienceLevel >= xpNeeded ?
-                1410831 : 10620944;
+                ChatFormatting.GREEN.getColor() : ChatFormatting.RED.getColor();
         guiGraphics.drawString(this.minecraft.font,
                 Component.translatable("tooltip.hopeful.xp",xpNeeded).setStyle(Style.EMPTY.withItalic(true)),
                 this.leftPos+44,this.topPos + 25, color);

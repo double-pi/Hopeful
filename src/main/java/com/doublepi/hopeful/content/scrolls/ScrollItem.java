@@ -1,12 +1,9 @@
 package com.doublepi.hopeful.content.scrolls;
 
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
-import com.doublepi.hopeful.registries.ModGamerules;
 import com.doublepi.hopeful.registries.ModItems;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -46,29 +43,17 @@ public class ScrollItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-
         // Basics
         if(!stack.has(ModDataComponentTypes.SCROLL))
             return;
         Scroll scroll = stack.get(ModDataComponentTypes.SCROLL).value();
 
-        // Max level
-        tooltipComponents.add(
-                Component.translatable("tooltip.hopeful.max_level")
-                        .append(" ")
-                        .append(Component.translatable("enchantment.level."+scroll.maxLevel()))
-                        .withStyle(justGray));
-
-        //TODO: Send gamerule to client
-        /*if(context.level().getGameRules().getBoolean(ModGamerules.USE_XP_FOR_SCROLLS))
-            tooltipComponents.add(Component.translatable("tooltip.hopeful.xp")
-                    .append(": "+scroll.xpLevels()).withStyle(justGray));
-        else*/
-        tooltipComponents.add(Component.empty());
         // Enchantment list
         boolean isLoaded = ModList.get().isLoaded("enchdesc");
         boolean isShifted = tooltipFlag.hasShiftDown();
         int numOfEnchants = scroll.enchantments().size();
+        int scorePerLevel = scroll.scorePerLevel();
+        int xpLevelsPerLevel = scroll.requiredXPLevels();
 
         if(isLoaded && isShifted){
             // Display Full List
@@ -94,16 +79,36 @@ public class ScrollItem extends Item {
             tooltipComponents.add(enchantmentList);
         }
 
-        // Score per Level
-        int scorePerLevel = scroll.scorePerLevel();
+        // Max level
+        tooltipComponents.add(
+                Component.translatable("tooltip.hopeful.max_level")
+                        .append(" ")
+                        .append(Component.translatable("enchantment.level."+scroll.maxLevel()))
+                        .withStyle(justGray));
+
+        //TODO: Send gamerule to client
+        /*if(context.level().getGameRules().getBoolean(ModGamerules.USE_XP_FOR_SCROLLS))
+            tooltipComponents.add(Component.translatable("tooltip.hopeful.xp")
+                    .append(": "+scroll.requiredXPLevels()).withStyle(justGray));
+        else*/
+        tooltipComponents.add(Component.empty());
+
+        if(scorePerLevel != 0)
+            tooltipComponents.add(integerComponent(scorePerLevel, "tooltip.hopeful.enchant_status"));
+        if(xpLevelsPerLevel != 0)
+            tooltipComponents.add(integerComponent(xpLevelsPerLevel, "tooltip.hopeful.xp_per_level"));
+
+    }
+
+    private static MutableComponent integerComponent(int value, String key){
         MutableComponent scoreComponent = CommonComponents.space();
-        if(scorePerLevel > 0)
-            scoreComponent.append("-"+scorePerLevel).withStyle(ChatFormatting.RED);
-        if(scorePerLevel < 0)
-            scoreComponent.append("+"+(-scorePerLevel)).withStyle(ChatFormatting.GREEN);
+        if(value > 0)
+            scoreComponent.append("-"+value).withStyle(ChatFormatting.RED);
+        if(value < 0)
+            scoreComponent.append("+"+(-value)).withStyle(ChatFormatting.GREEN);
         scoreComponent.append(CommonComponents.space());
-        scoreComponent.append(Component.translatable("tooltip.hopeful.enchant_status"));
-        tooltipComponents.add(scoreComponent);
+        scoreComponent.append(Component.translatable(key));
+        return scoreComponent;
     }
 
 }
