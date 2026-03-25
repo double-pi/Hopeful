@@ -18,10 +18,7 @@ public class UnknownScrollItem extends Item {
     }
 
     @Override
-    public InteractionResult useOn(UseOnContext context) {
-        Player player = context.getPlayer();
-        Level level = context.getLevel();
-        InteractionHand hand = context.getHand();
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
         if(level.isClientSide())
             return InteractionResult.CONSUME;

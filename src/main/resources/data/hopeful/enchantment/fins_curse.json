@@ -11,7 +11,7 @@
           "base": -0.5,
           "per_level_above_first": -0.5
         },
-        "attribute": "minecraft:player.block_break_speed",
+        "attribute": "minecraft:block_break_speed",
         "id": "hopeful:enchantment.fins_curse",
         "operation": "add_multiplied_total"
       }

@@ -39,10 +39,11 @@ public class SmithingScrollRecipe extends SimpleSmithingRecipe{
             Ingredient.CONTENTS_STREAM_CODEC, (o) -> o.template,
             Ingredient.CONTENTS_STREAM_CODEC, (o) -> o.base,
             Ingredient.CONTENTS_STREAM_CODEC, (o) -> o.addition,
-            SmithingScrollRecipe::new);;
+            SmithingScrollRecipe::new);
     public static final RecipeSerializer<SmithingScrollRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC,STREAM_CODEC);
     public boolean matches(SmithingRecipeInput input, Level level) {
-        return input.template().has(ModDataComponentTypes.SCROLL);
+        //return input.template().has(ModDataComponentTypes.SCROLL);
+        return true;
     }
 
     @Override
@@ -76,6 +77,7 @@ public class SmithingScrollRecipe extends SimpleSmithingRecipe{
             return ItemStack.EMPTY;
 
         var result = equipment.copyWithCount(1);
+        System.out.println("we reached creating result");
         ScrollHelper.enchant(result, scroll);
         return result;
 

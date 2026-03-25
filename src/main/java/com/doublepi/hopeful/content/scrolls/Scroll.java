@@ -19,14 +19,14 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.enchantment.Enchantment;
 
-public record Scroll(Component title, ScrollType scrollType, int maxLevel, int scorePerLevel, int xpLevels, HolderSet<Enchantment> enchantments) {
+public record Scroll(Component title, ScrollType scrollType, int maxLevel, int scorePerLevel, int requiredXPLevels, HolderSet<Enchantment> enchantments) {
     public static final Codec<Scroll> CODEC =
             RecordCodecBuilder.create((scrollInstance ->scrollInstance.group(
                     ComponentSerialization.CODEC.fieldOf("title").forGetter(Scroll::title),
                     ScrollType.CODEC.fieldOf("type").forGetter(Scroll::scrollType),
                     ExtraCodecs.intRange(0,255).fieldOf("max_level").forGetter(Scroll::maxLevel),
                     ExtraCodecs.intRange(-16,16).fieldOf("score_per_level").forGetter(Scroll::scorePerLevel),
-                    Codec.INT.optionalFieldOf("xp_levels_needed",0).forGetter(Scroll::xpLevels),
+                    Codec.INT.optionalFieldOf("required_xp_levels",0).forGetter(Scroll::requiredXPLevels),
                     RegistryCodecs.homogeneousList(Registries.ENCHANTMENT)
                             .validate(DataResult::success)
                             .fieldOf("enchantments").forGetter(Scroll::enchantments))
@@ -59,8 +59,8 @@ public record Scroll(Component title, ScrollType scrollType, int maxLevel, int s
     }
 
     @Override
-    public int xpLevels() {
-        return xpLevels;
+    public int requiredXPLevels() {
+        return requiredXPLevels;
     }
 
     @Override
@@ -71,7 +71,7 @@ public record Scroll(Component title, ScrollType scrollType, int maxLevel, int s
 
 enum ScrollType implements StringRepresentable{
     BLESSING("blessing", ChatFormatting.GREEN),
-    CURSE("curse", ChatFormatting.DARK_RED),
+    CURSE("curse", ChatFormatting.RED),
     DEAL("deal", ChatFormatting.YELLOW);
 
     public static final Codec<ScrollType> CODEC = StringRepresentable.fromEnum(ScrollType::values);

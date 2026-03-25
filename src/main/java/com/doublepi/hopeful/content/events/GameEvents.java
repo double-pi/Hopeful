@@ -1,6 +1,9 @@
 package com.doublepi.hopeful.content.events;
 
 import com.doublepi.hopeful.HopefulMod;
+import com.doublepi.hopeful.content.scrolls.Scroll;
+import com.doublepi.hopeful.content.scrolls.ScrollHelper;
+import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModGamerules;
 import com.doublepi.hopeful.registries.ModTags;
 import net.minecraft.core.BlockPos;
@@ -21,12 +24,22 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.GrindstoneEvent;
 import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
 import net.neoforged.neoforge.event.entity.player.AnvilCraftEvent;
 import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
 
 @EventBusSubscriber(modid = HopefulMod.MODID)
 public class GameEvents {
+
+    //TODO: Find a way to handle disenchanting
+//    @SubscribeEvent
+//    public static void updateEnchantingStatus(GrindstoneEvent.OnPlaceItem event){
+//        //TODO: implement curse safety
+//        var result = event.getOutput();
+//        result.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,0);
+//        event.setOutput(result);
+//    }
 
     @SubscribeEvent
     public static void saplingReplant(ItemExpireEvent event){

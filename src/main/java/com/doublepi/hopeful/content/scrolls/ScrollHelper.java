@@ -22,10 +22,13 @@ import java.util.stream.Stream;
 public class ScrollHelper {
 
     public static void enchant(ItemStack item, Scroll scroll){
+
         for(Holder<Enchantment> enchantment : scroll.enchantments()){
             boolean itemSupportsEnchantment = item.supportsEnchantment(enchantment);
             boolean isNotMaxLevel = item.getEnchantmentLevel(enchantment)< scroll.maxLevel();
-            if(itemSupportsEnchantment && isNotMaxLevel && getScore(item) < getMaxScore(item)){
+            if(itemSupportsEnchantment && isNotMaxLevel
+                    && getScore(item) + scroll.scorePerLevel() <= getMaxScore(item)
+                    && getScore(item) + scroll.scorePerLevel() >= 0){
                 int newLevel = item.getEnchantmentLevel(enchantment) + 1;
                 item.enchant(enchantment, newLevel);
             }
@@ -60,6 +63,8 @@ public class ScrollHelper {
     public static int getMaxScore(ItemStack stack){
         Holder<Item> item = stack.typeHolder();
         if(item.getData(ModEventBusEvents.ITEM_ENCHANTABILITY_DATA) == null){
+            if(!stack.has(DataComponents.ENCHANTABLE))
+                return 0;
             int enchantability = stack.get(DataComponents.ENCHANTABLE).value();
             if(stack.getMaxStackSize()!=1) return 0;
             if(enchantability==0) return 5;
@@ -102,6 +107,18 @@ public class ScrollHelper {
                 entity.spawnAtLocation((ServerLevel) entity.level(),stack).setNoPickUpDelay();
             }
         });
+    }
+
+    public static int evalStatus(ItemStack stack, Level level){
+        if(!stack.isEnchanted()) return 0;
+        var enchants = stack.get(DataComponents.ENCHANTMENTS);
+        assert enchants != null;
+        var enchantList = enchants.keySet().stream().toList();
+        int status = 0;
+        for (Holder<Enchantment> enchant: enchantList){
+            status += ScrollHelper.getFromEnchant(enchant, level).value().scorePerLevel() * stack.getEnchantmentLevel(enchant);
+        }
+        return status;
     }
 
 }

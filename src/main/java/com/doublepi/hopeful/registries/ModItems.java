@@ -12,11 +12,11 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class ModItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(HopefulMod.MODID);
 
-    public static final DeferredItem<Item> SCROLL = ITEMS.register("scroll",
-            ()-> new ScrollItem(new Item.Properties()));
+    public static final DeferredItem<Item> SCROLL = ITEMS.registerItem("scroll",
+            ScrollItem::new);
 
-    public static final DeferredItem<Item> UNKNOWN_SCROLL = ITEMS.register("unknown_scroll",
-            ()-> new UnknownScrollItem(new Item.Properties()));
+    public static final DeferredItem<Item> UNKNOWN_SCROLL = ITEMS.registerItem("unknown_scroll",
+            UnknownScrollItem::new);
 
 //    public static final DeferredItem<Item> MOURNER_SPAWN_EGG = ITEMS.register("mourner_spawn_egg",
 //            ()-> new SpawnEggItem(new Item.Properties().spawnEgg(ModEntities.MOURNER.get())));

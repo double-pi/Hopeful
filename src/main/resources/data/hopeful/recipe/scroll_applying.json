@@ -1,12 +1,6 @@
 {
   "type": "hopeful:smithing_scroll",
-  "addition": {
-    "item": "minecraft:lapis_lazuli"
-  },
-  "base": {
-    "tag": "c:enchantables"
-  },
-  "template": {
-    "item": "hopeful:scroll"
-  }
+  "addition": "minecraft:lapis_lazuli",
+  "base": "#c:enchantables",
+  "template": "hopeful:scroll"
 }
