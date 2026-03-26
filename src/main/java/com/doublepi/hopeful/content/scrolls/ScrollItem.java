@@ -95,8 +95,9 @@ public class ScrollItem extends Item {
 
         if(scorePerLevel != 0)
             tooltipComponents.add(integerComponent(scorePerLevel, "tooltip.hopeful.enchant_status"));
-        if(xpLevelsPerLevel != 0)
-            tooltipComponents.add(integerComponent(xpLevelsPerLevel, "tooltip.hopeful.xp_per_level"));
+//        if(xpLevelsPerLevel != 0)
+//            tooltipComponents.add(integerComponent(xpLevelsPerLevel, "tooltip.hopeful.xp_per_level"));
+
 
     }
 

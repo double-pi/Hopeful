@@ -5,6 +5,7 @@ import com.doublepi.hopeful.content.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
@@ -36,6 +37,7 @@ public class ItemMixin {
         assert enchants != null;
         ItemEnchantments.Mutable remaining = new ItemEnchantments.Mutable(enchants);
 
+        //TODO: Handle null values
         enchants.keySet().forEach(enchantmentHolder ->
             allScrolls.forEach(scrollReference -> {
 
@@ -58,19 +60,18 @@ public class ItemMixin {
     @Inject(method="inventoryTick", at=@At("HEAD"))
     public void fixTools(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
         //Semi-temporary fix to my "everything with status" bug (also, handles disenchanting) TODO: Remove this later
+        if(level.isClientSide()) return;
         if(!stack.isEnchanted()) {
             stack.remove(ModDataComponentTypes.ENCHANTABILITY_STATUS);
             return;
         }
+        if(stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS)) return;
 
-        if(stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS))
-            return;
-        if(level.isClientSide)
-            return;
 
         var enchants = stack.get(DataComponents.ENCHANTMENTS);
         assert enchants != null;
-        var enchantList = enchants.keySet().stream().toList();
+        var enchantList = enchants.keySet().stream()
+                .filter(holder -> !holder.is(EnchantmentTags.CURSE)).toList();
         ItemEnchantments.Mutable remaining = new ItemEnchantments.Mutable(enchants);
 
         var listOfScrolls = new ArrayList<ItemStack>();
@@ -79,6 +80,7 @@ public class ItemMixin {
         int currentScore = 0;
 
         boolean overloaded = false;
+        //TODO: Handle null values
         for (Holder<Enchantment> enchantHolder : enchantList) {
             var scroll = ScrollHelper.getFromEnchant(enchantHolder, level);
             for (int i = 0; i < enchants.getLevel(enchantHolder); i++) {

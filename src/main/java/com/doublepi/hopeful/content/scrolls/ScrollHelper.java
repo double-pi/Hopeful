@@ -6,6 +6,7 @@ import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModEventBusEvents;
 import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
@@ -23,7 +25,9 @@ public class ScrollHelper {
         for(Holder<Enchantment> enchantment : scroll.enchantments()){
             boolean itemSupportsEnchantment = item.supportsEnchantment(enchantment);
             boolean isNotMaxLevel = item.getEnchantmentLevel(enchantment)< scroll.maxLevel();
-            if(itemSupportsEnchantment && isNotMaxLevel && getScore(item) < getMaxScore(item)){
+            if(itemSupportsEnchantment && isNotMaxLevel
+                    && getScore(item) + scroll.scorePerLevel() <= getMaxScore(item)
+                    && getScore(item) + scroll.scorePerLevel() >= 0){
                 int newLevel = item.getEnchantmentLevel(enchantment) + 1;
                 item.enchant(enchantment, newLevel);
             }
@@ -58,6 +62,8 @@ public class ScrollHelper {
     public static int getMaxScore(ItemStack stack){
         Holder<Item> item = stack.getItemHolder();
         if(item.getData(ModEventBusEvents.ITEM_ENCHANTABILITY_DATA) == null){
+            if(!item.is(Tags.Items.ENCHANTABLES))
+                return 0;
             int enchantability = stack.getEnchantmentValue();
             if(stack.getMaxStackSize()!=1) return 0;
             if(enchantability==0) return 5;
@@ -98,6 +104,19 @@ public class ScrollHelper {
                 entity.spawnAtLocation(stack).setNoPickUpDelay();
             }
         });
+    }
+
+
+    public static int evalStatus(ItemStack stack, Level level){
+        if(!stack.isEnchanted()) return 0;
+        var enchants = stack.get(DataComponents.ENCHANTMENTS);
+        assert enchants != null;
+        var enchantList = enchants.keySet().stream().toList();
+        int status = 0;
+        for (Holder<Enchantment> enchant: enchantList){
+            status += ScrollHelper.getFromEnchant(enchant, level).value().scorePerLevel() * stack.getEnchantmentLevel(enchant);
+        }
+        return status;
     }
 
 }
