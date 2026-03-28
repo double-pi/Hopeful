@@ -19,16 +19,16 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(Item.class)
 public class ItemMixin {
     @Inject(method="inventoryTick",at=@At("HEAD"))
     public void removingBooks(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
-        if(!(stack.has(DataComponents.STORED_ENCHANTMENTS)))
-            return;
         if(level.isClientSide)
             return;
+        if(!(stack.has(DataComponents.STORED_ENCHANTMENTS)))
+            return;
+
 
         var enchants = stack.get(DataComponents.STORED_ENCHANTMENTS);
         var listOfScrolls = new ArrayList<ItemStack>();
@@ -59,13 +59,14 @@ public class ItemMixin {
 
     @Inject(method="inventoryTick", at=@At("HEAD"))
     public void fixTools(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
-        //Semi-temporary fix to my "everything with status" bug TODO: Remove this later
         if(level.isClientSide()) return;
-        if(stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS)) {
-            if(!stack.isEnchanted())
-                stack.remove(ModDataComponentTypes.ENCHANTABILITY_STATUS);
+        if(!stack.isEnchanted()){
+            stack.remove(ModDataComponentTypes.ENCHANTABILITY_STATUS);
             return;
         }
+        if(stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS))
+            return;
+
 
         var enchantObj = stack.get(DataComponents.ENCHANTMENTS);
         assert enchantObj != null;

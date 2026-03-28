@@ -3,7 +3,6 @@
   "package": "com.doublepi.hopeful.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AbstractHorseMixin",
     "AnvilMenuMixin",
     "FireworkItemMixin",
     "GrindstoneMenuMixin",
