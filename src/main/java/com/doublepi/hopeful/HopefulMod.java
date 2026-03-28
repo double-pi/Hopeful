@@ -33,8 +33,6 @@ public class HopefulMod {
         ModMenus.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         ModGamerules.register(modEventBus);
-        ModEntities.register(modEventBus);
-        ModEffects.register(modEventBus);
         ModRecipes.register(modEventBus);
     }
 
@@ -54,9 +52,7 @@ public class HopefulMod {
     @EventBusSubscriber(modid = MODID, value = Dist.CLIENT)
     public static class ClientModEvents{
         @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event){
-            ModRenders.register(event);
-        }
+        public static void onClientSetup(FMLClientSetupEvent event){}
 
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {

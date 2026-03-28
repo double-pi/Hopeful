@@ -77,7 +77,6 @@ public class SmithingScrollRecipe extends SimpleSmithingRecipe{
             return ItemStack.EMPTY;
 
         var result = equipment.copyWithCount(1);
-        System.out.println("we reached creating result");
         ScrollHelper.enchant(result, scroll);
         return result;
 

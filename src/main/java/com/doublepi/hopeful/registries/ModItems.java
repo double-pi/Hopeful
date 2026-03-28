@@ -18,9 +18,6 @@ public class ModItems {
     public static final DeferredItem<Item> UNKNOWN_SCROLL = ITEMS.registerItem("unknown_scroll",
             UnknownScrollItem::new);
 
-//    public static final DeferredItem<Item> MOURNER_SPAWN_EGG = ITEMS.register("mourner_spawn_egg",
-//            ()-> new SpawnEggItem(new Item.Properties().spawnEgg(ModEntities.MOURNER.get())));
-
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

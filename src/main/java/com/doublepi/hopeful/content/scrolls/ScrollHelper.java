@@ -27,8 +27,7 @@ public class ScrollHelper {
             boolean itemSupportsEnchantment = item.supportsEnchantment(enchantment);
             boolean isNotMaxLevel = item.getEnchantmentLevel(enchantment)< scroll.maxLevel();
             if(itemSupportsEnchantment && isNotMaxLevel
-                    && getScore(item) + scroll.scorePerLevel() <= getMaxScore(item)
-                    && getScore(item) + scroll.scorePerLevel() >= 0){
+                    && getScore(item) + scroll.scorePerLevel() <= getMaxScore(item)){
                 int newLevel = item.getEnchantmentLevel(enchantment) + 1;
                 item.enchant(enchantment, newLevel);
             }
@@ -53,7 +52,7 @@ public class ScrollHelper {
             if(item.getEnchantmentLevel(enchantment) >= scroll.maxLevel())
                 continue;
 
-            if(currentScore + scroll.scorePerLevel() <= maxScore && currentScore + scroll.scorePerLevel() >=0)
+            if(currentScore + scroll.scorePerLevel() <= maxScore)
                 return true;
         }
 
@@ -82,7 +81,7 @@ public class ScrollHelper {
     }
 
     public static void setScore(ItemStack stack, int value){
-        stack.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,value);
+        stack.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,Math.max(0,value));
     }
 
     public static Holder<Scroll> getFromEnchant(Holder<Enchantment> holder, Level level){

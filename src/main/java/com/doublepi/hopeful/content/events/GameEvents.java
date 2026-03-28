@@ -32,14 +32,6 @@ import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
 @EventBusSubscriber(modid = HopefulMod.MODID)
 public class GameEvents {
 
-    //TODO: Find a way to handle disenchanting
-//    @SubscribeEvent
-//    public static void updateEnchantingStatus(GrindstoneEvent.OnPlaceItem event){
-//        //TODO: implement curse safety
-//        var result = event.getOutput();
-//        result.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,0);
-//        event.setOutput(result);
-//    }
 
     @SubscribeEvent
     public static void saplingReplant(ItemExpireEvent event){
@@ -53,7 +45,7 @@ public class GameEvents {
             return;
         BlockPos pos = event.getEntity().getOnPos();
 
-        if(!level.getBlockState(pos).is(BlockTags.DIRT))
+        if(!level.getBlockState(pos).is(BlockTags.SUPPORTS_VEGETATION))
             return;
         if(!level.getBlockState(pos.above()).is(BlockTags.REPLACEABLE))
             return;

@@ -1,8 +1,6 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.content.mourner.MournerEntity;
-//import com.doublepi.hopeful.content.mourner.MournerModel;
 import com.doublepi.hopeful.content.smithing.Enchantability;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -17,15 +15,10 @@ import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 @EventBusSubscriber(modid = HopefulMod.MODID)
 public class ModEventBusEvents {
     @SubscribeEvent
-    public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event){
-//        event.registerLayerDefinition(ModModelLayers.MOURNER, MournerModel::createBodyLayer);
-//        event.registerLayerDefinition(ModModelLayers.MOURNER_OUTER, MournerModel::createBodyLayer);
-    }
+    public static void registerLayer(EntityRenderersEvent.RegisterLayerDefinitions event){}
 
     @SubscribeEvent
-    public static void registerAttributes(EntityAttributeCreationEvent event){
-        //event.put(ModEntities.MOURNER.get(), MournerEntity.createAttributes().build());
-    }
+    public static void registerAttributes(EntityAttributeCreationEvent event){}
 
     public static final DataMapType<Item, Enchantability> ITEM_ENCHANTABILITY_DATA = DataMapType.builder(
             Identifier.fromNamespaceAndPath(HopefulMod.MODID, "enchantability"),

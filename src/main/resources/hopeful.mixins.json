@@ -4,8 +4,9 @@
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "AbstractHorseMixin",
+    "AnvilMenuMixin",
     "FireworkItemMixin",
+    "GrindstoneMenuMixin",
     "ItemMixin",
     "LeavesBlockMixin",
     "PlayerMixin",

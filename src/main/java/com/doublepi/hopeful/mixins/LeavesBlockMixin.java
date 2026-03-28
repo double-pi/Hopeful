@@ -25,7 +25,7 @@ public abstract class LeavesBlockMixin {
         //Credit to Levaltru on bsky for the idea!
         if(level.isClientSide())return;
 
-        boolean leavesFall = ((ServerLevel)level).getGameRules().get(ModGamerules.LEAVES_FALL.get());
+        boolean leavesFall = level.getGameRules().get(ModGamerules.LEAVES_FALL.get());
         if(this.decaying(state) && leavesFall && FallingBlock.isFree(level.getBlockState(pos.below())))
             FallingBlockEntity.fall(level,pos,state);
     }

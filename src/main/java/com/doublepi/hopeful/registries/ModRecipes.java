@@ -23,6 +23,5 @@ public class ModRecipes {
         RECIPE_SERIALIZERS.register("smithing_scroll", ()->
                 SmithingScrollRecipe.SERIALIZER);
         RECIPE_SERIALIZERS.register(event);
-//        TYPES.register(event);
     }
 }
