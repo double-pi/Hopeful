@@ -1,7 +1,6 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.content.chokeslate.ChokeslateBlock;
 import com.doublepi.hopeful.content.enchanting.EnchanterBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -17,9 +16,6 @@ import java.util.function.Supplier;
 public class ModBlocks {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(HopefulMod.MODID);
-
-    public static final DeferredBlock<Block> CHOKESLATE = registerBlock("chokeslate",
-            ()-> new ChokeslateBlock(BlockBehaviour.Properties.of().sound(SoundType.DEEPSLATE)));
 
     public static final DeferredBlock<Block> ENCHANTER = registerBlock("enchanter",
             ()-> new EnchanterBlock(BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)));

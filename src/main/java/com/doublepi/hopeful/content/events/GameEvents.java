@@ -23,7 +23,7 @@ import net.neoforged.neoforge.event.entity.item.ItemExpireEvent;
 import net.neoforged.neoforge.event.entity.player.AnvilRepairEvent;
 import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
 
-@EventBusSubscriber(modid = HopefulMod.MODID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber(modid = HopefulMod.MODID)
 public class GameEvents {
 
     @SubscribeEvent

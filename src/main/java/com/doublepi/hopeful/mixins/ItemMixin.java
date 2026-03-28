@@ -31,23 +31,23 @@ public class ItemMixin {
             return;
 
         var enchants = stack.get(DataComponents.STORED_ENCHANTMENTS);
-        var allScrolls = ScrollHelper.getAllScrolls(level).toList();
         var listOfScrolls = new ArrayList<ItemStack>();
 
         assert enchants != null;
         ItemEnchantments.Mutable remaining = new ItemEnchantments.Mutable(enchants);
 
-        //TODO: Handle null values
-        enchants.keySet().forEach(enchantmentHolder ->
-            allScrolls.forEach(scrollReference -> {
-
-            if(scrollReference.value().enchantments().contains(enchantmentHolder)){
-                for (int i = 0; i < enchants.getLevel(enchantmentHolder); i++) {
-                    listOfScrolls.add(ScrollItem.createFromScroll(scrollReference));
-                    remaining.set(enchantmentHolder,remaining.getLevel(enchantmentHolder)-1);
-                }
+        for (Holder<Enchantment> enchantHolder : enchants.keySet()) {
+            var scroll = ScrollHelper.getFromEnchant(enchantHolder, level);
+            if(scroll == null)
+                continue;
+            int enchantLevel = enchants.getLevel(enchantHolder);
+            for (int i = 0; i < enchantLevel ; i++) {
+                listOfScrolls.add(ScrollItem.createFromScroll(scroll));
             }
-        }));
+
+            remaining.set(enchantHolder, 0);
+        }
+
         if(remaining.keySet().isEmpty())
             stack.setCount(0);
         else
@@ -59,42 +59,32 @@ public class ItemMixin {
 
     @Inject(method="inventoryTick", at=@At("HEAD"))
     public void fixTools(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
-        //Semi-temporary fix to my "everything with status" bug (also, handles disenchanting) TODO: Remove this later
+        //Semi-temporary fix to my "everything with status" bug TODO: Remove this later
         if(level.isClientSide()) return;
-        if(!stack.isEnchanted()) {
-            stack.remove(ModDataComponentTypes.ENCHANTABILITY_STATUS);
+        if(stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS)) {
+            if(!stack.isEnchanted())
+                stack.remove(ModDataComponentTypes.ENCHANTABILITY_STATUS);
             return;
         }
-        if(stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS)) return;
 
-
-        var enchants = stack.get(DataComponents.ENCHANTMENTS);
-        assert enchants != null;
-        var enchantList = enchants.keySet().stream()
-                .filter(holder -> !holder.is(EnchantmentTags.CURSE)).toList();
-        ItemEnchantments.Mutable remaining = new ItemEnchantments.Mutable(enchants);
-
+        var enchantObj = stack.get(DataComponents.ENCHANTMENTS);
+        assert enchantObj != null;
+        ItemEnchantments.Mutable remaining = new ItemEnchantments.Mutable(enchantObj);
         var listOfScrolls = new ArrayList<ItemStack>();
 
-        int enchantability = ScrollHelper.getMaxScore(stack);
-        int currentScore = 0;
-
-        boolean overloaded = false;
-        //TODO: Handle null values
-        for (Holder<Enchantment> enchantHolder : enchantList) {
+        for (Holder<Enchantment> enchantHolder : enchantObj.keySet()) {
             var scroll = ScrollHelper.getFromEnchant(enchantHolder, level);
-            for (int i = 0; i < enchants.getLevel(enchantHolder); i++) {
-                if(currentScore + scroll.value().scorePerLevel() > enchantability || overloaded) {
-                    overloaded = true;
-                    listOfScrolls.add(ScrollItem.createFromScroll(scroll));
-                    remaining.set(enchantHolder, remaining.getLevel(enchantHolder)-1);
-                }else{
-                    currentScore += scroll.value().scorePerLevel();
-                }
+            if(scroll == null)
+                continue;
+            int enchantLevel = enchantObj.getLevel(enchantHolder);
+            for (int i = 0; i < enchantLevel ; i++) {
+                listOfScrolls.add(ScrollItem.createFromScroll(scroll));
             }
+
+            remaining.set(enchantHolder, 0);
         }
+
         stack.set(DataComponents.ENCHANTMENTS,remaining.toImmutable());
-        stack.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,currentScore);
         ScrollHelper.addOrSpawn(entity,listOfScrolls);
     }
 
