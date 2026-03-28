@@ -31,7 +31,6 @@ public class ItemMixin {
             return;
         if (!stack.has(DataComponents.STORED_ENCHANTMENTS))
             return;
-
         var enchants = stack.get(DataComponents.STORED_ENCHANTMENTS);
 
         var listOfScrolls = new ArrayList<ItemStack>();
@@ -60,9 +59,11 @@ public class ItemMixin {
     @Inject(method="inventoryTick", at=@At("HEAD"))
     public void fixTools(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot, CallbackInfo cb) {
         if(level.isClientSide()) return;
+        if(!stack.isEnchanted()){
+            stack.remove(ModDataComponentTypes.ENCHANTABILITY_STATUS);
+            return;
+        }
         if(stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS)) {
-            if(!stack.isEnchanted())
-                stack.remove(ModDataComponentTypes.ENCHANTABILITY_STATUS);
             return;
         }
 
