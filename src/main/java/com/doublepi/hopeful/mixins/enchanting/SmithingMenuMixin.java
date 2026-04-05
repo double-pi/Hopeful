@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.mixins;
+package com.doublepi.hopeful.mixins.enchanting;
 
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.world.entity.player.Inventory;

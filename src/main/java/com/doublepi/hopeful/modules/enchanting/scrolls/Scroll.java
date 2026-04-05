@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.content.scrolls;
+package com.doublepi.hopeful.modules.enchanting.scrolls;
 
 import com.doublepi.hopeful.registries.ModResourceRegistries;
 import com.mojang.serialization.Codec;
@@ -19,12 +19,11 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.enchantment.Enchantment;
 
-public record Scroll(Component title, ScrollType scrollType, int maxLevel, int scorePerLevel, int requiredXPLevels, HolderSet<Enchantment> enchantments) {
+public record Scroll(Component title, ScrollType scrollType, int scorePerLevel, int requiredXPLevels, HolderSet<Enchantment> enchantments) {
     public static final Codec<Scroll> CODEC =
             RecordCodecBuilder.create((scrollInstance ->scrollInstance.group(
                     ComponentSerialization.CODEC.fieldOf("title").forGetter(Scroll::title),
                     ScrollType.CODEC.fieldOf("type").forGetter(Scroll::scrollType),
-                    ExtraCodecs.intRange(0,255).fieldOf("max_level").forGetter(Scroll::maxLevel),
                     ExtraCodecs.intRange(-16,16).fieldOf("score_per_level").forGetter(Scroll::scorePerLevel),
                     Codec.INT.optionalFieldOf("required_xp_levels",0).forGetter(Scroll::requiredXPLevels),
                     RegistryCodecs.homogeneousList(Registries.ENCHANTMENT)
@@ -46,11 +45,6 @@ public record Scroll(Component title, ScrollType scrollType, int maxLevel, int s
 
     public ScrollType scrollType() {
         return scrollType;
-    }
-
-    @Override
-    public int maxLevel() {
-        return maxLevel;
     }
 
     @Override

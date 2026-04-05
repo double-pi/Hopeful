@@ -1,6 +1,5 @@
-package com.doublepi.hopeful.content.scrolls;
+package com.doublepi.hopeful.modules.enchanting.scrolls;
 
-import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;

@@ -3,17 +3,17 @@
   "package": "com.doublepi.hopeful.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "AnvilMenuMixin",
-    "FireworkItemMixin",
-    "GrindstoneMenuMixin",
-    "ItemMixin",
-    "LeavesBlockMixin",
-    "PlayerMixin",
-    "ServerPlayerMixin",
-    "SmithingMenuMixin"
+    "enchanting.AnvilTweaks",
+    "gamerules.FireworkGamerule",
+    "enchanting.GrindstoneUpdate",
+    "enchanting.TransformToScrolls",
+    "gamerules.LeavesGamerule",
+    "gamerules.XPTweaks",
+    "gamerules.ServerXPTweaks",
+    "enchanting.SmithingMenuMixin"
   ],
   "client": [
-    "SmithingScreenMixin"
+    "enchanting.SmithingScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

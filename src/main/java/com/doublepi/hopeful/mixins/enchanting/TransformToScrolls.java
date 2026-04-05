@@ -1,13 +1,11 @@
-package com.doublepi.hopeful.mixins;
+package com.doublepi.hopeful.mixins.enchanting;
 
-import com.doublepi.hopeful.content.scrolls.ScrollHelper;
-import com.doublepi.hopeful.content.scrolls.ScrollItem;
+import com.doublepi.hopeful.modules.enchanting.scrolls.ScrollHelper;
+import com.doublepi.hopeful.modules.enchanting.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -21,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 
 @Mixin(Item.class)
-public class ItemMixin {
+public class TransformToScrolls {
     @Inject(method="inventoryTick",at=@At("HEAD"))
     public void removingBooks(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected, CallbackInfo ci){
         if(level.isClientSide)

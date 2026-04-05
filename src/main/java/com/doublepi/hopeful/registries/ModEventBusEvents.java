@@ -1,7 +1,7 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.content.smithing.Enchantability;
+import com.doublepi.hopeful.modules.enchanting.smithing.Enchantability;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;

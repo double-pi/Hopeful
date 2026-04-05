@@ -1,13 +1,10 @@
-package com.doublepi.hopeful.content.scrolls;
+package com.doublepi.hopeful.modules.enchanting.scrolls;
 
-import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.content.smithing.Enchantability;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModEventBusEvents;
 import com.doublepi.hopeful.registries.ModResourceRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -24,7 +21,7 @@ public class ScrollHelper {
     public static void enchant(ItemStack item, Scroll scroll){
         for(Holder<Enchantment> enchantment : scroll.enchantments()){
             boolean itemSupportsEnchantment = item.supportsEnchantment(enchantment);
-            boolean isNotMaxLevel = item.getEnchantmentLevel(enchantment)< scroll.maxLevel();
+            boolean isNotMaxLevel = item.getEnchantmentLevel(enchantment)< enchantment.value().getMaxLevel();
             if(itemSupportsEnchantment && isNotMaxLevel
                     && getScore(item) + scroll.scorePerLevel() <= getMaxScore(item)){
                 int newLevel = item.getEnchantmentLevel(enchantment) + 1;
@@ -48,7 +45,7 @@ public class ScrollHelper {
             if(!item.supportsEnchantment(enchantment))
                 continue;
 
-            if(item.getEnchantmentLevel(enchantment) >= scroll.maxLevel())
+            if(item.getEnchantmentLevel(enchantment) >= enchantment.value().getMaxLevel())
                 continue;
 
             if(currentScore + scroll.scorePerLevel() <= maxScore)

@@ -1,25 +1,19 @@
-package com.doublepi.hopeful.content.smithing;
+package com.doublepi.hopeful.modules.enchanting.smithing;
 
-import com.doublepi.hopeful.content.scrolls.Scroll;
-import com.doublepi.hopeful.content.scrolls.ScrollHelper;
+import com.doublepi.hopeful.modules.enchanting.scrolls.Scroll;
+import com.doublepi.hopeful.modules.enchanting.scrolls.ScrollHelper;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModRecipes;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import java.util.Optional;
+
 import java.util.stream.Stream;
-import net.minecraft.core.Holder;
+
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.armortrim.ArmorTrim;
-import net.minecraft.world.item.armortrim.TrimMaterial;
-import net.minecraft.world.item.armortrim.TrimMaterials;
-import net.minecraft.world.item.armortrim.TrimPattern;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 

@@ -34,21 +34,19 @@
   "scroll.hopeful.weight": "Weight",
   "scroll.hopeful.wind": "Wind",
 
-
-
-
   "enchantment.hopeful.fins_curse": "Curse of Fins",
-  "enchantment.hopeful.fins_curse.desc": "Decreases mining speed.",
+  "enchantment.hopeful.fins_curse.desc": "Decreases mining speed while above water.",
   "enchantment.hopeful.fragile_curse": "Curse of Fragility",
   "enchantment.hopeful.fragile_curse.desc": "Causes items to lose durability faster.",
   "enchantment.hopeful.eternal": "Eternal",
   "enchantment.hopeful.eternal.desc": "Stops the item from disappearing when it breaks.",
 
   "tooltip.hopeful.disabled_elytra_boosting": "Elytra Boosting is disabled.",
-  "tooltip.hopeful.enchant_status": "Experience Point",
-  "tooltip.hopeful.max_level": "Max Level:",
+  "tooltip.hopeful.tool_xp": "Tool XP",
+  "tooltip.hopeful.player_xp": "Player XP Levels",
+  "tooltip.hopeful.max_level": "Max: ",
   "tooltip.hopeful.for_details": "Hold [Shift] for Descriptions",
-  "tooltip.hopeful.xp": "Required: %1$s lvls",
+  "tooltip.hopeful.required": "Required: ",
 
   "tag.item.hopeful.anvil_mends": "Anvil Mends",
 

@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.mixins;
+package com.doublepi.hopeful.mixins.gamerules;
 
 import com.doublepi.hopeful.registries.ModGamerules;
 import net.minecraft.core.BlockPos;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LeavesBlock.class)
-public abstract class LeavesBlockMixin {
+public abstract class LeavesGamerule {
 
     @Shadow protected abstract boolean decaying(BlockState state);
 

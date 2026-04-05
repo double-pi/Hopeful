@@ -45,10 +45,10 @@ public class GameEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void removeRepairCost(AnvilRepairEvent event){
-        event.getOutput().remove(DataComponents.REPAIR_COST);
-    }
+//    @SubscribeEvent
+//    public static void removeRepairCost(AnvilRepairEvent event){
+//        event.getOutput().remove(DataComponents.REPAIR_COST);
+//    }
 
     @SubscribeEvent
     public static void repairAnvil(UseItemOnBlockEvent event){

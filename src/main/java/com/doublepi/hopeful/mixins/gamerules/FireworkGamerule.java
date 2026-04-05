@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.mixins;
+package com.doublepi.hopeful.mixins.gamerules;
 
 import com.doublepi.hopeful.registries.ModGamerules;
 import net.minecraft.network.chat.Component;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FireworkRocketItem.class)
-public class FireworkItemMixin {
+public class FireworkGamerule {
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     public void useModified(Level level, Player player,
                             InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir){

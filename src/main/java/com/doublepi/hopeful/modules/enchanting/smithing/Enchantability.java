@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.content.smithing;
+package com.doublepi.hopeful.modules.enchanting.smithing;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

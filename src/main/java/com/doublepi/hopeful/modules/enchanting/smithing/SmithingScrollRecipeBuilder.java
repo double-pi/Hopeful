@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.content.smithing;
+package com.doublepi.hopeful.modules.enchanting.smithing;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

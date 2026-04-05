@@ -1,4 +1,8 @@
 {
+  "enchantment.minecraft.vanishing_curse": "Vanishing",
+  "enchantment.minecraft.binding_curse": "Binding",
+
+
   "advancements.end.find_end_city.title": "The Void Tree",
   "advancements.end.kill_dragon.title": "Free The Voidlins",
   "advancements.end.respawn_dragon.description": "Respawn the Void Dragon",
