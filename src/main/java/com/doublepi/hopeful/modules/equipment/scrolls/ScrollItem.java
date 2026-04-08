@@ -58,7 +58,8 @@ public class ScrollItem extends Item {
         int playerXPRequired = scroll.requiredPlayerXP();
 
         // "stats" - tool xp cost & player xp cost
-        tooltipComponents.add(Component.translatable("tooltip.hopeful.required"));
+        if(toolXPRequired!=0 || playerXPRequired!=0)
+            tooltipComponents.add(Component.translatable("tooltip.hopeful.required"));
         MutableComponent requires = Component.empty();
         if(toolXPRequired!=0) {
             requires.append(toolXPRequired +" ");
@@ -70,8 +71,10 @@ public class ScrollItem extends Item {
             requires.append(playerXPRequired +" ");
             requires.append(Component.translatable("tooltip.hopeful.player_xp")); //TODO: special case when xp not consumed?
         }
-        tooltipComponents.add(requires.withStyle(justGray));
-        tooltipComponents.add(Component.empty());
+        if(toolXPRequired!=0 || playerXPRequired!=0) {
+            tooltipComponents.add(requires.withStyle(justGray));
+            tooltipComponents.add(Component.empty());
+        }
 
         // enchantments
         for (var holder : scroll.enchantments()){

@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.SmithingMenu;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -41,6 +42,7 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         hopeful$renderXPRequirement(guiGraphics);
     }
 
+    @Unique
     public void hopeful$renderXPRequirement(GuiGraphics guiGraphics){
         if(!this.menu.getSlot(TEMPLATE_SLOT).getItem().has(ModDataComponentTypes.SCROLL)) return;
         int xpNeeded = this.menu.getSlot(TEMPLATE_SLOT).getItem().get(ModDataComponentTypes.SCROLL).value().requiredPlayerXP();
@@ -48,7 +50,7 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         int color = this.minecraft.player.experienceLevel >= xpNeeded ?
                 ChatFormatting.GREEN.getColor() : ChatFormatting.RED.getColor();
         guiGraphics.drawString(this.minecraft.font,
-                Component.translatable("tooltip.hopeful.xp_required",xpNeeded).setStyle(Style.EMPTY.withItalic(true)),
+                Component.translatable("tooltip.hopeful.player_xp_required",xpNeeded).setStyle(Style.EMPTY.withItalic(true)),
                 this.leftPos+44,this.topPos + 25, color);
     }
 

@@ -4,6 +4,7 @@
   },
   "type": "blessing",
   "required_tool_xp": 3,
+  "required_player_xp": 3,
   "enchantments": "#hopeful:hopeful/mending",
   "required_xp_levels": 5
 }

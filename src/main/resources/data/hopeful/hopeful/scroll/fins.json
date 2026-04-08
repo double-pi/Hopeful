@@ -3,6 +3,5 @@
     "translate": "scroll.hopeful.fins"
   },
   "type": "deal",
-  "required_tool_xp": 1,
   "enchantments": "#hopeful:hopeful/fins"
 }
