@@ -1,10 +1,9 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.content.scrolls.ScrollItem;
-import com.doublepi.hopeful.content.scrolls.UnknownScrollItem;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollItem;
+import com.doublepi.hopeful.modules.equipment.scrolls.UnknownScrollItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;

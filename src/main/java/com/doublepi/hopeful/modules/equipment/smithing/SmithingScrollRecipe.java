@@ -1,7 +1,7 @@
-package com.doublepi.hopeful.content.smithing;
+package com.doublepi.hopeful.modules.equipment.smithing;
 
-import com.doublepi.hopeful.content.scrolls.Scroll;
-import com.doublepi.hopeful.content.scrolls.ScrollHelper;
+import com.doublepi.hopeful.modules.equipment.scrolls.Scroll;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 
 import java.util.List;

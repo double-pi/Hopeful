@@ -1,19 +1,17 @@
-package com.doublepi.hopeful.mixins;
+package com.doublepi.hopeful.mixins.equipment;
 
-import com.doublepi.hopeful.content.scrolls.ScrollHelper;
-import com.doublepi.hopeful.content.scrolls.ScrollItem;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
-import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -23,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.ArrayList;
 
 @Mixin(Item.class)
-public class ItemMixin {
+public class TransformToScrolls {
 
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     public void fixBooks(ItemStack stack, ServerLevel level, Entity entity, @Nullable EquipmentSlot slot, CallbackInfo cb) {

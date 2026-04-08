@@ -2,8 +2,6 @@
   "title":{
     "translate": "scroll.hopeful.fins"
   },
-  "type": "blessing",
-  "max_level": 3,
-  "score_per_level": 1,
+  "type": "deal",
   "enchantments": "#hopeful:hopeful/fins"
 }

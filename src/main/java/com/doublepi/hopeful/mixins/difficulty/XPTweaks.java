@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.mixins;
+package com.doublepi.hopeful.mixins.difficulty;
 
 import com.doublepi.hopeful.registries.ModGamerules;
 import net.minecraft.server.level.ServerLevel;
@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
-public abstract class PlayerMixin extends LivingEntity{
+public abstract class XPTweaks extends LivingEntity{
 
     @Shadow public int totalExperience;
 
-    protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
+    protected XPTweaks(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 

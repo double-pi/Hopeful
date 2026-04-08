@@ -1,7 +1,7 @@
-package com.doublepi.hopeful.mixins;
+package com.doublepi.hopeful.mixins.equipment;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.content.scrolls.ScrollHelper;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -14,6 +14,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.SmithingMenu;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -42,17 +43,19 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         hopeful$renderXPRequirement(guiGraphics);
     }
 
+    @Unique
     public void hopeful$renderXPRequirement(GuiGraphicsExtractor guiGraphics){
         if(!this.menu.getSlot(TEMPLATE_SLOT).getItem().has(ModDataComponentTypes.SCROLL)) return;
-        int xpNeeded = this.menu.getSlot(TEMPLATE_SLOT).getItem().get(ModDataComponentTypes.SCROLL).value().requiredXPLevels();
-
+        int xpNeeded = this.menu.getSlot(TEMPLATE_SLOT).getItem().get(ModDataComponentTypes.SCROLL).value().requiredPlayerXP();
+        System.out.println("gaming: "+xpNeeded);
         int color = this.minecraft.player.experienceLevel >= xpNeeded ?
                 ChatFormatting.GREEN.getColor() : ChatFormatting.RED.getColor();
-        guiGraphics.text(this.minecraft.font,
-                Component.translatable("tooltip.hopeful.xp",xpNeeded).setStyle(Style.EMPTY.withItalic(true)),
+        guiGraphics.text(this.font,
+                Component.translatable("tooltip.hopeful.player_xp_required",xpNeeded),
                 this.leftPos+44,this.topPos + 25, color);
     }
 
+    @Unique
     public void hopeful$renderToolExperience(GuiGraphicsExtractor guiGraphics){
         var menu = this.getMenu();
         if(!this.menu.getSlot(BASE_SLOT).hasItem()) return;

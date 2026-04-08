@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.mixins;
+package com.doublepi.hopeful.mixins.difficulty;
 
 import com.doublepi.hopeful.registries.ModGamerules;
 import com.mojang.authlib.GameProfile;
@@ -14,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
-public abstract class ServerPlayerMixin extends Player {
+public abstract class ServerXPTweaks extends Player {
 
 
-    public ServerPlayerMixin(Level level, GameProfile gameProfile) {
+    public ServerXPTweaks(Level level, GameProfile gameProfile) {
         super(level, gameProfile);
     }
 
