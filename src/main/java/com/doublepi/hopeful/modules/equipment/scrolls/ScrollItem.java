@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.modules.enchanting.scrolls;
+package com.doublepi.hopeful.modules.equipment.scrolls;
 
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModItems;
@@ -54,9 +54,8 @@ public class ScrollItem extends Item {
         // Enchantment list
         boolean isLoaded = ModList.get().isLoaded("enchdesc");
         boolean isShifted = tooltipFlag.hasShiftDown();
-        int numOfEnchants = scroll.enchantments().size();
-        int toolXPRequired = scroll.scorePerLevel();
-        int playerXPRequired = scroll.requiredXPLevels();
+        int toolXPRequired = scroll.requiredToolXP();
+        int playerXPRequired = scroll.requiredPlayerXP();
 
         // "stats" - tool xp cost & player xp cost
         tooltipComponents.add(Component.translatable("tooltip.hopeful.required"));

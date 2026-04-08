@@ -3,7 +3,6 @@
     "translate": "scroll.hopeful.thorns"
   },
   "type": "blessing",
-  "max_level": 3,
-  "score_per_level": 1,
+  "required_tool_xp": 1,
   "enchantments": "#hopeful:hopeful/thorns"
 }

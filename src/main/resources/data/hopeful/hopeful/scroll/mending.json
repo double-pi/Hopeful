@@ -3,8 +3,7 @@
     "translate": "scroll.hopeful.mending"
   },
   "type": "blessing",
-  "max_level": 1,
-  "score_per_level": 3,
+  "required_tool_xp": 3,
   "enchantments": "#hopeful:hopeful/mending",
   "required_xp_levels": 5
 }

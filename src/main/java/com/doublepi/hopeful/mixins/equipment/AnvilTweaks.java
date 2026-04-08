@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.mixins.enchanting;
+package com.doublepi.hopeful.mixins.equipment;
 
 import net.minecraft.world.inventory.AnvilMenu;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.modules.enchanting.scrolls;
+package com.doublepi.hopeful.modules.equipment.scrolls;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;

@@ -1,7 +1,7 @@
-package com.doublepi.hopeful.mixins.enchanting;
+package com.doublepi.hopeful.mixins.equipment;
 
-import com.doublepi.hopeful.modules.enchanting.scrolls.ScrollHelper;
-import com.doublepi.hopeful.modules.enchanting.scrolls.ScrollItem;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;

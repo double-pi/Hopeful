@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.mixins.gamerules;
+package com.doublepi.hopeful.mixins.difficulty;
 
 import com.doublepi.hopeful.registries.ModGamerules;
 import net.minecraft.world.entity.EntityType;

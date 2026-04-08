@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.modules.enchanting.scrolls;
+package com.doublepi.hopeful.modules.equipment.scrolls;
 
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModEventBusEvents;
@@ -23,12 +23,12 @@ public class ScrollHelper {
             boolean itemSupportsEnchantment = item.supportsEnchantment(enchantment);
             boolean isNotMaxLevel = item.getEnchantmentLevel(enchantment)< enchantment.value().getMaxLevel();
             if(itemSupportsEnchantment && isNotMaxLevel
-                    && getScore(item) + scroll.scorePerLevel() <= getMaxScore(item)){
+                    && getScore(item) + scroll.requiredToolXP() <= getMaxScore(item)){
                 int newLevel = item.getEnchantmentLevel(enchantment) + 1;
                 item.enchant(enchantment, newLevel);
             }
         }
-        setScore(item, getScore(item) + scroll.scorePerLevel());
+        setScore(item, getScore(item) + scroll.requiredToolXP());
     }
 
     public static Stream<Holder.Reference<Scroll>> getAllScrolls(Level level){
@@ -48,7 +48,7 @@ public class ScrollHelper {
             if(item.getEnchantmentLevel(enchantment) >= enchantment.value().getMaxLevel())
                 continue;
 
-            if(currentScore + scroll.scorePerLevel() <= maxScore)
+            if(currentScore + scroll.requiredToolXP() <= maxScore)
                 return true;
         }
 
@@ -110,7 +110,7 @@ public class ScrollHelper {
         var enchantList = enchants.keySet().stream().toList();
         int status = 0;
         for (Holder<Enchantment> enchant: enchantList){
-            status += ScrollHelper.getFromEnchant(enchant, level).value().scorePerLevel() * stack.getEnchantmentLevel(enchant);
+            status += ScrollHelper.getFromEnchant(enchant, level).value().requiredToolXP() * stack.getEnchantmentLevel(enchant);
         }
         return status;
     }

@@ -1,7 +1,7 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.modules.enchanting.smithing.SmithingScrollRecipe;
+import com.doublepi.hopeful.modules.equipment.smithing.SmithingScrollRecipe;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.neoforged.bus.api.IEventBus;

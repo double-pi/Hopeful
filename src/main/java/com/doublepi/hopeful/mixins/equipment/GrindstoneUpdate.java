@@ -1,6 +1,6 @@
-package com.doublepi.hopeful.mixins.enchanting;
+package com.doublepi.hopeful.mixins.equipment;
 
-import com.doublepi.hopeful.modules.enchanting.scrolls.ScrollHelper;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.inventory.GrindstoneMenu;
 import net.minecraft.world.item.ItemStack;

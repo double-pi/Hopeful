@@ -1,7 +1,7 @@
-package com.doublepi.hopeful.modules.enchanting.smithing;
+package com.doublepi.hopeful.modules.equipment.smithing;
 
-import com.doublepi.hopeful.modules.enchanting.scrolls.Scroll;
-import com.doublepi.hopeful.modules.enchanting.scrolls.ScrollHelper;
+import com.doublepi.hopeful.modules.equipment.scrolls.Scroll;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModRecipes;
 import com.mojang.serialization.MapCodec;

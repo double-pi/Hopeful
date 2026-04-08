@@ -1,4 +1,4 @@
-package com.doublepi.hopeful.modules.enchanting.scrolls;
+package com.doublepi.hopeful.modules.equipment.scrolls;
 
 import com.doublepi.hopeful.registries.ModResourceRegistries;
 import com.mojang.serialization.Codec;
@@ -15,17 +15,16 @@ import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFixedCodec;
-import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.enchantment.Enchantment;
 
-public record Scroll(Component title, ScrollType scrollType, int scorePerLevel, int requiredXPLevels, HolderSet<Enchantment> enchantments) {
+public record Scroll(Component title, ScrollType scrollType, int requiredToolXP, int requiredPlayerXP, HolderSet<Enchantment> enchantments) {
     public static final Codec<Scroll> CODEC =
             RecordCodecBuilder.create((scrollInstance ->scrollInstance.group(
                     ComponentSerialization.CODEC.fieldOf("title").forGetter(Scroll::title),
                     ScrollType.CODEC.fieldOf("type").forGetter(Scroll::scrollType),
-                    ExtraCodecs.intRange(-16,16).fieldOf("score_per_level").forGetter(Scroll::scorePerLevel),
-                    Codec.INT.optionalFieldOf("required_xp_levels",0).forGetter(Scroll::requiredXPLevels),
+                    Codec.INT.optionalFieldOf("required_tool_xp", 0).forGetter(Scroll::requiredToolXP),
+                    Codec.INT.optionalFieldOf("required_player_xp",0).forGetter(Scroll::requiredPlayerXP),
                     RegistryCodecs.homogeneousList(Registries.ENCHANTMENT)
                             .validate(DataResult::success)
                             .fieldOf("enchantments").forGetter(Scroll::enchantments))
@@ -48,13 +47,13 @@ public record Scroll(Component title, ScrollType scrollType, int scorePerLevel, 
     }
 
     @Override
-    public int scorePerLevel() {
-        return scorePerLevel;
+    public int requiredToolXP() {
+        return requiredToolXP;
     }
 
     @Override
-    public int requiredXPLevels() {
-        return requiredXPLevels;
+    public int requiredPlayerXP() {
+        return requiredPlayerXP;
     }
 
     @Override

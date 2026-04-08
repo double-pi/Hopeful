@@ -1,7 +1,6 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.content.enchanting.EnchanterBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -16,9 +15,6 @@ import java.util.function.Supplier;
 public class ModBlocks {
 
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(HopefulMod.MODID);
-
-    public static final DeferredBlock<Block> ENCHANTER = registerBlock("enchanter",
-            ()-> new EnchanterBlock(BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)));
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block){
         DeferredBlock<T> toReturn = BLOCKS.register(name,block);

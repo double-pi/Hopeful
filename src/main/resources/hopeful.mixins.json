@@ -3,17 +3,17 @@
   "package": "com.doublepi.hopeful.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "enchanting.AnvilTweaks",
-    "gamerules.FireworkGamerule",
-    "enchanting.GrindstoneUpdate",
-    "enchanting.TransformToScrolls",
-    "gamerules.LeavesGamerule",
-    "gamerules.XPTweaks",
-    "gamerules.ServerXPTweaks",
-    "enchanting.SmithingMenuMixin"
+    "equipment.AnvilTweaks",
+    "difficulty.FireworkGamerule",
+    "equipment.GrindstoneUpdate",
+    "equipment.TransformToScrolls",
+    "difficulty.LeavesGamerule",
+    "difficulty.XPTweaks",
+    "difficulty.ServerXPTweaks",
+    "equipment.SmithingMenuMixin"
   ],
   "client": [
-    "enchanting.SmithingScreenMixin"
+    "equipment.SmithingScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

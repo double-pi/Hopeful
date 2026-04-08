@@ -1,7 +1,7 @@
-package com.doublepi.hopeful.mixins.enchanting;
+package com.doublepi.hopeful.mixins.equipment;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.modules.enchanting.scrolls.ScrollHelper;
+import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -43,7 +43,7 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
 
     public void hopeful$renderXPRequirement(GuiGraphics guiGraphics){
         if(!this.menu.getSlot(TEMPLATE_SLOT).getItem().has(ModDataComponentTypes.SCROLL)) return;
-        int xpNeeded = this.menu.getSlot(TEMPLATE_SLOT).getItem().get(ModDataComponentTypes.SCROLL).value().requiredXPLevels();
+        int xpNeeded = this.menu.getSlot(TEMPLATE_SLOT).getItem().get(ModDataComponentTypes.SCROLL).value().requiredPlayerXP();
 
         int color = this.minecraft.player.experienceLevel >= xpNeeded ?
                 ChatFormatting.GREEN.getColor() : ChatFormatting.RED.getColor();
