@@ -20,6 +20,7 @@ public class ModDataComponentTypes {
     register("scroll", builder -> builder.persistent(Scroll.HOLDER_CODEC)
             .networkSynchronized(Scroll.STREAM_CODEC).cacheEncoding());
 
+    // TODO: Find out why can't I /give with this
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ENCHANTABILITY_STATUS =
     register("enchantability_status", builder -> builder.persistent(Codec.INT));
 

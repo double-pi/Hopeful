@@ -44,7 +44,6 @@
   "tooltip.hopeful.disabled_elytra_boosting": "Elytra Boosting is disabled.",
   "tooltip.hopeful.tool_xp": "Tool XP",
   "tooltip.hopeful.player_xp": "Player XP",
-  "tooltip.hopeful.player_xp_required": "XP Levels Required: %s",
   "tooltip.hopeful.max_level": "Max: ",
   "tooltip.hopeful.for_details": "Hold [Shift] for Descriptions",
   "tooltip.hopeful.required": "Required: ",
