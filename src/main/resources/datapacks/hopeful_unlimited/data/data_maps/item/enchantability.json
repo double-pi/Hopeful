@@ -1,0 +1,211 @@
+{
+  "values": {
+    "minecraft:wooden_sword": {
+      "enchantability": 512
+    },
+    "minecraft:wooden_pickaxe": {
+      "enchantability": 512
+    },
+    "minecraft:wooden_axe": {
+      "enchantability": 512
+    },
+    "minecraft:wooden_shovel": {
+      "enchantability": 512
+    },
+    "minecraft:wooden_hoe": {
+      "enchantability": 512
+    },
+    "minecraft:stone_sword": {
+      "enchantability": 512
+    },
+    "minecraft:stone_pickaxe": {
+      "enchantability": 512
+    },
+    "minecraft:stone_axe": {
+      "enchantability": 512
+    },
+    "minecraft:stone_shovel": {
+      "enchantability": 512
+    },
+    "minecraft:stone_hoe": {
+      "enchantability": 512
+    },
+    "minecraft:leather_helmet": {
+      "enchantability": 512
+    },
+    "minecraft:leather_chestplate": {
+      "enchantability": 512
+    },
+    "minecraft:leather_leggings": {
+      "enchantability": 512
+    },
+    "minecraft:leather_boots": {
+      "enchantability": 512
+    },
+    "minecraft:iron_sword": {
+      "enchantability": 512
+    },
+    "minecraft:iron_pickaxe": {
+      "enchantability": 512
+    },
+    "minecraft:iron_axe": {
+      "enchantability": 512
+    },
+    "minecraft:iron_shovel": {
+      "enchantability": 512
+    },
+    "minecraft:iron_hoe": {
+      "enchantability": 512
+    },
+    "minecraft:iron_helmet": {
+      "enchantability": 512
+    },
+    "minecraft:iron_chestplate": {
+      "enchantability": 512
+    },
+    "minecraft:iron_leggings": {
+      "enchantability": 512
+    },
+    "minecraft:iron_boots": {
+      "enchantability": 512
+    },
+    "minecraft:diamond_sword": {
+      "enchantability": 512
+    },
+    "minecraft:diamond_pickaxe": {
+      "enchantability": 512
+    },
+    "minecraft:diamond_axe": {
+      "enchantability": 512
+    },
+    "minecraft:diamond_shovel": {
+      "enchantability": 512
+    },
+    "minecraft:diamond_hoe": {
+      "enchantability": 512
+    },
+    "minecraft:diamond_helmet": {
+      "enchantability": 512
+    },
+    "minecraft:diamond_chestplate": {
+      "enchantability": 512
+    },
+    "minecraft:diamond_leggings": {
+      "enchantability": 512
+    },
+    "minecraft:diamond_boots": {
+      "enchantability": 512
+    },
+    "minecraft:golden_sword": {
+      "enchantability": 512
+    },
+    "minecraft:golden_pickaxe": {
+      "enchantability": 512
+    },
+    "minecraft:golden_axe": {
+      "enchantability": 512
+    },
+    "minecraft:golden_shovel": {
+      "enchantability": 512
+    },
+    "minecraft:golden_hoe": {
+      "enchantability": 512
+    },
+    "minecraft:golden_helmet": {
+      "enchantability": 512
+    },
+    "minecraft:golden_chestplate": {
+      "enchantability": 512
+    },
+    "minecraft:golden_leggings": {
+      "enchantability": 512
+    },
+    "minecraft:golden_boots": {
+      "enchantability": 512
+    },
+    "minecraft:netherite_sword": {
+      "enchantability": 512
+    },
+    "minecraft:netherite_pickaxe": {
+      "enchantability": 512
+    },
+    "minecraft:netherite_axe": {
+      "enchantability": 512
+    },
+    "minecraft:netherite_shovel": {
+      "enchantability": 512
+    },
+    "minecraft:netherite_hoe": {
+      "enchantability": 512
+    },
+    "minecraft:netherite_helmet": {
+      "enchantability": 512
+    },
+    "minecraft:netherite_chestplate": {
+      "enchantability": 512
+    },
+    "minecraft:netherite_leggings": {
+      "enchantability": 512
+    },
+    "minecraft:netherite_boots": {
+      "enchantability": 512
+    },
+    "minecraft:bow": {
+      "enchantability": 512
+    },
+    "minecraft:crossbow": {
+      "enchantability": 512
+    },
+    "minecraft:fishing_rod": {
+      "enchantability": 512
+    },
+    "minecraft:trident": {
+      "enchantability": 512
+    },
+    "minecraft:mace": {
+      "enchantability": 512
+    },
+    "minecraft:chainmail_helmet": {
+      "enchantability": 512
+    },
+    "minecraft:chainmail_chestplate": {
+      "enchantability": 512
+    },
+    "minecraft:chainmail_leggings": {
+      "enchantability": 512
+    },
+    "minecraft:chainmail_boots": {
+      "enchantability": 512
+    },
+    "minecraft:turtle_helmet": {
+      "enchantability": 512
+    },
+    "minecraft:copper_sword": {
+      "enchantability": 512
+    },
+    "minecraft:copper_pickaxe": {
+      "enchantability": 512
+    },
+    "minecraft:copper_axe": {
+      "enchantability": 512
+    },
+    "minecraft:copper_shovel": {
+      "enchantability": 512
+    },
+    "minecraft:copper_hoe": {
+      "enchantability": 512
+    },
+    "minecraft:copper_helmet": {
+      "enchantability": 512
+    },
+    "minecraft:copper_chestplate": {
+      "enchantability": 512
+    },
+    "minecraft:copper_leggings": {
+      "enchantability": 512
+    },
+    "minecraft:copper_boots": {
+      "enchantability": 512
+    }
+  }
+}
