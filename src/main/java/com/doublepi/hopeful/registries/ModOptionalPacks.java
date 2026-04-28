@@ -2,14 +2,13 @@ package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
-import net.neoforged.neoforge.resource.ResourcePackLoader;
-import org.jspecify.annotations.NonNull;
+import javax.annotation.Nonnull;
 
 public class ModOptionalPacks {
 
@@ -18,7 +17,7 @@ public class ModOptionalPacks {
     public static void addPackFinders(AddPackFindersEvent event){
         if(event.getPackType() == PackType.SERVER_DATA){
             event.addPackFinders(
-                    Identifier.fromNamespaceAndPath(HopefulMod.MODID,"datapacks/hopeful_unlimited"),
+                    ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID,"datapacks/hopeful_unlimited"),
                     PackType.SERVER_DATA,
                     Component.translatable("dataPack.hopeful.hopeful_unlimited.name"),
                     createSource(false), false, Pack.Position.TOP);
@@ -31,7 +30,7 @@ public class ModOptionalPacks {
     public static PackSource createSource(boolean enabledByDefault) {
         return new PackSource() {
             @Override
-            public @NonNull Component decorate(@NonNull Component component) {
+            public @Nonnull Component decorate(@Nonnull Component component) {
                 return Component.translatable("pack.hopeful.builtin", component);
             }
 
