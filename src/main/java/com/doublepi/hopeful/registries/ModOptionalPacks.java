@@ -7,9 +7,11 @@ import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 import javax.annotation.Nonnull;
 
+@EventBusSubscriber(modid = HopefulMod.MODID)
 public class ModOptionalPacks {
 
 
@@ -19,8 +21,8 @@ public class ModOptionalPacks {
             event.addPackFinders(
                     ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID,"datapacks/hopeful_unlimited"),
                     PackType.SERVER_DATA,
-                    Component.translatable("dataPack.hopeful.hopeful_unlimited.name"),
-                    createSource(false), false, Pack.Position.TOP);
+                    Component.translatable("datapack.hopeful.hopeful_unlimited.name"),
+                    createSource(true), false, Pack.Position.TOP);
 //            event.addPackFinders(id("resourcepacks/villager_trades"), PackType.SERVER_DATA,
 //                    Component.translatable("dataPack.enchiridion.villager_trades.name"),
 //                    createSource(true), false, Pack.Position.TOP);
@@ -31,7 +33,7 @@ public class ModOptionalPacks {
         return new PackSource() {
             @Override
             public @Nonnull Component decorate(@Nonnull Component component) {
-                return Component.translatable("pack.hopeful.builtin", component);
+                return Component.translatable("datapack.hopeful.builtin", component);
             }
 
             @Override

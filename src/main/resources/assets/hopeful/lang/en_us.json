@@ -47,11 +47,13 @@
   "tooltip.hopeful.max_level": "Max: ",
   "tooltip.hopeful.for_details": "Hold [Shift] for Descriptions",
   "tooltip.hopeful.required": "Required: ",
+  "tooltip.hopeful.player_xp_required": "Required: %s levels",
 
   "tag.item.hopeful.anvil_mends": "Anvil Mends",
 
   "entity.hopeful.mourner": "Mourner",
-  "item.hopeful.mourner_spawn_egg": "Mourner Spawn Egg"
+  "item.hopeful.mourner_spawn_egg": "Mourner Spawn Egg",
 
-
+  "datapack.hopeful.hopeful_unlimited.name": "Hopeful Unlimited",
+  "datapack.hopeful.builtin": "%s (Builtin)"
 }
