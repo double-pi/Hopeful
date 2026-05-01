@@ -1,5 +1,6 @@
 package com.doublepi.hopeful.mixins.equipment;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.inventory.AnvilMenu;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,6 +17,7 @@ public class AnvilTweaks {
 
     @ModifyArgs(method = "createResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;set(Lnet/minecraft/core/component/DataComponentType;Ljava/lang/Object;)Ljava/lang/Object;"))
     public void removeRepairCost(Args args){
-        args.set(1,0);
+        if(args.get(0) == DataComponents.REPAIR_COST)
+            args.set(1,0);
     }
 }
