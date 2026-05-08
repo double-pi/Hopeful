@@ -1,14 +1,13 @@
 package com.doublepi.hopeful.modules.equipment.enchanting.catalyst;
 
 import com.doublepi.hopeful.modules.equipment.enchanting.EnchantingState;
-import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
 import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.modules.equipment.scrolls.ScrollItem;
+import com.doublepi.hopeful.registries.ModAttachments;
 import com.doublepi.hopeful.registries.ModRegistries;
 import com.doublepi.hopeful.registries.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderSet;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
@@ -21,10 +20,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 public class CatalystHelper {
@@ -73,6 +70,7 @@ public class CatalystHelper {
 
             stack.consume(1, player);
             player.onEnchantmentPerformed(stack, -state.consumedXPLevels); // changing enchant seed?
+            player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextFloat());
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
             return ItemInteractionResult.CONSUME;
         }

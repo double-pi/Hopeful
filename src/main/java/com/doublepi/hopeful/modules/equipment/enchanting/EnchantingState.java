@@ -3,6 +3,7 @@ package com.doublepi.hopeful.modules.equipment.enchanting;
 import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.Catalyst;
 import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
 import com.doublepi.hopeful.modules.equipment.scrolls.Scroll;
+import com.doublepi.hopeful.registries.ModAttachments;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.player.Player;
 
@@ -38,20 +39,11 @@ public class EnchantingState {
     }
 
     public String findEnchantFailReason(Player player){
-//        System.out.println("daytime: "+player.level().getGameTime());
-//        System.out.println("total xp: "+player.totalExperience);
-//        System.out.println("xp level: "+player.experienceLevel);
-        //float s = player.level().getGameTime() + player.totalExperience << 1 + player.experienceLevel >> 2;
-        //float s = player.level().isClientSide? 0.01f : 0.6f; // display "unlucky" but still sounds success and gives scroll
-        float s = player.getEnchantmentSeed();
-        System.out.println("sample: "+s);
+        float seed = player.getData(ModAttachments.HOPEFUL_ENCHANT_SEED);
         if(player.experienceLevel < requiredXPLevels)
             return "tooltip.hopeful.fail_reason.not_enough_xp";
-        if(s > successChance)
+        if(seed > successChance)
             return "tooltip.hopeful.fail_reason.unlucky";
-
-
-
         return null;
     }
 

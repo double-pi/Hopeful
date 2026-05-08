@@ -34,6 +34,7 @@ public class HopefulMod {
         ModGamerules.register();
         ModRecipes.register(modEventBus);
         ModCatalystEffectTypes.register();
+        ModAttachments.register(modEventBus);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event){}
