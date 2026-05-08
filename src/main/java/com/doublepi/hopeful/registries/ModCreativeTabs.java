@@ -1,8 +1,8 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.modules.equipment.scrolls.Scroll;
-import com.doublepi.hopeful.modules.equipment.scrolls.ScrollItem;
+import com.doublepi.hopeful.equipment.scrolls.Scroll;
+import com.doublepi.hopeful.equipment.scrolls.ScrollItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;

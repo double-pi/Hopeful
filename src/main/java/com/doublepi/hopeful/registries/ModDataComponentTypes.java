@@ -1,7 +1,7 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.modules.equipment.scrolls.Scroll;
+import com.doublepi.hopeful.equipment.scrolls.Scroll;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;

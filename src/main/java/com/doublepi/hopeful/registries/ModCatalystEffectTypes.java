@@ -1,10 +1,10 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
-import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.ScrollWeightEffect;
-import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.SuccessChanceEffect;
-import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.XPCatalystEffect;
+import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
+import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.ScrollWeightEffect;
+import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.SuccessChanceEffect;
+import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.XPCatalystEffect;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 

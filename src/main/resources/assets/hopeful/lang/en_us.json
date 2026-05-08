@@ -1,7 +1,6 @@
 {
   "tab.hopeful.scrolls": "Hopeful's Scrolls",
 
-  "block.hopeful.chokeslate": "Chokeslate",
   "item.hopeful.unknown_scroll": "Unknown Scroll",
 
   "scroll.hopeful.type.blessing": "Blessing",
@@ -41,7 +40,6 @@
   "enchantment.hopeful.eternal": "Eternal",
   "enchantment.hopeful.eternal.desc": "Stops the item from disappearing when it breaks.",
 
-  "tooltip.hopeful.disabled_elytra_boosting": "Elytra Boosting is disabled.",
   "tooltip.hopeful.tool_xp": "Tool XP",
   "tooltip.hopeful.player_xp": "Player XP",
   "tooltip.hopeful.max_level": "Max: ",
@@ -55,9 +53,6 @@
   "tooltip.hopeful.fail_reason.not_enough_xp": "Not enough xp levels",
 
   "tag.item.hopeful.anvil_mends": "Anvil Mends",
-
-  "entity.hopeful.mourner": "Mourner",
-  "item.hopeful.mourner_spawn_egg": "Mourner Spawn Egg",
 
   "datapack.hopeful.hopeful_unlimited.name": "Hopeful Unlimited",
   "datapack.hopeful.builtin": "%s (Builtin)"

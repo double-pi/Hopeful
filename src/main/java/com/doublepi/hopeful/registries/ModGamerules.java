@@ -15,14 +15,6 @@ public class ModGamerules {
                         (minecraftServer, booleanValue)
                                 -> LOGGER.info("set value to {}", booleanValue.get())));
     }
-    public static final GameRules.Key<GameRules.BooleanValue> SAPLINGS_REPLACE =
-    createBoolean("doSaplingsRegrow",GameRules.Category.MISC,false);
-
-    public static final GameRules.Key<GameRules.BooleanValue> FIREWORK_BOOSTING =
-    createBoolean("fireworkBoosting",GameRules.Category.PLAYER, false);
-
-    public static final GameRules.Key<GameRules.BooleanValue> LEAVES_FALL =
-    createBoolean("doLeavesFall", GameRules.Category.MISC, false);
 
     // XP Stuff
     public static final GameRules.Key<GameRules.BooleanValue> KEEP_EXP =
