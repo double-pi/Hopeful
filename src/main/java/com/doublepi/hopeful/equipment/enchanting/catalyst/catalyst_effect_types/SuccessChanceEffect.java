@@ -2,6 +2,7 @@ package com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types
 
 import com.doublepi.hopeful.equipment.enchanting.EnchantingState;
 import com.doublepi.hopeful.registries.ModCatalystEffectTypes;
+import com.doublepi.hopeful.registries.ModParticles;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -27,13 +28,18 @@ public record SuccessChanceEffect(float increaseBy) implements CatalystEffect{
 
 
     @Override
+    public int alignment() {
+        return (int) Math.signum(increaseBy);
+    }
+
+    @Override
     public void applyEffect(EnchantingState state) {
         state.successChance+=increaseBy;
     }
 
     @Override
     public ParticleOptions getParticle() {
-        return ParticleTypes.ELECTRIC_SPARK;
+        return ModParticles.SUCCESS_CHANCE_EFFECT.get();
     }
 
     @Override

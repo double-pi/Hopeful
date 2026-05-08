@@ -3,6 +3,7 @@ package com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types
 import com.doublepi.hopeful.equipment.enchanting.EnchantingState;
 import com.doublepi.hopeful.equipment.scrolls.Scroll;
 import com.doublepi.hopeful.registries.ModCatalystEffectTypes;
+import com.doublepi.hopeful.registries.ModParticles;
 import com.doublepi.hopeful.registries.ModRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -32,6 +33,12 @@ public record ScrollWeightEffect(HolderSet<Scroll> scrolls, int increaseBy) impl
                     ScrollWeightEffect::increaseBy,
                     ScrollWeightEffect::new
             );
+
+    @Override
+    public int alignment() {
+        return (int) Math.signum(increaseBy);
+    }
+
     @Override
     public void applyEffect(EnchantingState state) {
         for (Holder<Scroll> scroll : scrolls) {
@@ -48,7 +55,7 @@ public record ScrollWeightEffect(HolderSet<Scroll> scrolls, int increaseBy) impl
 
     @Override
     public ParticleOptions getParticle() {
-        return ParticleTypes.CLOUD;
+        return ModParticles.SCROLL_WEIGHT_EFFECT.get();
     }
 
     @Override

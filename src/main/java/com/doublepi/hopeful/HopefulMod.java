@@ -1,5 +1,6 @@
 package com.doublepi.hopeful;
 
+import com.doublepi.hopeful.equipment.enchanting.catalyst.SimpleCatalystParticle;
 import com.doublepi.hopeful.registries.*;
 import com.mojang.logging.LogUtils;
 import net.neoforged.api.distmarker.Dist;
@@ -10,8 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
@@ -32,6 +32,7 @@ public class HopefulMod {
         ModDataComponentTypes.register(modEventBus);
         ModCreativeTabs.register(modEventBus);
         ModGamerules.register();
+        ModParticles.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModCatalystEffectTypes.register();
         ModAttachments.register(modEventBus);
@@ -48,5 +49,12 @@ public class HopefulMod {
     public static class ClientModEvents{
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event){}
+
+        @SubscribeEvent
+        public static void registerParticleFactories(RegisterParticleProvidersEvent event) {
+            event.registerSpriteSet(ModParticles.XP_EFFECT.get(), SimpleCatalystParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.SUCCESS_CHANCE_EFFECT.get(), SimpleCatalystParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.SCROLL_WEIGHT_EFFECT.get(), SimpleCatalystParticle.Provider::new);
+        }
     }
 }

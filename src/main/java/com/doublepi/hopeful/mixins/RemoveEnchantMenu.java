@@ -6,6 +6,7 @@ import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -37,14 +38,15 @@ abstract class RemoveEnchantMenu {
             var catalyst = CatalystHelper.getCatalystFromBlock(block,level,new EnchantingState(0));
             catalyst.ifPresent(cat->{
                 for(CatalystEffect e : cat.value().effects()){
-                    if (random.nextInt(2) == 0) {
+                    //TODO: make particles go in reverse if it lowers smth?
+                    if (random.nextInt(10) == 0) {
                         level.addParticle(e.getParticle(),
                                 catPos.getX() + 0.5f,
                                 catPos.getY() + 0.5f,
                                 catPos.getZ() + 0.5f,
-                                (pos.getX()-catPos.getX())/10f,
-                                (pos.getY()-catPos.getY())/10f,
-                                (pos.getZ()-catPos.getZ())/10f);
+                                (pos.getX()-catPos.getX())/5f,
+                                (pos.getY()-catPos.getY())/5f,
+                                (pos.getZ()-catPos.getZ())/5f);
                     }
                 }
 

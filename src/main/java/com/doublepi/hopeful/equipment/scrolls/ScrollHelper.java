@@ -1,7 +1,7 @@
 package com.doublepi.hopeful.equipment.scrolls;
 
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
-import com.doublepi.hopeful.registries.ModEventBusEvents;
+import com.doublepi.hopeful.registries.ModEvents;
 import com.doublepi.hopeful.registries.ModRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -57,7 +57,7 @@ public class ScrollHelper {
 
     public static int getMaxScore(ItemStack stack){
         Holder<Item> item = stack.getItemHolder();
-        if(item.getData(ModEventBusEvents.ITEM_ENCHANTABILITY_DATA) == null){
+        if(item.getData(ModEvents.ITEM_ENCHANTABILITY_DATA) == null){
             if(!item.is(Tags.Items.ENCHANTABLES))
                 return 0;
             int enchantability = stack.getEnchantmentValue();
@@ -65,7 +65,7 @@ public class ScrollHelper {
             if(enchantability==0) return 5;
             return (int)(enchantability * 0.5);
         }else{
-        return item.getData(ModEventBusEvents.ITEM_ENCHANTABILITY_DATA).enchantability();
+        return item.getData(ModEvents.ITEM_ENCHANTABILITY_DATA).enchantability();
 }
     }
 

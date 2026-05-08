@@ -2,6 +2,7 @@ package com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types
 
 import com.doublepi.hopeful.equipment.enchanting.EnchantingState;
 import com.doublepi.hopeful.registries.ModCatalystEffectTypes;
+import com.doublepi.hopeful.registries.ModParticles;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -33,7 +34,12 @@ public record XPCatalystEffect(int increaseBy, boolean consumeOnSuccess, boolean
 
     @Override
     public ParticleOptions getParticle() {
-        return ParticleTypes.SNEEZE;
+        return ModParticles.XP_EFFECT.get();
+    }
+
+    @Override
+    public int alignment() {
+        return (int) Math.signum(increaseBy);
     }
 
     @Override
