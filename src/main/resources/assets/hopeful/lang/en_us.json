@@ -48,6 +48,7 @@
   "tooltip.hopeful.for_details": "Hold [Shift] for Descriptions",
   "tooltip.hopeful.required": "Required: ",
   "tooltip.hopeful.player_xp_required": "Required: %s levels",
+  "tooltip.hopeful.use_correct_material": "Use the correct material",
 
   "tag.item.hopeful.anvil_mends": "Anvil Mends",
 

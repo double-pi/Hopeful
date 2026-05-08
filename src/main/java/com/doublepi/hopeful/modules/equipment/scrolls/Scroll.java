@@ -1,6 +1,6 @@
 package com.doublepi.hopeful.modules.equipment.scrolls;
 
-import com.doublepi.hopeful.registries.ModResourceRegistries;
+import com.doublepi.hopeful.registries.ModRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -32,10 +32,10 @@ public record Scroll(Component title, ScrollType scrollType, int requiredToolXP,
             ));
 
     public static final Codec<Holder<Scroll>> HOLDER_CODEC =
-            RegistryFixedCodec.create(ModResourceRegistries.SCROLL_REGISTRY_KEY);
+            RegistryFixedCodec.create(ModRegistries.SCROLL_REGISTRY_KEY);
 
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Scroll>> STREAM_CODEC =
-            ByteBufCodecs.holderRegistry(ModResourceRegistries.SCROLL_REGISTRY_KEY);
+            ByteBufCodecs.holderRegistry(ModRegistries.SCROLL_REGISTRY_KEY);
 
     @Override
     public Component title() {

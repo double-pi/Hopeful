@@ -10,6 +10,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -25,7 +26,7 @@ public class HopefulMod {
 
         NeoForge.EVENT_BUS.register(this);
 
-        modEventBus.register(ModResourceRegistries.class);
+        modEventBus.register(ModRegistries.class);
 
         ModItems.register(modEventBus);
         ModDataComponentTypes.register(modEventBus);
@@ -34,6 +35,7 @@ public class HopefulMod {
         ModCreativeTabs.register(modEventBus);
         ModGamerules.register();
         ModRecipes.register(modEventBus);
+        ModCatalystEffectTypes.register();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event){
@@ -53,6 +55,11 @@ public class HopefulMod {
     public static class ClientModEvents{
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event){}
+
+        @SubscribeEvent
+        public static void registerBER(EntityRenderersEvent.RegisterRenderers event){
+            ModRenderers.register(event);
+        }
 
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {

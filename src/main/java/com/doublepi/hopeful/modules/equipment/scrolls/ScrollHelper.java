@@ -2,7 +2,8 @@ package com.doublepi.hopeful.modules.equipment.scrolls;
 
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModEventBusEvents;
-import com.doublepi.hopeful.registries.ModResourceRegistries;
+import com.doublepi.hopeful.registries.ModRegistries;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.Entity;
@@ -11,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class ScrollHelper {
     }
 
     public static Stream<Holder.Reference<Scroll>> getAllScrolls(Level level){
-        return level.holderLookup(ModResourceRegistries.SCROLL_REGISTRY_KEY).listElements();
+        return level.holderLookup(ModRegistries.SCROLL_REGISTRY_KEY).listElements();
     }
 
     public static boolean supportsScroll(ItemStack item, Scroll scroll){
@@ -115,4 +117,15 @@ public class ScrollHelper {
         return status;
     }
 
+    public static void evaluateCatalysts(Level level, BlockPos pos, Player player) {
+        AABB area = AABB.ofSize(pos.getCenter(), 5, 5, 5);
+        var allPossibleCatalysts =
+                level.holderLookup(ModRegistries.CATALYST_REGISTRY_KEY).listElements();
+        System.out.println("all catalysts: "+allPossibleCatalysts.count());
+        level.getBlockStates(area).forEach( blockState -> {
+        //    if(allPossibleCatalysts.)
+        });
+
+        //return level.holderLookup(ModResourceRegistries.SCROLL_REGISTRY_KEY).listElements().findFirst();
+    }
 }

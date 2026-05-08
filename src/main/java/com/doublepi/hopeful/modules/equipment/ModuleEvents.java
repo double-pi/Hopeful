@@ -19,7 +19,7 @@ public class ModuleEvents {
     @SubscribeEvent
     public static void repairAnvil(UseItemOnBlockEvent event){
         ItemStack itemStack = event.getItemStack();
-        if(itemStack.is(ModTags.Items.ANVIL_MENDS) && event.getPlayer().isCrouching()) {
+        if(itemStack.is(ModTags.ANVIL_MENDS) && event.getPlayer().isCrouching()) {
             Level level = event.getLevel();
             BlockPos pos = event.getPos();
             Player player = event.getPlayer();

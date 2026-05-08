@@ -22,9 +22,10 @@ public class ModCreativeTabs {
                     .title(Component.translatable("tab.hopeful.scrolls"))
                     .icon(() -> new ItemStack(ModItems.SCROLL.get()))
                     .displayItems((pParameters, pOutput) -> {
+                        pOutput.accept(ModBlocks.ALTAR);
                         pOutput.accept(ModItems.UNKNOWN_SCROLL);
 
-                        pParameters.holders().lookup(ModResourceRegistries.SCROLL_REGISTRY_KEY).ifPresent(
+                        pParameters.holders().lookup(ModRegistries.SCROLL_REGISTRY_KEY).ifPresent(
                                 scrollRegistryLookup -> {
 
                                     generateScrolls(pOutput,scrollRegistryLookup);
