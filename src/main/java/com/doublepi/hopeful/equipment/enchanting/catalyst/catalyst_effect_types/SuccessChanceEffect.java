@@ -5,6 +5,8 @@ import com.doublepi.hopeful.registries.ModCatalystEffectTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -27,6 +29,11 @@ public record SuccessChanceEffect(float increaseBy) implements CatalystEffect{
     @Override
     public void applyEffect(EnchantingState state) {
         state.successChance+=increaseBy;
+    }
+
+    @Override
+    public ParticleOptions getParticle() {
+        return ParticleTypes.ELECTRIC_SPARK;
     }
 
     @Override

@@ -16,6 +16,9 @@ public class ModGamerules {
                                 -> LOGGER.info("set value to {}", booleanValue.get())));
     }
 
+    public static final GameRules.Key<GameRules.IntegerValue> ENCHANTING_TABLE_RANGE =
+            GameRules.register("enchantingTableRange", GameRules.Category.MISC,
+                    GameRules.IntegerValue.create(3));
     // XP Stuff
     public static final GameRules.Key<GameRules.BooleanValue> KEEP_EXP =
     createBoolean("keepExperience", GameRules.Category.PLAYER, true);

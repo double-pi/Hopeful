@@ -10,6 +10,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -42,6 +44,11 @@ public record ScrollWeightEffect(HolderSet<Scroll> scrolls, int increaseBy) impl
             }
 
         }
+    }
+
+    @Override
+    public ParticleOptions getParticle() {
+        return ParticleTypes.CLOUD;
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.doublepi.hopeful.registries.ModCatalystEffectTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -29,6 +31,10 @@ public record XPCatalystEffect(int increaseBy, boolean consumeOnSuccess, boolean
                     XPCatalystEffect::new
             );
 
+    @Override
+    public ParticleOptions getParticle() {
+        return ParticleTypes.SNEEZE;
+    }
 
     @Override
     public void applyEffect(EnchantingState state) {

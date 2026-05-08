@@ -4,6 +4,7 @@ import com.doublepi.hopeful.equipment.enchanting.EnchantingState;
 import com.doublepi.hopeful.registries.ModRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 
@@ -14,10 +15,7 @@ public interface CatalystEffect {
 
     void applyEffect(EnchantingState state);
 
+    ParticleOptions getParticle();
     Type<? extends CatalystEffect> getType();
-
-    record Type<T extends CatalystEffect>(MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, T> streamCodec) {
-
-
-    }
+    record Type<T extends CatalystEffect>(MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, T> streamCodec) {}
 }
