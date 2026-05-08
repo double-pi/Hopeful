@@ -1,6 +1,10 @@
 {
-  "blocks": "minecraft:andesite",
-  "limit": 2,
+  "blocks": "#c:bookshelves",
+  "limit": 10,
   "effects": [
+    {
+      "type": "hopeful:success_chance",
+      "increase_by": 0.15
+    }
   ]
 }

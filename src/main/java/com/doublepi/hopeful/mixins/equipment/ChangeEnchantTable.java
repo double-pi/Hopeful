@@ -1,6 +1,8 @@
 package com.doublepi.hopeful.mixins.equipment;
 
 import com.doublepi.hopeful.HopefulMod;
+import com.doublepi.hopeful.modules.equipment.enchanting.EnchantingState;
+import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.CatalystHelper;
 import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.modules.equipment.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModTags;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 @Mixin(BlockBehaviour.class)
 abstract class ChangeEnchantTable {
     @Inject(method = "useItemOn", at = @At("TAIL"), cancellable = true)
-    private void newFunctionality(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<ItemInteractionResult> cir) {
+    private void newFunctionality(ItemStack stack, BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult, CallbackInfoReturnable<ItemInteractionResult> cir) {
         if (!((Object) this instanceof EnchantingTableBlock)) return;
 
         if(level.isClientSide())
@@ -38,19 +40,21 @@ abstract class ChangeEnchantTable {
             if (!stack.is(ModTags.SCROLL_MATERIALS)) {
                 player.displayClientMessage(Component.translatable("tooltip.hopeful.use_correct_material"), true);
                 cir.setReturnValue(ItemInteractionResult.FAIL);
+            }else {
+                EnchantingState state = CatalystHelper.evaluateEnchantingState(level, pos, player);
+                if (level.getRandom().nextFloat() < state.successChance) {
+                    var allScrolls = ScrollHelper.getAllScrolls(level).toList();
+                    ItemStack scrollItem = ScrollItem.createFromScroll(allScrolls.get((int) (Math.random() * allScrolls.size())));
+                    var stupidArray = new ArrayList<ItemStack>();
+                    stupidArray.add(scrollItem);
+                    ScrollHelper.addOrSpawn(player, stupidArray);
+                }
+
+                stack.consume(1, player);
+                player.makeSound(SoundEvents.ENCHANTMENT_TABLE_USE); //TODO: Fix sound not playing
+                player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+                cir.setReturnValue(ItemInteractionResult.CONSUME);
             }
-
-            ScrollHelper.evaluateCatalysts(level, pos, player);
-            var allScrolls = ScrollHelper.getAllScrolls(level).toList();
-            ItemStack scrollItem = ScrollItem.createFromScroll(allScrolls.get((int) (Math.random() * allScrolls.size())));
-            var stupidArray = new ArrayList<ItemStack>();
-            stupidArray.add(scrollItem);
-            ScrollHelper.addOrSpawn(player, stupidArray);
-
-            stack.consume(1, player);
-            player.makeSound(SoundEvents.ENCHANTMENT_TABLE_USE);
-            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-            cir.setReturnValue(ItemInteractionResult.CONSUME);
         }
 
     }

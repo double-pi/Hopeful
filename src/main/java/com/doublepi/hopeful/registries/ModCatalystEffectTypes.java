@@ -1,8 +1,8 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.CatalystEffect;
-import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.SuccessChanceCatalystEffect;
+import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
+import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.SuccessChanceCatalystEffect;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 

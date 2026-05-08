@@ -1,20 +1,18 @@
-package com.doublepi.hopeful.modules.equipment.enchanting.catalyst;
+package com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types;
 
+import com.doublepi.hopeful.modules.equipment.enchanting.EnchantingState;
 import com.doublepi.hopeful.registries.ModRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 public interface CatalystEffect {
     Codec<CatalystEffect> CODEC =
             ModRegistries.CATALYST_EFFECT_TYPE_REGISTRY.byNameCodec()
                     .dispatch("type", CatalystEffect::getType, Type::codec);
 
-    void applyEffect(Level level, Player player, BlockPos pos);
+    void applyEffect(EnchantingState state);
 
     Type<? extends CatalystEffect> getType();
 

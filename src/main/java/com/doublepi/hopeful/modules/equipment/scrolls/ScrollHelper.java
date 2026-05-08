@@ -1,5 +1,8 @@
 package com.doublepi.hopeful.modules.equipment.scrolls;
 
+import com.doublepi.hopeful.modules.equipment.enchanting.EnchantingState;
+import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.Catalyst;
+import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModEventBusEvents;
 import com.doublepi.hopeful.registries.ModRegistries;
@@ -12,10 +15,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class ScrollHelper {
@@ -115,17 +120,5 @@ public class ScrollHelper {
             status += ScrollHelper.getFromEnchant(enchant, level).value().requiredToolXP() * stack.getEnchantmentLevel(enchant);
         }
         return status;
-    }
-
-    public static void evaluateCatalysts(Level level, BlockPos pos, Player player) {
-        AABB area = AABB.ofSize(pos.getCenter(), 5, 5, 5);
-        var allPossibleCatalysts =
-                level.holderLookup(ModRegistries.CATALYST_REGISTRY_KEY).listElements();
-        System.out.println("all catalysts: "+allPossibleCatalysts.count());
-        level.getBlockStates(area).forEach( blockState -> {
-        //    if(allPossibleCatalysts.)
-        });
-
-        //return level.holderLookup(ModResourceRegistries.SCROLL_REGISTRY_KEY).listElements().findFirst();
     }
 }

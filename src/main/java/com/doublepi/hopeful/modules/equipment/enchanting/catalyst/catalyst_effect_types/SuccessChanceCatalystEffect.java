@@ -1,15 +1,13 @@
-package com.doublepi.hopeful.modules.equipment.enchanting.catalyst;
+package com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types;
 
+import com.doublepi.hopeful.modules.equipment.enchanting.EnchantingState;
 import com.doublepi.hopeful.registries.ModCatalystEffectTypes;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 public record SuccessChanceCatalystEffect(float increaseBy) implements CatalystEffect{
     public static final MapCodec<SuccessChanceCatalystEffect> MAP_CODEC = RecordCodecBuilder.mapCodec(
@@ -24,9 +22,11 @@ public record SuccessChanceCatalystEffect(float increaseBy) implements CatalystE
                     SuccessChanceCatalystEffect::increaseBy,
                     SuccessChanceCatalystEffect::new
             );
-    @Override
-    public void applyEffect(Level level, Player player, BlockPos pos) {
 
+
+    @Override
+    public void applyEffect(EnchantingState state) {
+        state.successChance(increaseBy);
     }
 
     @Override

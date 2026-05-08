@@ -2,7 +2,7 @@ package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
 import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.Catalyst;
-import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.CatalystEffect;
+import com.doublepi.hopeful.modules.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
 import com.doublepi.hopeful.modules.equipment.scrolls.Scroll;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
