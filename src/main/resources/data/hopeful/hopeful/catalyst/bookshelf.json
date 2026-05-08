@@ -9,7 +9,7 @@
     {
       "type": "hopeful:xp_levels_requirement",
       "increase_by": 2,
-      "consume_levels": true
+      "consume_on_fail": true
     }
   ]
 }

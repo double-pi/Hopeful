@@ -9,12 +9,13 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-public record XPCatalystEffect(int increaseBy, boolean consume) implements CatalystEffect{
+public record XPCatalystEffect(int increaseBy, boolean consumeOnSuccess, boolean consumeOnFail) implements CatalystEffect{
     public static final MapCodec<XPCatalystEffect> MAP_CODEC = RecordCodecBuilder.mapCodec(
             effect ->
                     effect.group(
                             Codec.INT.fieldOf("increase_by").forGetter(XPCatalystEffect::increaseBy),
-                            Codec.BOOL.fieldOf("consume_levels").forGetter(XPCatalystEffect::consume)
+                            Codec.BOOL.optionalFieldOf("consume_on_success", true).forGetter(XPCatalystEffect::consumeOnSuccess),
+                            Codec.BOOL.optionalFieldOf("consume_on_fail", false).forGetter(XPCatalystEffect::consumeOnFail)
                     ).apply(effect, XPCatalystEffect::new)
     );
     public static final StreamCodec<RegistryFriendlyByteBuf, XPCatalystEffect> STREAM_CODEC =
@@ -22,7 +23,9 @@ public record XPCatalystEffect(int increaseBy, boolean consume) implements Catal
                     ByteBufCodecs.INT,
                     XPCatalystEffect::increaseBy,
                     ByteBufCodecs.BOOL,
-                    XPCatalystEffect::consume,
+                    XPCatalystEffect::consumeOnSuccess,
+                    ByteBufCodecs.BOOL,
+                    XPCatalystEffect::consumeOnFail,
                     XPCatalystEffect::new
             );
 
@@ -30,7 +33,8 @@ public record XPCatalystEffect(int increaseBy, boolean consume) implements Catal
     @Override
     public void applyEffect(EnchantingState state) {
         state.requiredXPLevels += increaseBy;
-        if(consume) state.consumedXPLevels += increaseBy;
+        if(consumeOnSuccess) state.consumedXPLevelsOnSuccess += increaseBy;
+        if(consumeOnFail) state.consumedXPLevelsOnFail += increaseBy;
     }
 
     @Override

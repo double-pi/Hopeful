@@ -17,6 +17,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.enchantment.Enchantment;
+import org.jetbrains.annotations.NotNull;
 
 public record Scroll(Component title, ScrollType scrollType, int requiredToolXP, int requiredPlayerXP, HolderSet<Enchantment> enchantments) {
     public static final Codec<Scroll> CODEC =
@@ -59,6 +60,11 @@ public record Scroll(Component title, ScrollType scrollType, int requiredToolXP,
     @Override
     public HolderSet<Enchantment> enchantments() {
         return enchantments;
+    }
+
+    @Override
+    public @NotNull String toString() {
+        return title.getString();
     }
 }
 

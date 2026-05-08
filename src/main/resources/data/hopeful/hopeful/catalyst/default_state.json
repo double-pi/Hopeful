@@ -1,11 +1,15 @@
 {
   "blocks": "minecraft:enchanting_table",
-  "limit": 2,
+  "limit": 1,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:endless",
-      "increase_by": 2
+      "scrolls": "#hopeful:all_scrolls",
+      "increase_by": 1
+    },
+    {
+      "type": "hopeful:success_chance",
+      "increase_by": 0.1
     },
     {
       "type": "hopeful:xp_levels_requirement",

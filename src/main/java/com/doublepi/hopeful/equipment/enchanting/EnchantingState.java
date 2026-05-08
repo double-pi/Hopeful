@@ -8,6 +8,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,20 +18,15 @@ public class EnchantingState {
     public Map<Catalyst,Integer> allCatalysts;
     public float successChance;
     public int requiredXPLevels;
-    public int consumedXPLevels;
+    public int consumedXPLevelsOnSuccess;
+    public int consumedXPLevelsOnFail;
     public ArrayList<Holder<Scroll>> scrolls;
     public ArrayList<Integer> weights;
     public RandomSource rand;
 
-    public EnchantingState(Level level, int seed){
-        //TODO: data-drive default values
-        successChance = 0.1f;
+    public EnchantingState(int seed){
         scrolls = new ArrayList<>();
-        scrolls.addAll(level.holderLookup(ModRegistries.SCROLL_REGISTRY_KEY).listElements().toList());
         weights = new ArrayList<>();
-        for (int i = 0; i < scrolls.size(); i++) {
-            weights.add(1);
-        }
         allCatalysts = new HashMap<>();
         rand = RandomSource.create(seed);
     }
@@ -48,22 +44,35 @@ public class EnchantingState {
         recordCatalyst(catalyst);
     }
 
-    public String findEnchantFailReason(Player player){
+    public FailReason findEnchantFailReason(Player player){
         float failChance = rand.nextFloat();
         if(player.experienceLevel < requiredXPLevels)
-            return "tooltip.hopeful.fail_reason.not_enough_xp";
+            return FailReason.NOT_ENOUGH_XP;
         if(failChance > successChance)
-            return "tooltip.hopeful.fail_reason.unlucky";
-        return null;
+            return FailReason.UNLUCKY;
+        return FailReason.NONE;
     }
 
 
     @Override
     public String toString() {
-        return "Recorded Catalysts: "+ allCatalysts.toString()+
+        return "Recorded Catalysts: "+ allCatalysts+
                 "\n Success Chance: "+successChance+
-                "\n Required XP Levels: "+requiredXPLevels+ " ("+consumedXPLevels+" consumed)"+
-                "\n Weights: "+weights.toString() +
-                "\n Scrolls: "+scrolls.stream().map(scroll->scroll.value().title().getString()).toList();
+                "\n Required XP Levels: "+requiredXPLevels+ " ("+ consumedXPLevelsOnSuccess +" consumed on success)"+ " ("
+                    + consumedXPLevelsOnFail+" consumed on fail)"+
+                "\n Weights: "+weights +
+                "\n Scrolls: "+scrolls.stream().map(scr -> scr.value().toString()).toList();
+    }
+
+    public enum FailReason {
+        NOT_ENOUGH_XP("tooltip.hopeful.fail_reason.not_enough_xp", false),
+        UNLUCKY("tooltip.hopeful.fail_reason.unlucky", true),
+        NONE("", true);
+        public final String translationKey;
+        public final boolean consumeItem;
+        FailReason(String key, boolean consumeItem){
+            this.translationKey = key;
+            this.consumeItem = consumeItem;
+        }
     }
 }

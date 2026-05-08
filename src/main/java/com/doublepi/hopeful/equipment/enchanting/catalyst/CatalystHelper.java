@@ -1,6 +1,7 @@
 package com.doublepi.hopeful.equipment.enchanting.catalyst;
 
 import com.doublepi.hopeful.equipment.enchanting.EnchantingState;
+import com.doublepi.hopeful.equipment.enchanting.EnchantingState.FailReason;
 import com.doublepi.hopeful.equipment.scrolls.Scroll;
 import com.doublepi.hopeful.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.equipment.scrolls.ScrollItem;
@@ -26,19 +27,21 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 public class CatalystHelper {
-    public static Optional<Holder.Reference<Catalyst>> getCatalystFromBlock(Holder<Block> block, Level level){
+    public static Optional<Holder.Reference<Catalyst>> getCatalystFromBlock(Holder<Block> block, Level level, EnchantingState state){
         var stream = level.holderLookup(ModRegistries.CATALYST_REGISTRY_KEY).listElements();
-        var reduced = stream.filter(c->c.value().blocks().contains(block));
+        var reduced = stream
+                .filter(c->c.value().blocks().contains(block)) // all blocks that are catalyst
+                .filter(c->state.allCatalysts.getOrDefault(c.value(),0)<c.value().limit()); // all catalysts that are didn't reach limit
         return reduced.findFirst();
     }
 
     public static EnchantingState evaluateEnchantingState(Level level, BlockPos pos, Player player) {
         AABB area = AABB.ofSize(pos.getCenter(), 5, 5, 5);
-        EnchantingState state = new EnchantingState(level, player.getData(ModAttachments.HOPEFUL_ENCHANT_SEED));
+        EnchantingState state = new EnchantingState(player.getData(ModAttachments.HOPEFUL_ENCHANT_SEED));
 
         level.getBlockStates(area).forEach( blockState -> {
             Holder<Block> block = blockState.getBlockHolder();
-            var catalyst = getCatalystFromBlock(block, level);
+            var catalyst = getCatalystFromBlock(block, level, state);
             catalyst.ifPresent(catalystReference ->{
                 state.evaluateCatalyst(catalystReference.value());
             });
@@ -48,30 +51,33 @@ public class CatalystHelper {
 
 
     public static ItemInteractionResult enchantTableFunctionality(ItemStack stack, BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult){
+        FailReason failReason;
         if (!stack.is(ModTags.SCROLL_MATERIALS)) {
             player.displayClientMessage(Component.translatable("tooltip.hopeful.use_correct_material"), true);
             return ItemInteractionResult.FAIL;
         }else {
             EnchantingState state = CatalystHelper.evaluateEnchantingState(level, pos, player);
-            String failReasonKey = state.findEnchantFailReason(player);
-            if (failReasonKey == null) { // generate scroll
+            failReason = state.findEnchantFailReason(player);
+            System.out.println(state);
+            if (failReason == FailReason.NONE) { // generate scroll
                 ItemStack scrollItem = ScrollItem.createFromScroll(generateScroll(state));
                 var stupidArray = new ArrayList<ItemStack>();
                 stupidArray.add(scrollItem);
                 ScrollHelper.addOrSpawn(player, stupidArray);
                 player.makeSound(SoundEvents.ENCHANTMENT_TABLE_USE);
-            }else{ // show reason
+                player.onEnchantmentPerformed(stack, state.consumedXPLevelsOnSuccess);
+            }else { // show reason
                 player.displayClientMessage(
                         Component.translatable("tooltip.hopeful.enchant_failed").append(
-                                Component.translatable(failReasonKey)), true);
+                                Component.translatable(failReason.translationKey)), true);
                 player.makeSound(SoundEvents.WAXED_SIGN_INTERACT_FAIL);
+                player.onEnchantmentPerformed(stack, state.consumedXPLevelsOnFail);
             }
-
+        if(failReason.consumeItem)
             stack.consume(1, player);
-            player.onEnchantmentPerformed(stack, state.consumedXPLevels);
-            player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextInt());
-            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-            return ItemInteractionResult.CONSUME;
+        player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextInt());
+        player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+        return ItemInteractionResult.CONSUME;
         }
     }
 
