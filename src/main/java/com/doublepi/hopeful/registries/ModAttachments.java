@@ -14,10 +14,10 @@ import java.util.function.Supplier;
 public class ModAttachments {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPE =
             DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, HopefulMod.MODID);
-    public static final Supplier<AttachmentType<Float>> HOPEFUL_ENCHANT_SEED =
+    public static final Supplier<AttachmentType<Integer>> HOPEFUL_ENCHANT_SEED =
             ATTACHMENT_TYPE.register("hopeful_enchant_seed",
-                    ()-> AttachmentType.builder(()-> 0f).serialize(Codec.FLOAT)
-                            .sync(ByteBufCodecs.FLOAT).build());
+                    ()-> AttachmentType.builder(()-> 0).serialize(Codec.INT)
+                            .sync(ByteBufCodecs.INT).build());
 
     public static void register(IEventBus eventBus){
         ATTACHMENT_TYPE.register(eventBus);

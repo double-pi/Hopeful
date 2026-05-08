@@ -52,7 +52,7 @@
   "tooltip.hopeful.use_correct_material": "Use the correct material",
   "tooltip.hopeful.enchant_failed": "Enchanting Failed: ",
   "tooltip.hopeful.fail_reason.unlucky": "Unlucky",
-  "tootlip.hopeful.fail_reason.not_enough_xp": "Not enough xp levels",
+  "tooltip.hopeful.fail_reason.not_enough_xp": "Not enough xp levels",
 
   "tag.item.hopeful.anvil_mends": "Anvil Mends",
 

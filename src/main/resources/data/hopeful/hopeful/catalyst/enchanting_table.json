@@ -1,10 +1,10 @@
 {
-  "blocks": "minecraft:blue_candle",
+  "blocks": "minecraft:enchanting_table",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:acceleration",
+      "scrolls": "hopeful:endless",
       "increase_by": 2
     },
     {

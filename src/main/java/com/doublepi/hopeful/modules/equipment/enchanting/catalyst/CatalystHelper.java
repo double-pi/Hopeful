@@ -1,6 +1,7 @@
 package com.doublepi.hopeful.modules.equipment.enchanting.catalyst;
 
 import com.doublepi.hopeful.modules.equipment.enchanting.EnchantingState;
+import com.doublepi.hopeful.modules.equipment.scrolls.Scroll;
 import com.doublepi.hopeful.modules.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.modules.equipment.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModAttachments;
@@ -33,7 +34,7 @@ public class CatalystHelper {
 
     public static EnchantingState evaluateEnchantingState(Level level, BlockPos pos, Player player) {
         AABB area = AABB.ofSize(pos.getCenter(), 5, 5, 5);
-        EnchantingState state = new EnchantingState();
+        EnchantingState state = new EnchantingState(level, player.getData(ModAttachments.HOPEFUL_ENCHANT_SEED));
 
         level.getBlockStates(area).forEach( blockState -> {
             Holder<Block> block = blockState.getBlockHolder();
@@ -42,7 +43,6 @@ public class CatalystHelper {
                 state.evaluateCatalyst(catalystReference.value());
             });
         });
-        System.out.println(state);
         return state;
     }
 
@@ -55,12 +55,13 @@ public class CatalystHelper {
             EnchantingState state = CatalystHelper.evaluateEnchantingState(level, pos, player);
             String failReasonKey = state.findEnchantFailReason(player);
             if (failReasonKey == null) { // generate scroll
-                var allScrolls = ScrollHelper.getAllScrolls(level).toList();
-                ItemStack scrollItem = ScrollItem.createFromScroll(allScrolls.get((int) (Math.random() * allScrolls.size())));
+                ItemStack scrollItem = ScrollItem.createFromScroll(generateScroll(state));
                 var stupidArray = new ArrayList<ItemStack>();
                 stupidArray.add(scrollItem);
                 ScrollHelper.addOrSpawn(player, stupidArray);
                 player.makeSound(SoundEvents.ENCHANTMENT_TABLE_USE);
+                System.out.println("----------------");
+                System.out.println(state);
             }else{ // show reason
                 player.displayClientMessage(
                         Component.translatable("tooltip.hopeful.enchant_failed").append(
@@ -69,10 +70,22 @@ public class CatalystHelper {
             }
 
             stack.consume(1, player);
-            player.onEnchantmentPerformed(stack, -state.consumedXPLevels); // changing enchant seed?
-            player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextFloat());
+            player.onEnchantmentPerformed(stack, state.consumedXPLevels);
+            player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextInt());
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
             return ItemInteractionResult.CONSUME;
         }
+    }
+
+    public static Holder<Scroll> generateScroll(EnchantingState state){
+        int weightSum = state.weights.stream().mapToInt(i->Math.max(i,0)).sum();
+
+        // Now choose a random item.
+        int idx = 0;
+        for (double r = state.rand.nextInt(weightSum); idx < state.weights.size() - 1; ++idx) {
+            r -= Math.max(state.weights.get(idx),0);
+            if (r <= 0.0) break;
+        }
+        return state.scrolls.get(idx);
     }
 }

@@ -1,10 +1,10 @@
 {
-  "blocks": "minecraft:blue_candle",
+  "blocks": "#hopeful:sculks",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:acceleration",
+      "scrolls": "hopeful:echoes",
       "increase_by": 2
     },
     {

@@ -1,10 +1,10 @@
 {
-  "blocks": "minecraft:blue_candle",
+  "blocks": "minecraft:carved_pumpkin",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:acceleration",
+      "scrolls": "hopeful:binding",
       "increase_by": 2
     },
     {

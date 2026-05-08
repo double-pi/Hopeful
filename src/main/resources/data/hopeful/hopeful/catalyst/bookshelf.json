@@ -1,10 +1,10 @@
 {
   "blocks": "#c:bookshelves",
-  "limit": 2,
+  "limit": 4,
   "effects": [
     {
       "type": "hopeful:success_chance",
-      "increase_by": 0.15
+      "increase_by": 0.2
     },
     {
       "type": "hopeful:xp_levels_requirement",

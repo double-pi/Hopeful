@@ -1,10 +1,10 @@
 {
-  "blocks": "minecraft:blue_candle",
+  "blocks": "minecraft:lightning_rod",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:acceleration",
+      "scrolls": "hopeful:channeling",
       "increase_by": 2
     },
     {

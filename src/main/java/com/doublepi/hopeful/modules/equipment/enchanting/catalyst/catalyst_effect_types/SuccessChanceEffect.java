@@ -9,18 +9,18 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-public record SuccessChanceCatalystEffect(float increaseBy) implements CatalystEffect{
-    public static final MapCodec<SuccessChanceCatalystEffect> MAP_CODEC = RecordCodecBuilder.mapCodec(
+public record SuccessChanceEffect(float increaseBy) implements CatalystEffect{
+    public static final MapCodec<SuccessChanceEffect> MAP_CODEC = RecordCodecBuilder.mapCodec(
             effect ->
                 effect.group(
-                        Codec.FLOAT.fieldOf("increase_by").forGetter(SuccessChanceCatalystEffect::increaseBy)
-                ).apply(effect, SuccessChanceCatalystEffect::new)
+                        Codec.FLOAT.fieldOf("increase_by").forGetter(SuccessChanceEffect::increaseBy)
+                ).apply(effect, SuccessChanceEffect::new)
             );
-    public static final StreamCodec<RegistryFriendlyByteBuf, SuccessChanceCatalystEffect> STREAM_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SuccessChanceEffect> STREAM_CODEC =
             StreamCodec.composite(
                     ByteBufCodecs.FLOAT,
-                    SuccessChanceCatalystEffect::increaseBy,
-                    SuccessChanceCatalystEffect::new
+                    SuccessChanceEffect::increaseBy,
+                    SuccessChanceEffect::new
             );
 
 
