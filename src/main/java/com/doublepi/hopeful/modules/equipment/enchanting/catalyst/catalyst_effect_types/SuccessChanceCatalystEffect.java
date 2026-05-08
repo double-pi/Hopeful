@@ -26,7 +26,7 @@ public record SuccessChanceCatalystEffect(float increaseBy) implements CatalystE
 
     @Override
     public void applyEffect(EnchantingState state) {
-        state.successChance(increaseBy);
+        state.successChance+=increaseBy;
     }
 
     @Override
