@@ -46,7 +46,7 @@ public class EnchantingState {
 
     public FailReason findEnchantFailReason(Player player){
         float failChance = rand.nextFloat();
-        if(player.experienceLevel < requiredXPLevels)
+        if(player.experienceLevel < requiredXPLevels && !player.hasInfiniteMaterials())
             return FailReason.NOT_ENOUGH_XP;
         if(failChance > successChance)
             return FailReason.UNLUCKY;

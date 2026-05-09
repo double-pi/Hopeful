@@ -28,8 +28,8 @@ public record SuccessChanceEffect(float increaseBy) implements CatalystEffect{
 
 
     @Override
-    public int alignment() {
-        return (int) Math.signum(increaseBy);
+    public boolean particlesTowardsEnchantTable() {
+        return increaseBy > 0;
     }
 
     @Override

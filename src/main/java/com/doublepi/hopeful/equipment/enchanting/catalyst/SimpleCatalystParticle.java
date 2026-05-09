@@ -13,13 +13,13 @@ public class SimpleCatalystParticle extends TextureSheetParticle {
 
         this.friction = 0.8f;
 
-        this.lifetime = 40;
+        this.lifetime = 20;
         this.setParticleSpeed(xSpeed,ySpeed,zSpeed);
         this.setSpriteFromAge(spriteSet);
         this.rCol = 1f;
         this.gCol = 1f;
         this.bCol = 1f;
-        this.scale(2);
+        this.scale(1);
         this.hasPhysics = false;
     }
 

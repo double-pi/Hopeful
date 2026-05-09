@@ -86,7 +86,8 @@ public class CatalystHelper {
                 stupidArray.add(scrollItem);
                 ScrollHelper.addOrSpawn(player, stupidArray);
                 player.makeSound(SoundEvents.ENCHANTMENT_TABLE_USE);
-                player.onEnchantmentPerformed(stack, state.consumedXPLevelsOnSuccess);
+                if(!player.hasInfiniteMaterials())
+                    player.giveExperienceLevels(-state.consumedXPLevelsOnSuccess);
                 ParticleUtils.spawnParticles(level, pos, 30,
                         0.5, 2, true, ParticleTypes.ENCHANT);
             } else { // show reason
@@ -96,7 +97,8 @@ public class CatalystHelper {
                 player.makeSound(SoundEvents.AMETHYST_CLUSTER_BREAK);
                 ParticleUtils.spawnParticles(level, pos, 10,
                         0.5, 0.3, true, ParticleTypes.POOF);
-                player.onEnchantmentPerformed(stack, state.consumedXPLevelsOnFail);
+                if(!player.hasInfiniteMaterials())
+                    player.giveExperienceLevels(-state.consumedXPLevelsOnFail);
             }
 
             if (failReason.consumeItem)

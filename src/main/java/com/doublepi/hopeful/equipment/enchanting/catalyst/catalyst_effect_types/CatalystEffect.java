@@ -14,7 +14,7 @@ public interface CatalystEffect {
                     .dispatch("type", CatalystEffect::getType, Type::codec);
 
     void applyEffect(EnchantingState state);
-    int alignment();
+    boolean particlesTowardsEnchantTable();
     ParticleOptions getParticle();
     Type<? extends CatalystEffect> getType();
     record Type<T extends CatalystEffect>(MapCodec<T> codec, StreamCodec<RegistryFriendlyByteBuf, T> streamCodec) {}

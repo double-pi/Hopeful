@@ -1,5 +1,7 @@
 {
   "textures": [
-    "hopeful:success_catalyst_effect"
+    "hopeful:success_catalyst_1",
+    "hopeful:success_catalyst_2",
+    "hopeful:success_catalyst_3"
   ]
 }

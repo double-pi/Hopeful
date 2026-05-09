@@ -35,8 +35,8 @@ public record ScrollWeightEffect(HolderSet<Scroll> scrolls, int increaseBy) impl
             );
 
     @Override
-    public int alignment() {
-        return (int) Math.signum(increaseBy);
+    public boolean particlesTowardsEnchantTable() {
+        return increaseBy > 0;
     }
 
     @Override

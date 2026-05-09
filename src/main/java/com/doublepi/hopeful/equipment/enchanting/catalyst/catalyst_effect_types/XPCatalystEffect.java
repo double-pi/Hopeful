@@ -38,8 +38,8 @@ public record XPCatalystEffect(int increaseBy, boolean consumeOnSuccess, boolean
     }
 
     @Override
-    public int alignment() {
-        return (int) Math.signum(increaseBy);
+    public boolean particlesTowardsEnchantTable() {
+        return increaseBy < 0;
     }
 
     @Override

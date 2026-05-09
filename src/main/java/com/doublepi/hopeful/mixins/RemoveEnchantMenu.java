@@ -38,15 +38,23 @@ abstract class RemoveEnchantMenu {
             var catalyst = CatalystHelper.getCatalystFromBlock(block,level,new EnchantingState(0));
             catalyst.ifPresent(cat->{
                 for(CatalystEffect e : cat.value().effects()){
-                    //TODO: make particles go in reverse if it lowers smth?
-                    if (random.nextInt(10) == 0) {
-                        level.addParticle(e.getParticle(),
+                    if (random.nextInt(20) == 0) {
+                        if(e.particlesTowardsEnchantTable())
+                            level.addParticle(e.getParticle(),
                                 catPos.getX() + 0.5f,
                                 catPos.getY() + 0.5f,
                                 catPos.getZ() + 0.5f,
                                 (pos.getX()-catPos.getX())/5f,
                                 (pos.getY()-catPos.getY())/5f,
                                 (pos.getZ()-catPos.getZ())/5f);
+                        else
+                            level.addParticle(e.getParticle(),
+                                    pos.getX() + 0.5f,
+                                    pos.getY() + 0.5f,
+                                    pos.getZ() + 0.5f,
+                                    (catPos.getX()-pos.getX())/5f,
+                                    (catPos.getY()-pos.getY())/5f,
+                                    (catPos.getZ()-pos.getZ())/5f);
                     }
                 }
 
