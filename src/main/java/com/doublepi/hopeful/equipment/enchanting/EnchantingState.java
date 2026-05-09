@@ -2,13 +2,12 @@ package com.doublepi.hopeful.equipment.enchanting;
 
 import com.doublepi.hopeful.equipment.enchanting.catalyst.Catalyst;
 import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
+import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.MorphSelfEffect;
 import com.doublepi.hopeful.equipment.scrolls.Scroll;
-import com.doublepi.hopeful.registries.ModRegistries;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,11 +22,13 @@ public class EnchantingState {
     public ArrayList<Holder<Scroll>> scrolls;
     public ArrayList<Integer> weights;
     public RandomSource rand;
+    public Map<BlockPos, MorphSelfEffect> morphables;
 
     public EnchantingState(int seed){
         scrolls = new ArrayList<>();
         weights = new ArrayList<>();
         allCatalysts = new HashMap<>();
+        morphables = new HashMap<>();
         rand = RandomSource.create(seed);
     }
 
@@ -35,12 +36,11 @@ public class EnchantingState {
         allCatalysts.put(catalyst, allCatalysts.getOrDefault(catalyst, 0) + 1);
     }
 
-    // Evaluation of a catalyst - returns true if applied
-    public void evaluateCatalyst(Catalyst catalyst){
+    public void evaluateCatalyst(Catalyst catalyst,BlockPos pos){
         if(allCatalysts.getOrDefault(catalyst,0) >= catalyst.limit())
             return;
         for(CatalystEffect e : catalyst.effects())
-            e.applyEffect(this);
+            e.applyEffect(this, pos);
         recordCatalyst(catalyst);
     }
 

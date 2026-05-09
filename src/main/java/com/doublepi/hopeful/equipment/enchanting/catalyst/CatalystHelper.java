@@ -14,6 +14,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.world.InteractionHand;
@@ -45,7 +46,7 @@ public class CatalystHelper {
         positions.forEach(blockPos -> {
             var catalyst = getCatalystFromBlock(level.getBlockState(blockPos).getBlockHolder(), level, state);
             catalyst.ifPresent(cat -> {
-                state.evaluateCatalyst(cat.value());
+                state.evaluateCatalyst(cat.value(),blockPos);
             });
         });
         return state;
@@ -87,7 +88,7 @@ public class CatalystHelper {
                 ScrollHelper.addOrSpawn(player, stupidArray);
                 player.makeSound(SoundEvents.ENCHANTMENT_TABLE_USE);
                 if(!player.hasInfiniteMaterials())
-                    player.giveExperienceLevels(-state.consumedXPLevelsOnSuccess);
+                    player.giveExperienceLevels(-Math.max(0, state.consumedXPLevelsOnSuccess));
                 ParticleUtils.spawnParticles(level, pos, 30,
                         0.5, 2, true, ParticleTypes.ENCHANT);
             } else { // show reason
@@ -98,16 +99,27 @@ public class CatalystHelper {
                 ParticleUtils.spawnParticles(level, pos, 10,
                         0.5, 0.3, true, ParticleTypes.POOF);
                 if(!player.hasInfiniteMaterials())
-                    player.giveExperienceLevels(-state.consumedXPLevelsOnFail);
+                    player.giveExperienceLevels(-Math.max(0,state.consumedXPLevelsOnFail));
             }
 
             if (failReason.consumeItem)
                 stack.consume(1, player);
-
+            morphCatalysts(level, state, failReason == FailReason.NONE);
             player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextInt());
             player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
             return ItemInteractionResult.CONSUME;
         }
+    }
+
+    public static void morphCatalysts(Level level, EnchantingState state, boolean enchantSucceeded){
+        state.morphables.forEach((pos, effect)->{
+            float chance = enchantSucceeded ? effect.chanceOnSuccess() : effect.chanceOnFail();
+            if(level.getRandom().nextFloat() < chance){
+                level.setBlockAndUpdate(pos, effect.morphTo().value().defaultBlockState());
+                level.playLocalSound(pos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 1, 1, false);
+                ParticleUtils.spawnParticleInBlock(level, pos, 10, ParticleTypes.POOF);
+            }
+        });
     }
 
     public static Holder<Scroll> generateScroll(EnchantingState state) {

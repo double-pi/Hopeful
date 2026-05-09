@@ -6,6 +6,7 @@ import com.doublepi.hopeful.registries.ModParticles;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -28,12 +29,12 @@ public record SuccessChanceEffect(float increaseBy) implements CatalystEffect{
 
 
     @Override
-    public boolean particlesTowardsEnchantTable() {
-        return increaseBy > 0;
+    public ParticleDirection particleDirection() {
+        return increaseBy > 0? ParticleDirection.TO_TABLE : ParticleDirection.TO_SELF;
     }
 
     @Override
-    public void applyEffect(EnchantingState state) {
+    public void applyEffect(EnchantingState state, BlockPos pos) {
         state.successChance+=increaseBy;
     }
 

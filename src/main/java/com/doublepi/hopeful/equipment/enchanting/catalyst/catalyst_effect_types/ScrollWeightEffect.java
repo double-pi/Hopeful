@@ -8,11 +8,11 @@ import com.doublepi.hopeful.registries.ModRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -35,12 +35,12 @@ public record ScrollWeightEffect(HolderSet<Scroll> scrolls, int increaseBy) impl
             );
 
     @Override
-    public boolean particlesTowardsEnchantTable() {
-        return increaseBy > 0;
+    public ParticleDirection particleDirection() {
+        return increaseBy > 0 ? ParticleDirection.TO_TABLE : ParticleDirection.TO_SELF;
     }
 
     @Override
-    public void applyEffect(EnchantingState state) {
+    public void applyEffect(EnchantingState state, BlockPos pos) {
         for (Holder<Scroll> scroll : scrolls) {
             int scrollIndex = state.scrolls.indexOf(scroll);
             if(scrollIndex == -1) { //shouldn't happen?

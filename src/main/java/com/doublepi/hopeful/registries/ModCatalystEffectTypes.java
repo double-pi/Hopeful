@@ -1,10 +1,7 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
-import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.ScrollWeightEffect;
-import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.SuccessChanceEffect;
-import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.XPCatalystEffect;
+import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.*;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,6 +12,8 @@ public class ModCatalystEffectTypes {
             = register("xp_levels_requirement", new CatalystEffect.Type<>(XPCatalystEffect.MAP_CODEC, XPCatalystEffect.STREAM_CODEC));
     public static final CatalystEffect.Type<ScrollWeightEffect> SCROLL_WEIGHT_CATALYST_EFFECT_TYPE
             = register("scroll_weight", new CatalystEffect.Type<>(ScrollWeightEffect.MAP_CODEC, ScrollWeightEffect.STREAM_CODEC));
+    public static final CatalystEffect.Type<MorphSelfEffect> MORPH_SELF_CATALYST_EFFECT_TYPE
+            = register("morph_self", new CatalystEffect.Type<>(MorphSelfEffect.MAP_CODEC, MorphSelfEffect.STREAM_CODEC));
     //---------------------------------------------------------------------------
     public static <T extends CatalystEffect> CatalystEffect.Type<T> register(String id, CatalystEffect.Type<T> catalystEffect) {
         return Registry.register(ModRegistries.CATALYST_EFFECT_TYPE_REGISTRY,
