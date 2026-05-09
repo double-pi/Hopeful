@@ -14,8 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Player.class)
 public abstract class XPTweaks extends LivingEntity{
 
-    @Shadow public int totalExperience;
-
     protected XPTweaks(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
@@ -27,12 +25,13 @@ public abstract class XPTweaks extends LivingEntity{
     }
 
     @Inject(method = {"getBaseExperienceReward"},at = {@At("HEAD")},cancellable = true)
-    public void _onGetExperience(CallbackInfoReturnable<Integer> cir) {
-        boolean keepExperience = this.level().getGameRules().getBoolean(ModGamerules.KEEP_EXP);
-        if (keepExperience) {
-            cir.setReturnValue(0);
-        }else{
-            cir.setReturnValue(this.totalExperience);
-        }
+    public void _onGetExperience(CallbackInfoReturnable<Integer> cir) { //dropped xp
+        Player thisPlayer = (Player)((Object)this);
+        int percentageLost = thisPlayer.level().getGameRules().getInt(ModGamerules.PERCENTAGE_XP_LOST);
+        int percentageDropped = thisPlayer.level().getGameRules().getInt(ModGamerules.PERCENTAGE_XP_DROPPED);
+        int actualTotalXP = (int) ((thisPlayer.experienceLevel +thisPlayer.experienceProgress)* 64);
+
+        cir.setReturnValue(actualTotalXP * (100-percentageLost) * percentageDropped / 100_00);
+
     }
 }

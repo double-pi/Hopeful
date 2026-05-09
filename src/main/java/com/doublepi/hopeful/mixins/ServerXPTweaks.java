@@ -23,7 +23,6 @@ public abstract class ServerXPTweaks extends Player {
     @Inject(method = "restoreFrom",at = @At("TAIL"))
     public void _OnRestoreFrom(ServerPlayer player, boolean keepEverything, CallbackInfo ci) {
         Level level = this.level();
-        boolean keepExperience = level.getGameRules().getBoolean(ModGamerules.KEEP_EXP);
         boolean keepInventory = level.getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY);
 
         if (keepInventory) {
@@ -32,15 +31,14 @@ public abstract class ServerXPTweaks extends Player {
                 if (!itemStack.isEmpty())
                     this.getInventory().setItem(i, itemStack);
             }
+        }
+        int percentageLost = player.level().getGameRules().getInt(ModGamerules.PERCENTAGE_XP_LOST);
+        int percentageDropped = player.level().getGameRules().getInt(ModGamerules.PERCENTAGE_XP_DROPPED);
+        int actualTotalXP = (int) ((player.experienceLevel +player.experienceProgress)* 64);
+        int newTotalXP = actualTotalXP * (100-percentageLost) * (100-percentageDropped) / 100_00;
+        this.experienceLevel = newTotalXP / 64;
+        this.totalExperience = newTotalXP;
+        this.experienceProgress = (newTotalXP % 64)/64f;
 
-            this.experienceLevel = 0;
-            this.totalExperience = 0;
-            this.experienceProgress = 0;
-        }
-        if(keepExperience){
-            this.experienceLevel = player.experienceLevel;
-            this.totalExperience = player.totalExperience;
-            this.experienceProgress = player.experienceProgress;
-        }
     }
 }

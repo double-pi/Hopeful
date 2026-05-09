@@ -63,6 +63,7 @@ public class CatalystHelper {
                     var catalyst = getCatalystFromBlock(block, level, state);
                     if (catalyst.isPresent()) {
                         positions.add(testPos);
+                        state.recordCatalyst(catalyst.get().value());
                     }
                 }
             }

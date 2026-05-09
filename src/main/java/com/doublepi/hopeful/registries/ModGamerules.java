@@ -20,16 +20,17 @@ public class ModGamerules {
             GameRules.register("enchantingTableRange", GameRules.Category.MISC,
                     GameRules.IntegerValue.create(3));
     // XP Stuff
-    public static final GameRules.Key<GameRules.BooleanValue> KEEP_EXP =
-    createBoolean("keepExperience", GameRules.Category.PLAYER, true);
 
+    public static final GameRules.Key<GameRules.IntegerValue> PERCENTAGE_XP_LOST =
+            GameRules.register("percentageXPLost", GameRules.Category.PLAYER,
+                    GameRules.IntegerValue.create(0));
+
+    public static final GameRules.Key<GameRules.IntegerValue> PERCENTAGE_XP_DROPPED =
+            GameRules.register("percentageXPDropped", GameRules.Category.PLAYER,
+                    GameRules.IntegerValue.create(100));
 //    public static final GameRules.Key<GameRules.BooleanValue> DISPLAY_XP =
 //            createBoolean("displayXP", GameRules.Category.PLAYER, true);
 //
-//    public static final GameRules.Key<GameRules.IntegerValue> XP_POINTS_PER_LEVEL =
-//            GameRules.register("XPPointsPerLevel", GameRules.Category.PLAYER,
-//                    GameRules.IntegerValue.create(64,
-//                    (minecraftServer, intValue)
-//                            -> LOGGER.info("set value to {}", intValue.get())));
+
 
 }

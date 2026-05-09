@@ -55,5 +55,10 @@
   "tag.item.hopeful.anvil_mends": "Anvil Mends",
 
   "datapack.hopeful.hopeful_unlimited.name": "Hopeful Unlimited",
-  "datapack.hopeful.builtin": "%s (Builtin)"
+  "datapack.hopeful.builtin": "%s (Builtin)",
+
+  "gamerule.percentageXPLost": "Percentage Experience Lost on Death",
+  "gamerule.percentageXPLost.description": "Percentage of XP unrecoverable on death.",
+  "gamerule.percentageXPDropped": "Percentage Experience Dropped on Death",
+  "gamerule.percentageXPDropped.description": "Percentage of XP dropped on death out of all recoverable XP."
 }
