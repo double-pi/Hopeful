@@ -124,8 +124,6 @@ public class CatalystHelper {
 
     public static Holder<Scroll> generateScroll(EnchantingState state) {
         int weightSum = state.weights.stream().mapToInt(i -> Math.max(i, 0)).sum();
-
-        // Now choose a random item.
         int idx = 0;
         for (double r = state.rand.nextInt(weightSum); idx < state.weights.size() - 1; ++idx) {
             r -= Math.max(state.weights.get(idx), 0);

@@ -20,14 +20,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SmithingScreen.class)
 public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMenu> {
+    private static final ResourceLocation EMPTY_BAR = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID, "empty_bar");
+    private static final ResourceLocation FULL_BAR = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID,"full_bar");
+    private static final ResourceLocation TO_ADD_BAR = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID,"to_add_bar");
+    private static final ResourceLocation TO_REMOVE_BAR = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID,"to_remove_bar");
+    private static final int WIDTH = 110;//182;
+    private static final int HEIGHT = 5;
 
-    private static final ResourceLocation EMPTY_BAR_SPRITE = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID, "empty_bar");
-    private static final ResourceLocation TO_ADD_BAR_SPRITE = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID, "to_add_bar");
-    private static final ResourceLocation TO_REMOVE_BAR_SPRITE = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID, "to_remove_bar");
-    private static final ResourceLocation FULL_BAR_SPRITE = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID, "full_bar");
     private static final int TEMPLATE_SLOT = 0;
     private static final int BASE_SLOT = 1;
-    private static final int ADDITION_SLOT = 2;
     private static final int RESULT_SLOT = 3;
 
 
@@ -61,33 +62,30 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         if(maxStatus == 0) return;
         int prevStatus = ScrollHelper.getScore(this.menu.getSlot(BASE_SLOT).getItem());
 
-
+        //TODO: Add notches
         int addedToStatus = 0;
-        if(menu.getSlot(RESULT_SLOT).hasItem()){
+        if(menu.getSlot(RESULT_SLOT).hasItem()) {
             addedToStatus = ScrollHelper.getScore(this.menu.getSlot(RESULT_SLOT).getItem()) - prevStatus;
         }
 
-        int nextStatus = addedToStatus + prevStatus;
+        int widthFull = WIDTH * prevStatus/maxStatus;
+        int widthAdd = WIDTH * addedToStatus/maxStatus;
 
-        int size = 110;
-        int increment = size/maxStatus;
-
-        int xPos = this.leftPos + 6 + (size-increment*maxStatus)/2;
+        int xPos = this.leftPos + 6;
         int yPos = this.topPos + 40;
-        for (int i = 0; i < Math.min(prevStatus, nextStatus); i++) {
-            guiGraphics.blitSprite(FULL_BAR_SPRITE, xPos+i*increment,yPos, increment,4);
-        }
-        if(addedToStatus >= 0) {
-            for (int i = prevStatus; i < nextStatus; i++) {
-                guiGraphics.blitSprite(TO_ADD_BAR_SPRITE, xPos + i * increment, yPos, increment, 4);
-            }
-        }else{
-            for (int i = nextStatus; i < prevStatus; i++) {
-                guiGraphics.blitSprite(TO_REMOVE_BAR_SPRITE, xPos + i * increment, yPos, increment, 4);
-            }
-        }
-        for (int i = Math.max(prevStatus, nextStatus); i < maxStatus; i++) {
-            guiGraphics.blitSprite(EMPTY_BAR_SPRITE, xPos+i*increment,yPos, increment,4);
-        }
+        guiGraphics.blitSprite(EMPTY_BAR,WIDTH, HEIGHT, 0, 0, xPos,yPos, WIDTH, HEIGHT);
+        guiGraphics.blitSprite(FULL_BAR,WIDTH, HEIGHT, 0, 0, xPos,yPos, widthFull, HEIGHT);
+        if(addedToStatus > 0)
+            guiGraphics.blitSprite(TO_ADD_BAR,
+                    WIDTH, HEIGHT,
+                    widthFull, 0,
+                    xPos + widthFull,yPos,
+                    widthAdd, HEIGHT);
+        if(addedToStatus < 0)
+            guiGraphics.blitSprite(TO_REMOVE_BAR,
+                    WIDTH, HEIGHT,
+                    widthFull + widthAdd, 0,
+                    xPos + widthFull + widthAdd, yPos,
+                    -widthAdd, HEIGHT);
     }
 }
