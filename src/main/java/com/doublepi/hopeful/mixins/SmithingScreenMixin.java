@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.SmithingMenu;
+import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,6 +25,7 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
     private static final ResourceLocation FULL_BAR = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID,"full_bar");
     private static final ResourceLocation TO_ADD_BAR = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID,"to_add_bar");
     private static final ResourceLocation TO_REMOVE_BAR = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID,"to_remove_bar");
+    private static final ResourceLocation NOTCH = ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID,"notch");
     private static final int WIDTH = 110;//182;
     private static final int HEIGHT = 5;
 
@@ -62,10 +64,10 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         if(maxStatus == 0) return;
         int prevStatus = ScrollHelper.getScore(this.menu.getSlot(BASE_SLOT).getItem());
 
-        //TODO: Add notches
         int addedToStatus = 0;
-        if(menu.getSlot(RESULT_SLOT).hasItem()) {
-            addedToStatus = ScrollHelper.getScore(this.menu.getSlot(RESULT_SLOT).getItem()) - prevStatus;
+        ItemStack scroll = this.menu.getSlot(TEMPLATE_SLOT).getItem();
+        if(scroll!=null && scroll.has(ModDataComponentTypes.SCROLL)) {
+            addedToStatus = scroll.get(ModDataComponentTypes.SCROLL).value().requiredToolXP();
         }
 
         int widthFull = WIDTH * prevStatus/maxStatus;
@@ -75,17 +77,23 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         int yPos = this.topPos + 40;
         guiGraphics.blitSprite(EMPTY_BAR,WIDTH, HEIGHT, 0, 0, xPos,yPos, WIDTH, HEIGHT);
         guiGraphics.blitSprite(FULL_BAR,WIDTH, HEIGHT, 0, 0, xPos,yPos, widthFull, HEIGHT);
-        if(addedToStatus > 0)
+        if(addedToStatus > 0) {
             guiGraphics.blitSprite(TO_ADD_BAR,
                     WIDTH, HEIGHT,
                     widthFull, 0,
                     xPos + widthFull,yPos,
                     widthAdd, HEIGHT);
-        if(addedToStatus < 0)
+        }
+        if(addedToStatus < 0) {
             guiGraphics.blitSprite(TO_REMOVE_BAR,
                     WIDTH, HEIGHT,
                     widthFull + widthAdd, 0,
                     xPos + widthFull + widthAdd, yPos,
                     -widthAdd, HEIGHT);
+        }
+
+        for (int i = 1; i <= maxStatus - 1; i++) {
+            guiGraphics.blitSprite(NOTCH,9,5,0,0,xPos+ i*(WIDTH/maxStatus)-2, yPos, 9, 5);
+        }
     }
 }

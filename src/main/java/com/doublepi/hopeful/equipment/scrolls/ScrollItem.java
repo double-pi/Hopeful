@@ -13,10 +13,8 @@ import net.neoforged.fml.ModList;
 import java.util.List;
 
 public class ScrollItem extends Item {
-    //TODO: Move tooltip & stuff to component. I don't think we need this class at all
     public final Style justGray = Style.EMPTY.applyFormat(ChatFormatting.GRAY);
     public final Style darkGray = Style.EMPTY.applyFormat(ChatFormatting.DARK_GRAY);
-    public final Style italicGray = justGray.applyFormat(ChatFormatting.ITALIC);
     public final Style underlinedGray = justGray.applyFormat(ChatFormatting.UNDERLINE);
 
     public ScrollItem(Properties properties) {
