@@ -19,7 +19,7 @@ public class SimpleCatalystParticle extends TextureSheetParticle {
         this.rCol = 1f;
         this.gCol = 1f;
         this.bCol = 1f;
-        this.scale(1);
+        this.scale(1.5F);
         this.hasPhysics = false;
     }
 

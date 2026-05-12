@@ -10,10 +10,6 @@
     {
       "type": "hopeful:success_chance",
       "increase_by": 0.1
-    },
-    {
-      "type": "hopeful:xp_levels_requirement",
-      "increase_by": 1
     }
   ]
 }
