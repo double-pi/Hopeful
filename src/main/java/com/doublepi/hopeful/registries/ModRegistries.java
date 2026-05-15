@@ -23,7 +23,7 @@ public class ModRegistries {
 
     public static final ResourceKey<Registry<CatalystEffect.Type<?>>> CATALYST_EFFECT_TYPE_KEY =
             ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(
-                    HopefulMod.MODID, "catalyst_effect_types"));
+                    HopefulMod.MODID, "catalyst_effect_type"));
     public static final Registry<CatalystEffect.Type<?>> CATALYST_EFFECT_TYPE_REGISTRY =
             new RegistryBuilder<>(CATALYST_EFFECT_TYPE_KEY)
                     .maxId(256).create();

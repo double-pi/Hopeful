@@ -23,7 +23,7 @@ public record MorphSelfEffect(Holder<Block> morphTo, float chanceOnSuccess, floa
                     effect.group(
                             RegistryFixedCodec.create(Registries.BLOCK).fieldOf("block").forGetter(MorphSelfEffect::morphTo),
                             Codec.FLOAT.fieldOf("chance_on_success").forGetter(MorphSelfEffect::chanceOnSuccess),
-                            Codec.FLOAT.fieldOf("chance_on_fail").forGetter(MorphSelfEffect::chanceOnFail)
+                            Codec.FLOAT.optionalFieldOf("chance_on_fail", 0f).forGetter(MorphSelfEffect::chanceOnFail)
                     ).apply(effect, MorphSelfEffect::new)
     );
     public static final StreamCodec<RegistryFriendlyByteBuf, MorphSelfEffect> STREAM_CODEC =

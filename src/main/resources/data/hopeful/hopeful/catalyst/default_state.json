@@ -4,7 +4,7 @@
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "#hopeful:all_scrolls",
+      "scrolls": "#hopeful:scrolls",
       "increase_by": 1
     },
     {
