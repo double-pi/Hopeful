@@ -40,12 +40,12 @@
   "enchantment.hopeful.eternal": "Eternal",
   "enchantment.hopeful.eternal.desc": "Stops the item from disappearing when it breaks.",
 
-  "tooltip.hopeful.tool_xp": "Tool XP",
-  "tooltip.hopeful.player_xp": "Player XP",
+  "tooltip.hopeful.tool_xp": "Tool Levels",
+  "tooltip.hopeful.player_xp": "Player Levels",
   "tooltip.hopeful.max_level": "Max: ",
   "tooltip.hopeful.for_details": "Hold [Shift] for Descriptions",
-  "tooltip.hopeful.required": "Required: ",
-  "tooltip.hopeful.player_xp_required": "Required: %s levels",
+  "tooltip.hopeful.required": "Uses: ",
+  "tooltip.hopeful.player_xp_required": "%s player levels",
 
   "tooltip.hopeful.use_correct_material": "Use the correct material",
   "tooltip.hopeful.enchant_failed": "Enchanting Failed: ",

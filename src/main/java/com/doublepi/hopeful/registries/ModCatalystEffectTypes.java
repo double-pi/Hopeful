@@ -8,8 +8,8 @@ import net.minecraft.resources.ResourceLocation;
 public class ModCatalystEffectTypes {
     public static final CatalystEffect.Type<SuccessChanceEffect> SUCCESS_CHANCE_CATALYST_EFFECT_TYPE
             = register("success_chance", new CatalystEffect.Type<>(SuccessChanceEffect.MAP_CODEC, SuccessChanceEffect.STREAM_CODEC));
-    public static final CatalystEffect.Type<XPCatalystEffect> XP_LEVELS_CATALYST_EFFECT_TYPE
-            = register("xp_levels_requirement", new CatalystEffect.Type<>(XPCatalystEffect.MAP_CODEC, XPCatalystEffect.STREAM_CODEC));
+    public static final CatalystEffect.Type<XPRequirementEffect> XP_LEVELS_CATALYST_EFFECT_TYPE
+            = register("xp_levels_requirement", new CatalystEffect.Type<>(XPRequirementEffect.MAP_CODEC, XPRequirementEffect.STREAM_CODEC));
     public static final CatalystEffect.Type<ScrollWeightEffect> SCROLL_WEIGHT_CATALYST_EFFECT_TYPE
             = register("scroll_weight", new CatalystEffect.Type<>(ScrollWeightEffect.MAP_CODEC, ScrollWeightEffect.STREAM_CODEC));
     public static final CatalystEffect.Type<MorphSelfEffect> MORPH_SELF_CATALYST_EFFECT_TYPE

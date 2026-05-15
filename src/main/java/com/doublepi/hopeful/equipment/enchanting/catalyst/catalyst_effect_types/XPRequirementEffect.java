@@ -8,29 +8,28 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-public record XPCatalystEffect(int increaseBy, boolean consumeOnSuccess, boolean consumeOnFail) implements CatalystEffect{
-    public static final MapCodec<XPCatalystEffect> MAP_CODEC = RecordCodecBuilder.mapCodec(
+public record XPRequirementEffect(int increaseBy, boolean consumeOnSuccess, boolean consumeOnFail) implements CatalystEffect{
+    public static final MapCodec<XPRequirementEffect> MAP_CODEC = RecordCodecBuilder.mapCodec(
             effect ->
                     effect.group(
-                            Codec.INT.fieldOf("increase_by").forGetter(XPCatalystEffect::increaseBy),
-                            Codec.BOOL.optionalFieldOf("consume_on_success", true).forGetter(XPCatalystEffect::consumeOnSuccess),
-                            Codec.BOOL.optionalFieldOf("consume_on_fail", false).forGetter(XPCatalystEffect::consumeOnFail)
-                    ).apply(effect, XPCatalystEffect::new)
+                            Codec.INT.fieldOf("increase_by").forGetter(XPRequirementEffect::increaseBy),
+                            Codec.BOOL.optionalFieldOf("consume_on_success", true).forGetter(XPRequirementEffect::consumeOnSuccess),
+                            Codec.BOOL.optionalFieldOf("consume_on_fail", false).forGetter(XPRequirementEffect::consumeOnFail)
+                    ).apply(effect, XPRequirementEffect::new)
     );
-    public static final StreamCodec<RegistryFriendlyByteBuf, XPCatalystEffect> STREAM_CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, XPRequirementEffect> STREAM_CODEC =
             StreamCodec.composite(
                     ByteBufCodecs.INT,
-                    XPCatalystEffect::increaseBy,
+                    XPRequirementEffect::increaseBy,
                     ByteBufCodecs.BOOL,
-                    XPCatalystEffect::consumeOnSuccess,
+                    XPRequirementEffect::consumeOnSuccess,
                     ByteBufCodecs.BOOL,
-                    XPCatalystEffect::consumeOnFail,
-                    XPCatalystEffect::new
+                    XPRequirementEffect::consumeOnFail,
+                    XPRequirementEffect::new
             );
 
     @Override

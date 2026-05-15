@@ -53,7 +53,7 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
         int color = this.minecraft.player.experienceLevel >= xpNeeded ?
                 ChatFormatting.GREEN.getColor() : ChatFormatting.RED.getColor();
         guiGraphics.drawString(this.minecraft.font,
-                Component.translatable("tooltip.hopeful.player_xp_required",xpNeeded).setStyle(Style.EMPTY.withItalic(true)),
+                Component.translatable("tooltip.hopeful.player_xp_required",xpNeeded).setStyle(Style.EMPTY),
                 this.leftPos+44,this.topPos + 25, color);
     }
 
