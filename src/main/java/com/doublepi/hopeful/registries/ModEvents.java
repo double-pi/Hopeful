@@ -15,12 +15,27 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 @EventBusSubscriber(modid = HopefulMod.MODID)
 public class ModEvents {
+    @SubscribeEvent
+    public static void fixPlayer(PlayerEvent.PlayerLoggedInEvent event){
+        //TODO: Check if it works!!!
+        Player player = event.getEntity();
+        if(player.hasData(ModAttachments.XP_PER_LEVEL)) return;
+
+        int totalXP = (int) ((player.experienceLevel + player.experienceProgress) * 64);
+        System.out.println("totalXP: "+totalXP);
+        player.totalExperience = 0;
+        player.experienceLevel = 0;
+        player.experienceProgress = 0;
+        player.giveExperiencePoints(totalXP);
+        player.setData(ModAttachments.XP_PER_LEVEL, player.level().getGameRules().getInt(ModGamerules.XP_PER_LEVEL));
+    }
     @SubscribeEvent
     public static void repairAnvil(UseItemOnBlockEvent event){
         ItemStack itemStack = event.getItemStack();
