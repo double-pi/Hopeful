@@ -5,6 +5,7 @@ import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.
 import com.doublepi.hopeful.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.equipment.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModAttachments;
+import com.doublepi.hopeful.registries.ModRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
@@ -72,6 +73,7 @@ public class EnchantingTableChanges {
     }
 
     public static ItemInteractionResult useItemOn(ItemStack stack, BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        System.out.println(level.holderLookup(ModRegistries.ALIGNMENT_REGISTRY_KEY).listElements().map(Holder.Reference::value).toList());
         if(stack.isEmpty()) return ItemInteractionResult.FAIL;
         EnchantingState state = CatalystHelper.evaluateEnchantingState(level, pos, player);
         EnchantingState.FailReason failReason = state.findEnchantFailReason(player, stack);

@@ -1,6 +1,7 @@
 package com.doublepi.hopeful.registries;
 
 import com.doublepi.hopeful.HopefulMod;
+import com.doublepi.hopeful.equipment.enchanting.alignment.Alignment;
 import com.doublepi.hopeful.equipment.enchanting.catalyst.Catalyst;
 import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
 import com.doublepi.hopeful.equipment.scrolls.Scroll;
@@ -20,6 +21,9 @@ public class ModRegistries {
     public static final ResourceKey<Registry<Catalyst>> CATALYST_REGISTRY_KEY =
             ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(
                     HopefulMod.MODID, "catalyst"));
+    public static final ResourceKey<Registry<Alignment>> ALIGNMENT_REGISTRY_KEY =
+            ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(
+                    HopefulMod.MODID, "alignment"));
 
     public static final ResourceKey<Registry<CatalystEffect.Type<?>>> CATALYST_EFFECT_TYPE_KEY =
             ResourceKey.createRegistryKey(ResourceLocation.fromNamespaceAndPath(
@@ -32,6 +36,7 @@ public class ModRegistries {
     public static void registerDatapackRegistries(DataPackRegistryEvent.NewRegistry event) {
         event.dataPackRegistry(SCROLL_REGISTRY_KEY, Scroll.CODEC, Scroll.CODEC, builder -> builder.maxId(512).sync(true));
         event.dataPackRegistry(CATALYST_REGISTRY_KEY, Catalyst.CODEC, Catalyst.CODEC, builder -> builder.maxId(512).sync(true));
+        event.dataPackRegistry(ALIGNMENT_REGISTRY_KEY, Alignment.CODEC, Alignment.CODEC, builder-> builder.maxId(512).sync(true));
     }
 
     @SubscribeEvent

@@ -4,7 +4,7 @@
       "catalyst": "hopeful:blue_candle",
       "count": 2,
       "added_effects": [
-        {"type": "hopeful:morph_self"} // this will be the default (turn to air after alignment completed)
+        {"type": "hopeful:morph_self"}
       ]
     },
     {
@@ -14,12 +14,12 @@
         {
           "type": "hopeful:scroll_weight",
           "scrolls": "hopeful:mending",
-          "increase_by": 5000 // I Think this is fine?
+          "increase_by": 5000
         },
         {"type": "hopeful:morph_self"}
       ]
     },
-    "hopeful:lightning_rod", // not sure if this form is possible, but hopefully
+    "hopeful:lightning_rod",
     "hopeful:pointed_dripstone"
   ]
 }
