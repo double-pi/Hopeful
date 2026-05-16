@@ -23,7 +23,6 @@ public abstract class XPTweaks extends LivingEntity{
     @Inject(method="getXpNeededForNextLevel",at = @At("HEAD"),cancellable = true)
     public void injected(CallbackInfoReturnable<Integer> cir){
         Player thisPlayer = (Player)((Object)this);
-        System.out.println(thisPlayer.getData(ModAttachments.XP_PER_LEVEL));
         cir.setReturnValue(thisPlayer.getData(ModAttachments.XP_PER_LEVEL));
         cir.cancel();
     }

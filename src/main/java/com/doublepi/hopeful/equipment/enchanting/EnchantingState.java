@@ -4,10 +4,12 @@ import com.doublepi.hopeful.equipment.enchanting.catalyst.Catalyst;
 import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
 import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.MorphSelfEffect;
 import com.doublepi.hopeful.equipment.scrolls.Scroll;
+import com.doublepi.hopeful.registries.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,10 +46,14 @@ public class EnchantingState {
         recordCatalyst(catalyst);
     }
 
-    public FailReason findEnchantFailReason(Player player){
-        float failChance = rand.nextFloat();
-        if(player.experienceLevel < requiredXPLevels && !player.hasInfiniteMaterials())
+    public FailReason findEnchantFailReason(Player player, ItemStack stack){
+        if(!stack.is(ModTags.SCROLL_MATERIALS)) {
+            return FailReason.INCORRECT_MATERIAL;
+        }
+        if(player.experienceLevel < requiredXPLevels && !player.hasInfiniteMaterials()) {
             return FailReason.NOT_ENOUGH_XP;
+        }
+        float failChance = rand.nextFloat();
         if(failChance > successChance)
             return FailReason.UNLUCKY;
         return FailReason.NONE;
@@ -65,14 +71,17 @@ public class EnchantingState {
     }
 
     public enum FailReason {
-        NOT_ENOUGH_XP("tooltip.hopeful.fail_reason.not_enough_xp", false),
-        UNLUCKY("tooltip.hopeful.fail_reason.unlucky", true),
-        NONE("", true);
+        INCORRECT_MATERIAL("tooltip.hopeful.use_correct_material", false, false),
+        NOT_ENOUGH_XP("tooltip.hopeful.fail_reason.not_enough_xp", false, false),
+        UNLUCKY("tooltip.hopeful.fail_reason.unlucky", true, true),
+        NONE("", true, false);
         public final String translationKey;
         public final boolean consumeItem;
-        FailReason(String key, boolean consumeItem){
+        public final boolean failConsequences;
+        FailReason(String key, boolean consumeItem, boolean failConsequences){
             this.translationKey = key;
             this.consumeItem = consumeItem;
+            this.failConsequences = failConsequences;
         }
     }
 }

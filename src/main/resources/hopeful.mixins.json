@@ -4,9 +4,9 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "AnvilTweaks",
-    "ChangeEnchantTable",
+    "EnchantTableMixin1",
+    "EnchantTableMixin2",
     "GrindstoneUpdate",
-    "RemoveEnchantMenu",
     "ServerXPTweaks",
     "SmithingMenuMixin",
     "TransformToScrolls",

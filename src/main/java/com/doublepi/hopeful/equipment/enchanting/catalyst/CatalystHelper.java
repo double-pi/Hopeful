@@ -72,45 +72,6 @@ public class CatalystHelper {
         return positions.stream();
     }
 
-
-    public static ItemInteractionResult enchantTableFunctionality(ItemStack stack, BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        FailReason failReason;
-        if (!stack.is(ModTags.SCROLL_MATERIALS)) {
-            player.displayClientMessage(Component.translatable("tooltip.hopeful.use_correct_material"), true);
-            return ItemInteractionResult.FAIL;
-        } else {
-            EnchantingState state = CatalystHelper.evaluateEnchantingState(level, pos, player);
-            failReason = state.findEnchantFailReason(player);
-            if (failReason == FailReason.NONE) { // generate scroll
-                ItemStack scrollItem = ScrollItem.createFromScroll(generateScroll(state));
-                var stupidArray = new ArrayList<ItemStack>();
-                stupidArray.add(scrollItem);
-                ScrollHelper.addOrSpawn(player, stupidArray);
-                player.makeSound(SoundEvents.ENCHANTMENT_TABLE_USE);
-                if(!player.hasInfiniteMaterials())
-                    player.giveExperienceLevels(-Math.max(0, state.consumedXPLevelsOnSuccess));
-                ParticleUtils.spawnParticles(level, pos, 30,
-                        0.5, 2, true, ParticleTypes.ENCHANT);
-            } else { // show reason
-                player.displayClientMessage(
-                        Component.translatable("tooltip.hopeful.enchant_failed").append(
-                                Component.translatable(failReason.translationKey)), true);
-                player.makeSound(SoundEvents.AMETHYST_CLUSTER_BREAK);
-                ParticleUtils.spawnParticles(level, pos, 10,
-                        0.5, 0.3, true, ParticleTypes.POOF);
-                if(!player.hasInfiniteMaterials())
-                    player.giveExperienceLevels(-Math.max(0,state.consumedXPLevelsOnFail));
-            }
-
-            if (failReason.consumeItem)
-                stack.consume(1, player);
-            morphCatalysts(level, state, failReason == FailReason.NONE);
-            player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextInt());
-            player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-            return ItemInteractionResult.CONSUME;
-        }
-    }
-
     public static void morphCatalysts(Level level, EnchantingState state, boolean enchantSucceeded){
         state.morphables.forEach((pos, effect)->{
             float chance = enchantSucceeded ? effect.chanceOnSuccess() : effect.chanceOnFail();

@@ -1,20 +1,17 @@
 {
-  "blocks": "#c:bookshelves",
+  "blocks": "minecraft:lapis_block",
   "limit": 1,
   "effects": [
     {
-      "type": "hopeful:success_chance",
-      "increase_by": 0.1
-    },
-    {
       "type": "hopeful:xp_levels_requirement",
-      "increase_by": -2
+      "increase_by": -3,
+      "consume_on_fail": true
     },
     {
       "type": "hopeful:morph_self",
       "block": "minecraft:air",
-      "chance_on_success": 1,
-      "chance_on_fail": 0.2
+      "chance_on_success": 0.3,
+      "chance_on_fail": 0.1
     }
   ]
 }

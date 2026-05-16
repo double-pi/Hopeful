@@ -55,6 +55,7 @@ public class HopefulMod {
             event.registerSpriteSet(ModParticles.XP_EFFECT.get(), SimpleCatalystParticle.Provider::new);
             event.registerSpriteSet(ModParticles.SUCCESS_CHANCE_EFFECT.get(), SimpleCatalystParticle.Provider::new);
             event.registerSpriteSet(ModParticles.SCROLL_WEIGHT_EFFECT.get(), SimpleCatalystParticle.Provider::new);
+            event.registerSpriteSet(ModParticles.MORPH_CHANCE_EFFECT.get(), SimpleCatalystParticle.Provider::new);
         }
     }
 }

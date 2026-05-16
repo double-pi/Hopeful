@@ -89,17 +89,15 @@ public class ScrollHelper {
     }
 
     public static void addOrSpawn(Entity entity, ArrayList<ItemStack> stacks){
-        if(!(entity instanceof Player p)) {
-            stacks.forEach(entity::spawnAtLocation);
+        stacks.forEach(stack-> addOrSpawn(entity, stack));
+    }
+    public static void addOrSpawn(Entity entity, ItemStack stack){
+        if(!(entity instanceof Player p))
             return;
+        boolean success = p.getInventory().add(stack);
+        if(!success) {
+            entity.spawnAtLocation(stack).setNoPickUpDelay();
         }
-
-        stacks.forEach(stack->{
-            boolean success = p.getInventory().add(stack);
-            if(!success) {
-                entity.spawnAtLocation(stack).setNoPickUpDelay();
-            }
-        });
     }
 
 
