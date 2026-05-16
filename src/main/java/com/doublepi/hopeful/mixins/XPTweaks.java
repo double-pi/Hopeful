@@ -1,9 +1,11 @@
 package com.doublepi.hopeful.mixins;
 
+import com.doublepi.hopeful.registries.ModAttachments;
 import com.doublepi.hopeful.registries.ModGamerules;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,16 +22,20 @@ public abstract class XPTweaks extends LivingEntity{
 
     @Inject(method="getXpNeededForNextLevel",at = @At("HEAD"),cancellable = true)
     public void injected(CallbackInfoReturnable<Integer> cir){
-        cir.setReturnValue(64);
+        Player thisPlayer = (Player)((Object)this);
+        System.out.println(thisPlayer.getData(ModAttachments.XP_PER_LEVEL));
+        cir.setReturnValue(thisPlayer.getData(ModAttachments.XP_PER_LEVEL));
         cir.cancel();
     }
 
     @Inject(method = {"getBaseExperienceReward"},at = {@At("HEAD")},cancellable = true)
     public void _onGetExperience(CallbackInfoReturnable<Integer> cir) { //dropped xp
         Player thisPlayer = (Player)((Object)this);
-        int percentageLost = thisPlayer.level().getGameRules().getInt(ModGamerules.PERCENTAGE_XP_LOST);
-        int percentageDropped = thisPlayer.level().getGameRules().getInt(ModGamerules.PERCENTAGE_XP_DROPPED);
-        int actualTotalXP = (int) ((thisPlayer.experienceLevel +thisPlayer.experienceProgress)* 64);
+        GameRules gamerules = thisPlayer.level().getGameRules();
+        int percentageLost = gamerules.getInt(ModGamerules.PERCENTAGE_XP_LOST);
+        int percentageDropped = gamerules.getInt(ModGamerules.PERCENTAGE_XP_DROPPED);
+        int xpPerLevel = thisPlayer.getData(ModAttachments.XP_PER_LEVEL);
+        int actualTotalXP = (int) ((thisPlayer.experienceLevel +thisPlayer.experienceProgress)* xpPerLevel);
 
         cir.setReturnValue(actualTotalXP * (100-percentageLost) * percentageDropped / 100_00);
 

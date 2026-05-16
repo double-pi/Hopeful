@@ -63,7 +63,7 @@ public class CatalystHelper {
                     Holder<Block> block = level.getBlockState(testPos).getBlockHolder();
                     var catalyst = getCatalystFromBlock(block, level, state);
                     if (catalyst.isPresent()) {
-                        positions.add(testPos);
+                        positions.add(testPos); //This makes default_state and enchanting_table work together
                         state.recordCatalyst(catalyst.get().value());
                     }
                 }

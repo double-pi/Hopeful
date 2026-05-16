@@ -17,8 +17,11 @@ public class ModAttachments {
     public static final Supplier<AttachmentType<Integer>> HOPEFUL_ENCHANT_SEED =
             ATTACHMENT_TYPE.register("hopeful_enchant_seed",
                     ()-> AttachmentType.builder(()-> 0).serialize(Codec.INT)
-                            .sync(ByteBufCodecs.INT).build());
-
+                            .sync(ByteBufCodecs.INT).copyOnDeath().build());
+    public static final Supplier<AttachmentType<Integer>> XP_PER_LEVEL =
+            ATTACHMENT_TYPE.register("xp_per_level",
+                    ()-> AttachmentType.builder(()-> 0).serialize(Codec.INT)
+                            .sync(ByteBufCodecs.INT).copyOnDeath().build());
     public static void register(IEventBus eventBus){
         ATTACHMENT_TYPE.register(eventBus);
     }
