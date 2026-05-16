@@ -16,13 +16,14 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public record MorphSelfEffect(Holder<Block> morphTo, float chanceOnSuccess, float chanceOnFail) implements CatalystEffect{
     public static final MapCodec<MorphSelfEffect> MAP_CODEC = RecordCodecBuilder.mapCodec(
             effect ->
                     effect.group(
-                            RegistryFixedCodec.create(Registries.BLOCK).fieldOf("block").forGetter(MorphSelfEffect::morphTo),
-                            Codec.FLOAT.fieldOf("chance_on_success").forGetter(MorphSelfEffect::chanceOnSuccess),
+                            RegistryFixedCodec.create(Registries.BLOCK).optionalFieldOf("block", Blocks.AIR.builtInRegistryHolder()).forGetter(MorphSelfEffect::morphTo),
+                            Codec.FLOAT.optionalFieldOf("chance_on_success",1f).forGetter(MorphSelfEffect::chanceOnSuccess),
                             Codec.FLOAT.optionalFieldOf("chance_on_fail", 0f).forGetter(MorphSelfEffect::chanceOnFail)
                     ).apply(effect, MorphSelfEffect::new)
     );

@@ -1,6 +1,6 @@
 {
   "blocks": "minecraft:lapis_block",
-  "limit": 1,
+  "limit": 2,
   "effects": [
     {
       "type": "hopeful:xp_levels_requirement",
@@ -9,7 +9,6 @@
     },
     {
       "type": "hopeful:morph_self",
-      "block": "minecraft:air",
       "chance_on_success": 0.3,
       "chance_on_fail": 0.1
     }

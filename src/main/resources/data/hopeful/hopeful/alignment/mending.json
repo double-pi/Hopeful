@@ -1,0 +1,10 @@
+{
+  "catalysts": [
+    {
+      "catalyst": "blue_candle",
+      "added_effects": [
+        {"type": "morph_self"}
+      ]
+    }
+  ]
+}

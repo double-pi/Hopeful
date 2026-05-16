@@ -90,13 +90,14 @@ public class EnchantingTableChanges {
             ParticleUtils.spawnParticles(level, pos, 10,
                     0.5, 0.3, true, ParticleTypes.POOF);
         }
-        player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextInt());
-        player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         if(failReason.failConsequences){
-            if(!player.hasInfiniteMaterials())
+            if(!player.hasInfiniteMaterials()) {
                 player.giveExperienceLevels(-Math.max(0,state.consumedXPLevelsOnFail));
+            }
             CatalystHelper.morphCatalysts(level, state, failReason == EnchantingState.FailReason.NONE);
         }
+        player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextInt());
+        player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
         if(failReason.consumeItem) {
             stack.consume(1, player);
             return ItemInteractionResult.CONSUME;
