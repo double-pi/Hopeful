@@ -1,10 +1,25 @@
 {
   "catalysts": [
     {
-      "catalyst": "blue_candle",
+      "catalyst": "hopeful:blue_candle",
+      "count": 2,
       "added_effects": [
-        {"type": "morph_self"}
+        {"type": "hopeful:morph_self"} // this will be the default (turn to air after alignment completed)
       ]
-    }
+    },
+    {
+      "catalyst": "hopeful:carved_pumpkin",
+      "count": 3,
+      "added_effects": [
+        {
+          "type": "hopeful:scroll_weight",
+          "scrolls": "hopeful:mending",
+          "increase_by": 5000 // I Think this is fine?
+        },
+        {"type": "hopeful:morph_self"}
+      ]
+    },
+    "hopeful:lightning_rod", // not sure if this form is possible, but hopefully
+    "hopeful:pointed_dripstone"
   ]
 }
