@@ -24,15 +24,7 @@ import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 @EventBusSubscriber(modid = HopefulMod.MODID)
 public class ModEvents {
     @SubscribeEvent
-    public static void debug1(BlockEvent.BreakEvent event){
-        if(event.getState().is(Blocks.ACACIA_BUTTON))
-            event.getPlayer().removeData(ModAttachments.XP_PER_LEVEL);
-        if(event.getState().is(Blocks.ACACIA_DOOR))
-            event.getPlayer().setData(ModAttachments.XP_PER_LEVEL,100);
-    }
-    @SubscribeEvent
     public static void fixPlayer(PlayerEvent.PlayerLoggedInEvent event){
-        //TODO: Check if it works!!!
         Player player = event.getEntity();
         int oldValue = player.hasData(ModAttachments.XP_PER_LEVEL)? player.getData(ModAttachments.XP_PER_LEVEL) : 64;
         int newValue = player.level().getGameRules().getInt(ModGamerules.XP_PER_LEVEL);
