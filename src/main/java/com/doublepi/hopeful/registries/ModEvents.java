@@ -17,24 +17,31 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.registries.datamaps.DataMapType;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 @EventBusSubscriber(modid = HopefulMod.MODID)
 public class ModEvents {
     @SubscribeEvent
+    public static void debug1(BlockEvent.BreakEvent event){
+        if(event.getState().is(Blocks.ACACIA_BUTTON))
+            event.getPlayer().removeData(ModAttachments.XP_PER_LEVEL);
+        if(event.getState().is(Blocks.ACACIA_DOOR))
+            event.getPlayer().setData(ModAttachments.XP_PER_LEVEL,100);
+    }
+    @SubscribeEvent
     public static void fixPlayer(PlayerEvent.PlayerLoggedInEvent event){
         //TODO: Check if it works!!!
         Player player = event.getEntity();
-        if(player.hasData(ModAttachments.XP_PER_LEVEL)) return;
+        int oldValue = player.hasData(ModAttachments.XP_PER_LEVEL)? player.getData(ModAttachments.XP_PER_LEVEL) : 64;
+        int newValue = player.level().getGameRules().getInt(ModGamerules.XP_PER_LEVEL);
+        if(oldValue==newValue) return;
 
-        int totalXP = (int) ((player.experienceLevel + player.experienceProgress) * 64);
-        System.out.println("totalXP: "+totalXP);
-        player.totalExperience = 0;
-        player.experienceLevel = 0;
-        player.experienceProgress = 0;
-        player.giveExperiencePoints(totalXP);
-        player.setData(ModAttachments.XP_PER_LEVEL, player.level().getGameRules().getInt(ModGamerules.XP_PER_LEVEL));
+        int totalXP = Math.round((player.experienceLevel + player.experienceProgress) * oldValue);
+        player.setData(ModAttachments.XP_PER_LEVEL, newValue);
+        player.experienceLevel = totalXP / newValue;
+        player.experienceProgress = (1.0f*totalXP % newValue) / newValue;
     }
     @SubscribeEvent
     public static void repairAnvil(UseItemOnBlockEvent event){

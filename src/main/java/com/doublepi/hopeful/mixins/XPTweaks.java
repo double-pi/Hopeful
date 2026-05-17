@@ -34,8 +34,7 @@ public abstract class XPTweaks extends LivingEntity{
         int percentageLost = gamerules.getInt(ModGamerules.PERCENTAGE_XP_LOST);
         int percentageDropped = gamerules.getInt(ModGamerules.PERCENTAGE_XP_DROPPED);
         int xpPerLevel = thisPlayer.getData(ModAttachments.XP_PER_LEVEL);
-        int actualTotalXP = (int) ((thisPlayer.experienceLevel +thisPlayer.experienceProgress)* xpPerLevel);
-
+        int actualTotalXP = Math.round((thisPlayer.experienceLevel +thisPlayer.experienceProgress)* xpPerLevel);
         cir.setReturnValue(actualTotalXP * (100-percentageLost) * percentageDropped / 100_00);
 
     }

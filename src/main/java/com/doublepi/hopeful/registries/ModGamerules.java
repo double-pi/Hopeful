@@ -35,7 +35,8 @@ public class ModGamerules {
             GameRules.register("xpPerLevel", GameRules.Category.PLAYER,
                     GameRules.IntegerValue.create(16,(minecraftServer, integerValue) -> {
                         for(ServerPlayer serverplayer : minecraftServer.getPlayerList().getPlayers()) {
-                            int totalXP = serverplayer.totalExperience;
+                            int oldValue = serverplayer.getData(ModAttachments.XP_PER_LEVEL);
+                            int totalXP = Math.round((serverplayer.experienceLevel + serverplayer.experienceProgress)*oldValue);
                             serverplayer.giveExperiencePoints(-totalXP);
                             serverplayer.setData(ModAttachments.XP_PER_LEVEL,integerValue.get());
                             serverplayer.giveExperiencePoints(totalXP);
