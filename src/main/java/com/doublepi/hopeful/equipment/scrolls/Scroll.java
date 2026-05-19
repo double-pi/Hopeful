@@ -25,8 +25,8 @@ public record Scroll(Component title, ScrollType scrollType, int requiredToolXP,
                     ComponentSerialization.CODEC.fieldOf("title").forGetter(Scroll::title),
                     ScrollType.CODEC.fieldOf("type").forGetter(Scroll::scrollType),
                     //TODO: change to levels
-                    Codec.INT.optionalFieldOf("required_tool_xp", 0).forGetter(Scroll::requiredToolXP),
-                    Codec.INT.optionalFieldOf("required_player_xp",0).forGetter(Scroll::requiredPlayerXP),
+                    Codec.INT.optionalFieldOf("tool_levels", 0).forGetter(Scroll::requiredToolXP),
+                    Codec.INT.optionalFieldOf("player_levels",0).forGetter(Scroll::requiredPlayerXP),
                     RegistryCodecs.homogeneousList(Registries.ENCHANTMENT)
                             .validate(DataResult::success)
                             .fieldOf("enchantments").forGetter(Scroll::enchantments))

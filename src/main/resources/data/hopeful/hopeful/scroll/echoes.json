@@ -3,6 +3,6 @@
     "translate": "scroll.hopeful.echoes"
   },
   "type": "blessing",
-  "required_tool_xp": 3,
+  "tool_levels": 3,
   "enchantments": "#hopeful:hopeful/echoes"
 }

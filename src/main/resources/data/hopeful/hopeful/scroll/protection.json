@@ -3,6 +3,6 @@
     "translate": "scroll.hopeful.protection"
   },
   "type": "blessing",
-  "required_tool_xp": 2,
+  "tool_levels": 2,
   "enchantments": "#hopeful:hopeful/protection"
 }

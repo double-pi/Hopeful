@@ -3,6 +3,6 @@
     "translate": "scroll.hopeful.undead"
   },
   "type": "blessing",
-  "required_tool_xp": 1,
+  "tool_levels": 1,
   "enchantments": "#hopeful:hopeful/undead"
 }

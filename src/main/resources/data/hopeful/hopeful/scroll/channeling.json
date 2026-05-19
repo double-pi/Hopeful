@@ -3,6 +3,6 @@
     "translate": "scroll.hopeful.channeling"
   },
   "type": "blessing",
-  "required_tool_xp": 2,
+  "tool_levels": 2,
   "enchantments": "#hopeful:hopeful/channeling"
 }
