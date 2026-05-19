@@ -1,7 +1,6 @@
 package com.doublepi.hopeful.mixins;
 
-import com.doublepi.hopeful.equipment.level_up.ToolLevelHelper;
-import com.doublepi.hopeful.equipment.scrolls.ScrollHelper;
+import com.doublepi.hopeful.equipment.smithing.ToolLevelHelper;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.inventory.GrindstoneMenu;
 import net.minecraft.world.item.ItemStack;

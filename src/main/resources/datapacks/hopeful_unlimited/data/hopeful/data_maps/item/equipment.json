@@ -1,7 +1,7 @@
 {
   "values": {
     "#c:enchantables": {
-      "enchantability": 512
+      "starting_level": 512
     }
   }
 }

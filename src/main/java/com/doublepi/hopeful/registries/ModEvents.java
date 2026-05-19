@@ -66,7 +66,7 @@ public class ModEvents {
     }
 
     public static final DataMapType<Item, Enchantability> ITEM_ENCHANTABILITY_DATA = DataMapType.builder(
-            ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID, "enchantability"),
+            ResourceLocation.fromNamespaceAndPath(HopefulMod.MODID, "equipment"),
             Registries.ITEM,
             Enchantability.CODEC
     ).synced(Enchantability.CODEC, true).build();

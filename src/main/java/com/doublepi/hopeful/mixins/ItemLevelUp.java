@@ -1,6 +1,6 @@
 package com.doublepi.hopeful.mixins;
 
-import com.doublepi.hopeful.equipment.level_up.ToolLevelHelper;
+import com.doublepi.hopeful.equipment.smithing.ToolLevelHelper;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;

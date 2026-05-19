@@ -1,6 +1,5 @@
-package com.doublepi.hopeful.equipment.level_up;
+package com.doublepi.hopeful.equipment.smithing;
 
-import com.doublepi.hopeful.equipment.smithing.Enchantability;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModEvents;
 import net.minecraft.core.Holder;
@@ -23,7 +22,7 @@ public class ToolLevelHelper {
             if(enchantability==0) return 5;
             return (int)(enchantability * 0.5);
         }else{
-            return item.getData(ModEvents.ITEM_ENCHANTABILITY_DATA).enchantability();
+            return item.getData(ModEvents.ITEM_ENCHANTABILITY_DATA).startingLevel();
         }
     }
 
@@ -56,9 +55,7 @@ public class ToolLevelHelper {
 
 
         List<Integer> levelUpMilestones = enchantability.levelups();
-        System.out.println("levelups: "+levelUpMilestones);
         List<Integer> subList = levelUpMilestones.subList(0, currentToolLevel - startingToolLevel + 1);
-        System.out.println("sublist: "+subList);
         int requirement = subList.stream().mapToInt(a->a).sum();
         if(currentProgress +1 >= requirement){
             entity.sendSystemMessage(Component.translatable("tooltip.hopeful.tool_leveled_up", stack.getDisplayName(), currentToolLevel));

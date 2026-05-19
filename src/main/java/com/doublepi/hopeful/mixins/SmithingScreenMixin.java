@@ -1,8 +1,7 @@
 package com.doublepi.hopeful.mixins;
 
 import com.doublepi.hopeful.HopefulMod;
-import com.doublepi.hopeful.equipment.level_up.ToolLevelHelper;
-import com.doublepi.hopeful.equipment.scrolls.ScrollHelper;
+import com.doublepi.hopeful.equipment.smithing.ToolLevelHelper;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
