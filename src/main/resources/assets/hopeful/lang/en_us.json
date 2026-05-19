@@ -46,7 +46,7 @@
   "tooltip.hopeful.for_details": "Hold [Shift] for Descriptions",
   "tooltip.hopeful.required": "Uses: ",
   "tooltip.hopeful.player_xp_required": "%s player levels",
-
+  "tooltip.hopeful.tool_leveled_up": "Your %s has leveled up to level %s!",
   "tooltip.hopeful.use_correct_material": "The table does not accept this material...",
   "tooltip.hopeful.fail_reason.unlucky": "Luck was not on your side...",
   "tooltip.hopeful.fail_reason.not_enough_xp": "You are not experienced enough...",

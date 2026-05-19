@@ -23,6 +23,10 @@ public class ModDataComponentTypes {
     // TODO: Find out why can't I /give with this
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ENCHANTABILITY_STATUS =
     register("enchantability_status", builder -> builder.persistent(Codec.INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LEVELUP_PROGRESS =
+            register("level_up_progress", builder -> builder.persistent(Codec.INT));
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> ADDED_TOOL_LEVEL =
+            register("added_tool_level", builder -> builder.persistent(Codec.INT));
 
     private static <T>DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name,
         UnaryOperator<DataComponentType.Builder<T>> builderOperator) {

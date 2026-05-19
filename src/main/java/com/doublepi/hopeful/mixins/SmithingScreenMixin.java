@@ -1,6 +1,7 @@
 package com.doublepi.hopeful.mixins;
 
 import com.doublepi.hopeful.HopefulMod;
+import com.doublepi.hopeful.equipment.level_up.ToolLevelHelper;
 import com.doublepi.hopeful.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.ChatFormatting;
@@ -60,9 +61,9 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
     public void hopeful$renderToolExperience(GuiGraphics guiGraphics){
         var menu = this.getMenu();
         if(!this.menu.getSlot(BASE_SLOT).hasItem()) return;
-        int maxStatus = ScrollHelper.getMaxScore(this.menu.getSlot(BASE_SLOT).getItem());
+        int maxStatus = ToolLevelHelper.getCurrentLevel(this.menu.getSlot(BASE_SLOT).getItem());
         if(maxStatus == 0) return;
-        int prevStatus = ScrollHelper.getScore(this.menu.getSlot(BASE_SLOT).getItem());
+        int prevStatus = ToolLevelHelper.getUsedLevels(this.menu.getSlot(BASE_SLOT).getItem());
 
         int addedToStatus = 0;
         ItemStack scroll = this.menu.getSlot(TEMPLATE_SLOT).getItem();
@@ -92,8 +93,11 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
                     -widthAdd, HEIGHT);
         }
 
-        for (int i = 1; i <= maxStatus - 1; i++) {
-            guiGraphics.blitSprite(NOTCH,9,5,0,0,xPos+ i*(WIDTH/maxStatus)-2, yPos, 9, 5);
-        }
+        for (int i = 1; i <= maxStatus - 1; i++)
+            guiGraphics.blitSprite(NOTCH,
+                    9,5,
+                    0,0,
+                    xPos+ i*(WIDTH/maxStatus)-4, yPos, // TODO: Still weird on golden shit
+                    9, 5);
     }
 }

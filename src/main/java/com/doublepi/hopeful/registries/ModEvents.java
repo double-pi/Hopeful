@@ -15,6 +15,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.item.ItemEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.UseItemOnBlockEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -24,7 +25,7 @@ import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 @EventBusSubscriber(modid = HopefulMod.MODID)
 public class ModEvents {
     @SubscribeEvent
-    public static void fixPlayer(PlayerEvent.PlayerLoggedInEvent event){
+    public static void syncXPLevels(PlayerEvent.PlayerLoggedInEvent event){
         Player player = event.getEntity();
         int oldValue = player.hasData(ModAttachments.XP_PER_LEVEL)? player.getData(ModAttachments.XP_PER_LEVEL) : 64;
         int newValue = player.level().getGameRules().getInt(ModGamerules.XP_PER_LEVEL);

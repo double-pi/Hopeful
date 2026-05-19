@@ -1,5 +1,6 @@
 package com.doublepi.hopeful.equipment.scrolls;
 
+import com.doublepi.hopeful.equipment.level_up.ToolLevelHelper;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import com.doublepi.hopeful.registries.ModEvents;
 import com.doublepi.hopeful.registries.ModRegistries;
@@ -23,12 +24,12 @@ public class ScrollHelper {
             boolean itemSupportsEnchantment = item.supportsEnchantment(enchantment);
             boolean isNotMaxLevel = item.getEnchantmentLevel(enchantment)< enchantment.value().getMaxLevel();
             if(itemSupportsEnchantment && isNotMaxLevel
-                    && getScore(item) + scroll.requiredToolXP() <= getMaxScore(item)){
+                    && ToolLevelHelper.getUsedLevels(item) + scroll.requiredToolXP() <= ToolLevelHelper.getCurrentLevel(item)){
                 int newLevel = item.getEnchantmentLevel(enchantment) + 1;
                 item.enchant(enchantment, newLevel);
             }
         }
-        setScore(item, getScore(item) + scroll.requiredToolXP());
+        ToolLevelHelper.setUsedLevels(item, ToolLevelHelper.getUsedLevels(item) + scroll.requiredToolXP());
     }
 
     public static Stream<Holder.Reference<Scroll>> getAllScrolls(Level level){
@@ -36,8 +37,8 @@ public class ScrollHelper {
     }
 
     public static boolean supportsScroll(ItemStack item, Scroll scroll){
-        int maxScore = getMaxScore(item);
-        int currentScore = getScore(item);
+        int maxScore = ToolLevelHelper.getCurrentLevel(item);
+        int currentScore = ToolLevelHelper.getUsedLevels(item);
         if(maxScore == 0)
             return false;
 
@@ -55,35 +56,10 @@ public class ScrollHelper {
         return false;
     }
 
-    public static int getMaxScore(ItemStack stack){
-        Holder<Item> item = stack.getItemHolder();
-        if(item.getData(ModEvents.ITEM_ENCHANTABILITY_DATA) == null){
-            if(!item.is(Tags.Items.ENCHANTABLES))
-                return 0;
-            int enchantability = stack.getEnchantmentValue();
-            if(stack.getMaxStackSize()!=1) return 0;
-            if(enchantability==0) return 5;
-            return (int)(enchantability * 0.5);
-        }else{
-        return item.getData(ModEvents.ITEM_ENCHANTABILITY_DATA).enchantability();
-}
-    }
-
-    public static int getScore(ItemStack stack){
-        if(!stack.has(ModDataComponentTypes.ENCHANTABILITY_STATUS)){
-            stack.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,0);
-        }
-        return stack.get(ModDataComponentTypes.ENCHANTABILITY_STATUS);
-    }
-
-    public static void setScore(ItemStack stack, int value){
-        stack.set(ModDataComponentTypes.ENCHANTABILITY_STATUS,Math.max(0,value));
-    }
-
     public static Holder<Scroll> getFromEnchant(Holder<Enchantment> holder, Level level){
         var scrolls = getAllScrolls(level).toList();
-        for (int i = 0; i < scrolls.size(); i++) {
-            if(scrolls.get(i).value().enchantments().contains(holder)) return scrolls.get(i);
+        for (Holder.Reference<Scroll> scroll : scrolls) {
+            if (scroll.value().enchantments().contains(holder)) return scroll;
         }
         return null;
     }

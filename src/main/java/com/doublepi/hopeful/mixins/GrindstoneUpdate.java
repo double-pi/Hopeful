@@ -1,5 +1,6 @@
 package com.doublepi.hopeful.mixins;
 
+import com.doublepi.hopeful.equipment.level_up.ToolLevelHelper;
 import com.doublepi.hopeful.equipment.scrolls.ScrollHelper;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.inventory.GrindstoneMenu;
@@ -19,7 +20,7 @@ public class GrindstoneUpdate {
             item = item.transmuteCopy(Items.BOOK);
         }
         item.set(DataComponents.REPAIR_COST, 0);
-        ScrollHelper.setScore(item,0);
+        ToolLevelHelper.setUsedLevels(item,0);
         item.remove(DataComponents.STORED_ENCHANTMENTS);
         item.set(DataComponents.ENCHANTMENTS,ItemEnchantments.EMPTY);
 
