@@ -1,6 +1,8 @@
 package com.doublepi.hopeful.mixins;
 
 import com.doublepi.hopeful.HopefulMod;
+import com.doublepi.hopeful.equipment.scrolls.ScrollHelper;
+import com.doublepi.hopeful.equipment.smithing.SmithingTableChanges;
 import com.doublepi.hopeful.equipment.smithing.ToolLevelHelper;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.ChatFormatting;
@@ -58,45 +60,38 @@ public abstract class SmithingScreenMixin extends ItemCombinerScreen<SmithingMen
     }
 
     public void hopeful$renderToolExperience(GuiGraphics guiGraphics){
-        var menu = this.getMenu();
         if(!this.menu.getSlot(BASE_SLOT).hasItem()) return;
-        int maxStatus = ToolLevelHelper.getCurrentLevel(this.menu.getSlot(BASE_SLOT).getItem());
-        if(maxStatus == 0) return;
-        int prevStatus = ToolLevelHelper.getUsedLevels(this.menu.getSlot(BASE_SLOT).getItem());
+        int toolLevel = ToolLevelHelper.getCurrentLevel(this.menu.getSlot(BASE_SLOT).getItem());
+        if(toolLevel == 0) return;
+        int usedLevels = ToolLevelHelper.getUsedLevels(this.menu.getSlot(BASE_SLOT).getItem());
 
-        int addedToStatus = 0;
+        int addedToUsedLevels = 0;
         ItemStack scroll = this.menu.getSlot(TEMPLATE_SLOT).getItem();
         if(scroll!=null && scroll.has(ModDataComponentTypes.SCROLL)) {
-            addedToStatus = scroll.get(ModDataComponentTypes.SCROLL).value().requiredToolXP();
+            addedToUsedLevels = scroll.get(ModDataComponentTypes.SCROLL).value().requiredToolXP();
         }
 
-        int widthFull = WIDTH * prevStatus/maxStatus;
-        int widthAdd = WIDTH * addedToStatus/maxStatus;
+        int widthFull = WIDTH * usedLevels/toolLevel;
+        int widthAdd = WIDTH * addedToUsedLevels/toolLevel;
 
         int xPos = this.leftPos + 6;
         int yPos = this.topPos + 40;
         guiGraphics.blitSprite(EMPTY_BAR,WIDTH, HEIGHT, 0, 0, xPos,yPos, WIDTH, HEIGHT);
         guiGraphics.blitSprite(FULL_BAR,WIDTH, HEIGHT, 0, 0, xPos,yPos, widthFull, HEIGHT);
-        if(addedToStatus > 0) {
+        if(addedToUsedLevels > 0 && ScrollHelper.supportsScroll(menu.getSlot(BASE_SLOT).getItem(),scroll.get(ModDataComponentTypes.SCROLL).value())) {
             guiGraphics.blitSprite(TO_ADD_BAR,
                     WIDTH, HEIGHT,
                     widthFull, 0,
                     xPos + widthFull,yPos,
                     widthAdd, HEIGHT);
         }
-        if(addedToStatus < 0) {
+        if(addedToUsedLevels < 0) {
             guiGraphics.blitSprite(TO_REMOVE_BAR,
                     WIDTH, HEIGHT,
                     widthFull + widthAdd, 0,
-                    xPos + widthFull + widthAdd, yPos,
-                    -widthAdd, HEIGHT);
+                    xPos + Math.max(widthFull + widthAdd,0), yPos,
+                    Math.min(-widthAdd,widthFull), HEIGHT);
         }
-
-        for (int i = 1; i <= maxStatus - 1; i++)
-            guiGraphics.blitSprite(NOTCH,
-                    9,5,
-                    0,0,
-                    xPos+ i*(WIDTH/maxStatus)-4, yPos, // TODO: Still weird on golden shit
-                    9, 5);
+        SmithingTableChanges.displayNotches(xPos,yPos,toolLevel,guiGraphics);
     }
 }
