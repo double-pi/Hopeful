@@ -1,5 +1,6 @@
 package com.doublepi.hopeful.mixins;
 
+import com.doublepi.hopeful.equipment.smithing.SmithingTableChanges;
 import com.doublepi.hopeful.registries.ModDataComponentTypes;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -28,27 +29,12 @@ public abstract class SmithingMenuMixin extends ItemCombinerMenu {
 
     @Inject(method="createResult", at=@At("HEAD"),cancellable = true)
     void addXPCondition(CallbackInfo ci){
-
-        if(!this.inputSlots.getItem(0).has(ModDataComponentTypes.SCROLL)) return;
-        var scroll = inputSlots.getItem(0).get(ModDataComponentTypes.SCROLL).value();
-        int xpRequired = scroll.requiredPlayerXP();
-
-        boolean hasEnoughXP = player.experienceLevel >= xpRequired;
-        boolean hasInfiniteXP = player.hasInfiniteMaterials();
-
-
-        if(!hasEnoughXP && !hasInfiniteXP)
-            ci.cancel();
+        if(!SmithingTableChanges.hasEnoughXP((SmithingMenu) ((Object)this),player)) ci.cancel();
     }
 
     @Inject(method="onTake",at=@At("HEAD"))
     void removeXP(Player player, ItemStack stack, CallbackInfo ci){
-        if(!this.inputSlots.getItem(0).has(ModDataComponentTypes.SCROLL)) return;
-        var scroll = inputSlots.getItem(0).get(ModDataComponentTypes.SCROLL).value();
-        int xpRequired = scroll.requiredPlayerXP();
-        boolean hasInfiniteXP = player.hasInfiniteMaterials();
-        if(!hasInfiniteXP)
-            player.giveExperienceLevels(-xpRequired);
+       SmithingTableChanges.takeXP((SmithingMenu) ((Object)this),player);
     }
 
 }

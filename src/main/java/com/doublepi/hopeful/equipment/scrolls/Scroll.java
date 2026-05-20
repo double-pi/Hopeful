@@ -19,14 +19,14 @@ import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.enchantment.Enchantment;
 import org.jetbrains.annotations.NotNull;
 
-public record Scroll(Component title, ScrollType scrollType, int requiredToolXP, int requiredPlayerXP, HolderSet<Enchantment> enchantments) {
+public record Scroll(Component title, ScrollType scrollType, int toolLevels, int playerLevels, HolderSet<Enchantment> enchantments) {
     public static final Codec<Scroll> CODEC =
             RecordCodecBuilder.create((scrollInstance ->scrollInstance.group(
                     ComponentSerialization.CODEC.fieldOf("title").forGetter(Scroll::title),
                     ScrollType.CODEC.fieldOf("type").forGetter(Scroll::scrollType),
                     //TODO: change to levels
-                    Codec.INT.optionalFieldOf("tool_levels", 0).forGetter(Scroll::requiredToolXP),
-                    Codec.INT.optionalFieldOf("player_levels",0).forGetter(Scroll::requiredPlayerXP),
+                    Codec.INT.optionalFieldOf("tool_levels", 0).forGetter(Scroll::toolLevels),
+                    Codec.INT.optionalFieldOf("player_levels",0).forGetter(Scroll::playerLevels),
                     RegistryCodecs.homogeneousList(Registries.ENCHANTMENT)
                             .validate(DataResult::success)
                             .fieldOf("enchantments").forGetter(Scroll::enchantments))
@@ -39,34 +39,6 @@ public record Scroll(Component title, ScrollType scrollType, int requiredToolXP,
     public static final StreamCodec<RegistryFriendlyByteBuf, Holder<Scroll>> STREAM_CODEC =
             ByteBufCodecs.holderRegistry(ModRegistries.SCROLL_REGISTRY_KEY);
 
-    @Override
-    public Component title() {
-        return title;
-    }
-
-    public ScrollType scrollType() {
-        return scrollType;
-    }
-
-    @Override
-    public int requiredToolXP() {
-        return requiredToolXP;
-    }
-
-    @Override
-    public int requiredPlayerXP() {
-        return requiredPlayerXP;
-    }
-
-    @Override
-    public HolderSet<Enchantment> enchantments() {
-        return enchantments;
-    }
-
-    @Override
-    public @NotNull String toString() {
-        return title.getString();
-    }
 }
 
 enum ScrollType implements StringRepresentable{
@@ -84,9 +56,6 @@ enum ScrollType implements StringRepresentable{
         this.name = name;
         this.chatColor = chatColor;
         this.displayName = Component.translatable("scroll.hopeful.type." + name).withColor(chatColor.getColor());
-    }
-    public ChatFormatting getChatColor() {
-        return this.chatColor;
     }
 
     public Component getDisplayName() {

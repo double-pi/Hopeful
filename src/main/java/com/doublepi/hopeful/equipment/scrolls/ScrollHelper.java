@@ -20,12 +20,12 @@ public class ScrollHelper {
             boolean itemSupportsEnchantment = item.supportsEnchantment(enchantment);
             boolean isNotMaxLevel = item.getEnchantmentLevel(enchantment)< enchantment.value().getMaxLevel();
             if(itemSupportsEnchantment && isNotMaxLevel
-                    && ToolLevelHelper.getUsedLevels(item) + scroll.requiredToolXP() <= ToolLevelHelper.getCurrentLevel(item)){
+                    && ToolLevelHelper.getUsedLevels(item) + scroll.toolLevels() <= ToolLevelHelper.getCurrentLevel(item)){
                 int newLevel = item.getEnchantmentLevel(enchantment) + 1;
                 item.enchant(enchantment, newLevel);
             }
         }
-        ToolLevelHelper.setUsedLevels(item, ToolLevelHelper.getUsedLevels(item) + scroll.requiredToolXP());
+        ToolLevelHelper.setUsedLevels(item, ToolLevelHelper.getUsedLevels(item) + scroll.toolLevels());
     }
 
     public static Stream<Holder.Reference<Scroll>> getAllScrolls(Level level){
@@ -45,7 +45,7 @@ public class ScrollHelper {
             if(item.getEnchantmentLevel(enchantment) >= enchantment.value().getMaxLevel())
                 continue;
 
-            if(currentScore + scroll.requiredToolXP() <= maxScore)
+            if(currentScore + scroll.toolLevels() <= maxScore)
                 return true;
         }
 
@@ -80,7 +80,7 @@ public class ScrollHelper {
         var enchantList = enchants.keySet().stream().toList();
         int status = 0;
         for (Holder<Enchantment> enchant: enchantList){
-            status += ScrollHelper.getFromEnchant(enchant, level).value().requiredToolXP() * stack.getEnchantmentLevel(enchant);
+            status += ScrollHelper.getFromEnchant(enchant, level).value().toolLevels() * stack.getEnchantmentLevel(enchant);
         }
         return status;
     }

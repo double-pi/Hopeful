@@ -53,8 +53,8 @@ public class ScrollItem extends Item {
         // Enchantment list
         boolean isLoaded = ModList.get().isLoaded("enchdesc");
         boolean isShifted = tooltipFlag.hasShiftDown();
-        int toolXPRequired = scroll.requiredToolXP();
-        int playerXPRequired = scroll.requiredPlayerXP();
+        int toolXPRequired = scroll.toolLevels();
+        int playerXPRequired = scroll.playerLevels();
 
         // "stats" - tool xp cost & player xp cost
         if(toolXPRequired!=0 || playerXPRequired!=0)
