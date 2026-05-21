@@ -1,10 +1,10 @@
 {
-  "blocks": ["#minecraft:soul_fire_base_blocks","#minecraft:piglin_repellents"],
+  "blocks": "#hopeful:soul_related_blocks",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:smite",
+      "scrolls": "hopeful:undead",
       "increase_by": 50
     },
     {

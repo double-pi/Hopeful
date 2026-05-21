@@ -44,8 +44,9 @@ public class EnchantingState {
     public void evaluateCatalyst(Catalyst catalyst,BlockPos pos){
         if(allCatalysts.getOrDefault(catalyst,0) >= catalyst.limit())
             return;
-        for(CatalystEffect e : catalyst.effects())
+        for(CatalystEffect e : catalyst.effects()) {
             e.applyEffect(this, pos);
+        }
         recordCatalyst(catalyst);
     }
 

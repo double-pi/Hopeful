@@ -151,10 +151,12 @@
       "starting_level": 7
     },
     "minecraft:bow": {
-      "starting_level": 6
+      "starting_level": 3,
+      "levelups": [50, 100, 150]
     },
     "minecraft:crossbow": {
-      "starting_level": 7
+      "starting_level": 3,
+      "levelups": [50, 100, 150]
     },
     "minecraft:fishing_rod": {
       "starting_level": 6
@@ -166,46 +168,23 @@
       "starting_level": 5
     },
     "minecraft:chainmail_helmet": {
-      "starting_level": 5
+      "starting_level": 5,
+      "levelups": [10,50,100,0,200,0]
     },
     "minecraft:chainmail_chestplate": {
-      "starting_level": 5
+      "starting_level": 5,
+      "levelups": [10,50,100,0,200,0]
     },
     "minecraft:chainmail_leggings": {
-      "starting_level": 5
+      "starting_level": 5,
+      "levelups": [10,50,100,0,200,0]
     },
     "minecraft:chainmail_boots": {
-      "starting_level": 5
+      "starting_level": 5,
+      "levelups": [10,50,100,0,200,0]
     },
     "minecraft:turtle_helmet": {
       "starting_level": 5
-    },
-    "minecraft:copper_sword": {
-      "starting_level": 3
-    },
-    "minecraft:copper_pickaxe": {
-      "starting_level": 3
-    },
-    "minecraft:copper_axe": {
-      "starting_level": 3
-    },
-    "minecraft:copper_shovel": {
-      "starting_level": 3
-    },
-    "minecraft:copper_hoe": {
-      "starting_level": 3
-    },
-    "minecraft:copper_helmet": {
-      "starting_level": 3
-    },
-    "minecraft:copper_chestplate": {
-      "starting_level": 3
-    },
-    "minecraft:copper_leggings": {
-      "starting_level": 3
-    },
-    "minecraft:copper_boots": {
-      "starting_level": 3
     }
   }
 }
