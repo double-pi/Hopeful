@@ -3,6 +3,7 @@ package com.doublepi.hopeful.equipment.enchanting;
 import com.doublepi.hopeful.equipment.enchanting.catalyst.Catalyst;
 import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.CatalystEffect;
 import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.MorphSelfEffect;
+import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.SummonEntityEffect;
 import com.doublepi.hopeful.equipment.scrolls.Scroll;
 import com.doublepi.hopeful.registries.ModTags;
 import net.minecraft.core.BlockPos;
@@ -25,12 +26,14 @@ public class EnchantingState {
     public ArrayList<Integer> weights;
     public RandomSource rand;
     public Map<BlockPos, MorphSelfEffect> morphables;
+    public ArrayList<SummonEntityEffect> summonables;
 
     public EnchantingState(int seed){
         scrolls = new ArrayList<>();
         weights = new ArrayList<>();
         allCatalysts = new HashMap<>();
         morphables = new HashMap<>();
+        summonables = new ArrayList<>();
         rand = RandomSource.create(seed);
     }
 
@@ -46,17 +49,17 @@ public class EnchantingState {
         recordCatalyst(catalyst);
     }
 
-    public FailReason findEnchantFailReason(Player player, ItemStack stack){
+    public StateResult findEnchantFailReason(Player player, ItemStack stack){
         if(!stack.is(ModTags.SCROLL_MATERIALS)) {
-            return FailReason.INCORRECT_MATERIAL;
+            return StateResult.INCORRECT_MATERIAL;
         }
         if(player.experienceLevel < requiredXPLevels && !player.hasInfiniteMaterials()) {
-            return FailReason.NOT_ENOUGH_XP;
+            return StateResult.NOT_ENOUGH_XP;
         }
         float failChance = rand.nextFloat();
         if(failChance > successChance)
-            return FailReason.UNLUCKY;
-        return FailReason.NONE;
+            return StateResult.UNLUCKY;
+        return StateResult.SUCCESS;
     }
 
 
@@ -70,18 +73,18 @@ public class EnchantingState {
                 "\n Scrolls: "+scrolls.stream().map(scr -> scr.value().toString()).toList();
     }
 
-    public enum FailReason {
-        INCORRECT_MATERIAL("tooltip.hopeful.use_correct_material", false, false),
-        NOT_ENOUGH_XP("tooltip.hopeful.fail_reason.not_enough_xp", false, false),
-        UNLUCKY("tooltip.hopeful.fail_reason.unlucky", true, true),
-        NONE("", true, false);
+    public enum StateResult {
+        INCORRECT_MATERIAL("tooltip.hopeful.state_result.use_correct_material", false, false),
+        NOT_ENOUGH_XP("tooltip.hopeful.state_result.not_enough_xp", false, false),
+        UNLUCKY("tooltip.hopeful.state_result.unlucky", true, true),
+        SUCCESS("tooltip.hopeful.state_result.success", true, true);
         public final String translationKey;
         public final boolean consumeItem;
-        public final boolean failConsequences;
-        FailReason(String key, boolean consumeItem, boolean failConsequences){
+        public final boolean consequences;
+        StateResult(String key, boolean consumeItem, boolean consequences){
             this.translationKey = key;
             this.consumeItem = consumeItem;
-            this.failConsequences = failConsequences;
+            this.consequences = consequences;
         }
     }
 }

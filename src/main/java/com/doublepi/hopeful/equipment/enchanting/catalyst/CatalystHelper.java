@@ -1,30 +1,24 @@
 package com.doublepi.hopeful.equipment.enchanting.catalyst;
 
 import com.doublepi.hopeful.equipment.enchanting.EnchantingState;
-import com.doublepi.hopeful.equipment.enchanting.EnchantingState.FailReason;
 import com.doublepi.hopeful.equipment.scrolls.Scroll;
-import com.doublepi.hopeful.equipment.scrolls.ScrollHelper;
-import com.doublepi.hopeful.equipment.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModAttachments;
 import com.doublepi.hopeful.registries.ModGamerules;
 import com.doublepi.hopeful.registries.ModRegistries;
-import com.doublepi.hopeful.registries.ModTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.ParticleUtils;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.Spawner;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -79,6 +73,18 @@ public class CatalystHelper {
                 level.setBlockAndUpdate(pos, effect.morphTo());
                 level.playLocalSound(pos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 1, 1, false);
                 ParticleUtils.spawnParticleInBlock(level, pos, 10, ParticleTypes.POOF);
+            }
+        });
+    }
+    public static void summonEntity(Level level, BlockPos enchPos, EnchantingState state, boolean enchantSucceeded){
+        if(level.isClientSide) return;
+        state.summonables.forEach((effect)->{
+            float chance = enchantSucceeded ? effect.chanceOnSuccess() : effect.chanceOnFail();
+            if(state.rand.nextFloat() < chance){
+                effect.entity().value().spawn((ServerLevel) level, enchPos.above(), MobSpawnType.MOB_SUMMONED);
+
+                level.playLocalSound(enchPos, SoundEvents.TRIAL_SPAWNER_SPAWN_MOB, SoundSource.BLOCKS, 1, 1, false);
+                ParticleUtils.spawnParticleInBlock(level, enchPos, 10, ParticleTypes.TRIAL_OMEN);
             }
         });
     }

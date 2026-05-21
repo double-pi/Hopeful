@@ -5,9 +5,7 @@ import com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types.
 import com.doublepi.hopeful.equipment.scrolls.ScrollHelper;
 import com.doublepi.hopeful.equipment.scrolls.ScrollItem;
 import com.doublepi.hopeful.registries.ModAttachments;
-import com.doublepi.hopeful.registries.ModRegistries;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -16,7 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.ParticleUtils;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -75,31 +72,30 @@ public class EnchantingTableChanges {
     public static ItemInteractionResult useItemOn(ItemStack stack, BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if(stack.isEmpty()) return ItemInteractionResult.FAIL;
         EnchantingState state = CatalystHelper.evaluateEnchantingState(level, pos, player);
-        EnchantingState.FailReason failReason = state.findEnchantFailReason(player, stack);
-        if(failReason == EnchantingState.FailReason.NONE){
+        EnchantingState.StateResult stateResult = state.findEnchantFailReason(player, stack);
+        if(stateResult == EnchantingState.StateResult.SUCCESS){
             player.makeSound(SoundEvents.ENCHANTMENT_TABLE_USE);
             ParticleUtils.spawnParticles(level, pos, 30,
                     0.5, 2, true, ParticleTypes.ENCHANT);
             ScrollHelper.addOrSpawn(player, ScrollItem.createFromScroll(CatalystHelper.generateScroll(state)));
-            if(!player.hasInfiniteMaterials()) {
-                player.giveExperienceLevels(-Math.max(0, state.consumedXPLevelsOnSuccess));
-            }
         }else{
             player.makeSound(SoundEvents.AMETHYST_CLUSTER_BREAK);
-            player.displayClientMessage(Component.translatable(failReason.translationKey)
+            player.displayClientMessage(Component.translatable(stateResult.translationKey)
                     .withStyle(Style.EMPTY.withItalic(true)), true);
             ParticleUtils.spawnParticles(level, pos, 10,
                     0.5, 0.3, true, ParticleTypes.POOF);
         }
-        if(failReason.failConsequences){
-            if(!player.hasInfiniteMaterials()) {
-                player.giveExperienceLevels(-Math.max(0,state.consumedXPLevelsOnFail));
+        if(stateResult.consequences) {
+            if (!player.hasInfiniteMaterials()) {
+                int levels = stateResult == EnchantingState.StateResult.SUCCESS ? state.consumedXPLevelsOnSuccess : state.consumedXPLevelsOnFail;
+                player.giveExperienceLevels(-Math.max(0, levels));
             }
-            CatalystHelper.morphCatalysts(level, state, failReason == EnchantingState.FailReason.NONE);
+            CatalystHelper.morphCatalysts(level, state, stateResult == EnchantingState.StateResult.SUCCESS);
+            CatalystHelper.summonEntity(level, pos, state, stateResult == EnchantingState.StateResult.SUCCESS);
         }
         player.setData(ModAttachments.HOPEFUL_ENCHANT_SEED, player.getRandom().nextInt());
         player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-        if(failReason.consumeItem) {
+        if(stateResult.consumeItem) {
             stack.consume(1, player);
             return ItemInteractionResult.CONSUME;
         }

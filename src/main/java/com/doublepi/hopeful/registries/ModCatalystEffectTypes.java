@@ -14,6 +14,8 @@ public class ModCatalystEffectTypes {
             = register("scroll_weight", new CatalystEffect.Type<>(ScrollWeightEffect.MAP_CODEC, ScrollWeightEffect.STREAM_CODEC));
     public static final CatalystEffect.Type<MorphSelfEffect> MORPH_SELF_CATALYST_EFFECT_TYPE
             = register("morph_self", new CatalystEffect.Type<>(MorphSelfEffect.MAP_CODEC, MorphSelfEffect.STREAM_CODEC));
+    public static final CatalystEffect.Type<SummonEntityEffect> SUMMON_ENTITY_CATALYST_EFFECT_TYPE
+            = register("summon_entity", new CatalystEffect.Type<>(SummonEntityEffect.MAP_CODEC, SummonEntityEffect.STREAM_CODEC));
     //---------------------------------------------------------------------------
     public static <T extends CatalystEffect> CatalystEffect.Type<T> register(String id, CatalystEffect.Type<T> catalystEffect) {
         return Registry.register(ModRegistries.CATALYST_EFFECT_TYPE_REGISTRY,
