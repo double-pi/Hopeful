@@ -23,7 +23,7 @@ public class ModParticles {
     public static final Supplier<SimpleParticleType> MORPH_CHANCE_EFFECT =
             PARTICLE_TYPES.register("morph_catalyst_effect", ()-> new SimpleParticleType(true));
     public static final Supplier<SimpleParticleType> SUMMON_ENTITY_EFFECT =
-            PARTICLE_TYPES.register("entity_catalyst_effect.json", ()-> new SimpleParticleType(true));
+            PARTICLE_TYPES.register("entity_catalyst_effect", ()-> new SimpleParticleType(true));
 
     public static void register(IEventBus modEventBus) {
         PARTICLE_TYPES.register(modEventBus);
