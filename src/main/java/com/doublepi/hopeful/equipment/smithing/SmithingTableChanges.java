@@ -94,7 +94,6 @@ public class SmithingTableChanges {
 
         boolean hasEnoughXP = player.experienceLevel >= xpRequired;
         boolean hasInfiniteXP = player.hasInfiniteMaterials();
-        System.out.println("hsa enough: "+hasEnoughXP+", "+hasInfiniteXP);
         return (hasEnoughXP || hasInfiniteXP);
     }
 

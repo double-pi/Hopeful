@@ -73,7 +73,6 @@ public class EnchantingTableChanges {
     }
 
     public static ItemInteractionResult useItemOn(ItemStack stack, BlockState blockState, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        System.out.println(level.holderLookup(ModRegistries.ALIGNMENT_REGISTRY_KEY).listElements().map(Holder.Reference::value).toList());
         if(stack.isEmpty()) return ItemInteractionResult.FAIL;
         EnchantingState state = CatalystHelper.evaluateEnchantingState(level, pos, player);
         EnchantingState.FailReason failReason = state.findEnchantFailReason(player, stack);

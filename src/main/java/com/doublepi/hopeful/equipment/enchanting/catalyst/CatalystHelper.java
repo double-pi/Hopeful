@@ -76,7 +76,7 @@ public class CatalystHelper {
         state.morphables.forEach((pos, effect)->{
             float chance = enchantSucceeded ? effect.chanceOnSuccess() : effect.chanceOnFail();
             if(state.rand.nextFloat() < chance){
-                level.setBlockAndUpdate(pos, effect.morphTo().value().defaultBlockState());
+                level.setBlockAndUpdate(pos, effect.morphTo());
                 level.playLocalSound(pos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 1, 1, false);
                 ParticleUtils.spawnParticleInBlock(level, pos, 10, ParticleTypes.POOF);
             }

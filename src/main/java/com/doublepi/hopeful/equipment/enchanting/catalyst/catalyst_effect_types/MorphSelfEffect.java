@@ -17,19 +17,26 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
-public record MorphSelfEffect(Holder<Block> morphTo, float chanceOnSuccess, float chanceOnFail) implements CatalystEffect{
+public record MorphSelfEffect(BlockState morphTo, float chanceOnSuccess, float chanceOnFail) implements CatalystEffect{
+    public static final Codec<BlockState> BLOCK_OR_BLOCKSTATE_CODEC =
+            Codec.withAlternative(
+                    BlockState.CODEC, RegistryFixedCodec.create(Registries.BLOCK)
+                        .xmap(block-> block.value().defaultBlockState(),
+                            state -> state.getBlockHolder())
+            );
     public static final MapCodec<MorphSelfEffect> MAP_CODEC = RecordCodecBuilder.mapCodec(
             effect ->
                     effect.group(
-                            RegistryFixedCodec.create(Registries.BLOCK).optionalFieldOf("block", Blocks.AIR.builtInRegistryHolder()).forGetter(MorphSelfEffect::morphTo),
+                            BLOCK_OR_BLOCKSTATE_CODEC.optionalFieldOf("block",Blocks.AIR.defaultBlockState()).forGetter(MorphSelfEffect::morphTo),
                             Codec.FLOAT.optionalFieldOf("chance_on_success",1f).forGetter(MorphSelfEffect::chanceOnSuccess),
                             Codec.FLOAT.optionalFieldOf("chance_on_fail", 0f).forGetter(MorphSelfEffect::chanceOnFail)
                     ).apply(effect, MorphSelfEffect::new)
     );
     public static final StreamCodec<RegistryFriendlyByteBuf, MorphSelfEffect> STREAM_CODEC =
             StreamCodec.composite(
-                    ByteBufCodecs.holderRegistry(Registries.BLOCK),
+                    ByteBufCodecs.fromCodec(BLOCK_OR_BLOCKSTATE_CODEC),
                     MorphSelfEffect::morphTo,
                     ByteBufCodecs.FLOAT,
                     MorphSelfEffect::chanceOnSuccess,
