@@ -1,11 +1,11 @@
 {
-  "blocks": "minecraft:pointed_dripstone",
+  "blocks": "minecraft:carved_pumpkin",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:extermination",
-      "increase_by": 5
+      "scrolls": "hopeful:binding",
+      "increase_by": 50
     },
     {
       "type": "hopeful:xp_levels_requirement",

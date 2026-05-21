@@ -1,11 +1,11 @@
 {
-  "blocks": "minecraft:lightning_rod",
+  "blocks": ["#minecraft:soul_fire_base_blocks","#minecraft:piglin_repellents"],
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:channeling",
-      "increase_by": 5
+      "scrolls": "hopeful:smite",
+      "increase_by": 50
     },
     {
       "type": "hopeful:xp_levels_requirement",

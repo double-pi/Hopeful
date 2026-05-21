@@ -1,10 +1,10 @@
 {
-  "blocks": "minecraft:enchanting_table",
+  "blocks": "minecraft:magma_block",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:endless",
+      "scrolls": "hopeful:flame",
       "increase_by": 50
     },
     {

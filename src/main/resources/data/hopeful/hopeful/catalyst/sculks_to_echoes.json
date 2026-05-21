@@ -5,7 +5,7 @@
     {
       "type": "hopeful:scroll_weight",
       "scrolls": "hopeful:echoes",
-      "increase_by": 5
+      "increase_by": 50
     },
     {
       "type": "hopeful:xp_levels_requirement",

@@ -4,8 +4,13 @@
   "effects": [
     {
       "type": "hopeful:scroll_weight",
+      "scrolls": "#hopeful:default",
+      "increase_by": 10
+    },
+    {
+      "type": "hopeful:scroll_weight",
       "scrolls": "#hopeful:scrolls",
-      "increase_by": 1
+      "increase_by": 10
     },
     {
       "type": "hopeful:success_chance",

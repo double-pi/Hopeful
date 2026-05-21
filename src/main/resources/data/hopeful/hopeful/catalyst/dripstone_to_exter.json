@@ -1,10 +1,10 @@
 {
-  "blocks": "minecraft:enchanting_table",
+  "blocks": "minecraft:pointed_dripstone",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:endless",
+      "scrolls": "hopeful:extermination",
       "increase_by": 50
     },
     {

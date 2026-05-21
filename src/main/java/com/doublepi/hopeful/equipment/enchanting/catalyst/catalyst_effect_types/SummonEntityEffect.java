@@ -22,7 +22,7 @@ public record SummonEntityEffect(Holder<EntityType<?>> entity, float chanceOnSuc
                     effect.group(
                             RegistryFixedCodec.create(Registries.ENTITY_TYPE).fieldOf("entity").forGetter(SummonEntityEffect::entity),
                             Codec.FLOAT.optionalFieldOf("chance_on_success",1f).forGetter(SummonEntityEffect::chanceOnSuccess),
-                            Codec.FLOAT.optionalFieldOf("chance_on_fail", 0f).forGetter(SummonEntityEffect::chanceOnFail)
+                            Codec.FLOAT.optionalFieldOf("chance_on_fail", 1f).forGetter(SummonEntityEffect::chanceOnFail)
                     ).apply(effect, SummonEntityEffect::new)
     );
     public static final StreamCodec<RegistryFriendlyByteBuf, SummonEntityEffect> STREAM_CODEC =

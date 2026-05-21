@@ -1,11 +1,11 @@
 {
-  "blocks": "minecraft:blue_candle",
+  "blocks": "minecraft:vault",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:acceleration",
-      "increase_by": 5
+      "scrolls": ["hopeful:fins","hopeful:gills"],
+      "increase_by": 50
     },
     {
       "type": "hopeful:xp_levels_requirement",

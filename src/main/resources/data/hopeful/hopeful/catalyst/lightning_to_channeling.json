@@ -1,11 +1,11 @@
 {
-  "blocks": "minecraft:carved_pumpkin",
+  "blocks": "minecraft:lightning_rod",
   "limit": 2,
   "effects": [
     {
       "type": "hopeful:scroll_weight",
-      "scrolls": "hopeful:binding",
-      "increase_by": 5
+      "scrolls": "hopeful:channeling",
+      "increase_by": 50
     },
     {
       "type": "hopeful:xp_levels_requirement",

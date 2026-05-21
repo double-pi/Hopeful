@@ -1,0 +1,21 @@
+{
+  "blocks": "minecraft:vault",
+  "limit": 2,
+  "effects": [
+    {
+      "type": "hopeful:scroll_weight",
+      "scrolls": "hopeful:wind",
+      "increase_by": 50
+    },
+    {
+      "type": "hopeful:xp_levels_requirement",
+      "increase_by": 1
+    },
+    {
+      "type": "hopeful:summon_entity",
+      "entity": "minecraft:breeze",
+      "chance_on_success": 0,
+      "chance_on_fail": 0.25
+    }
+  ]
+}
