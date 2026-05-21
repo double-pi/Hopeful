@@ -1,5 +1,5 @@
 {
-  "blocks": "minecraft:vault",
+  "blocks": "#hopeful:prismarines",
   "limit": 2,
   "effects": [
     {

@@ -2,6 +2,7 @@ package com.doublepi.hopeful.equipment.enchanting.catalyst.catalyst_effect_types
 
 import com.doublepi.hopeful.equipment.enchanting.EnchantingState;
 import com.doublepi.hopeful.registries.ModCatalystEffectTypes;
+import com.doublepi.hopeful.registries.ModParticles;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -48,7 +49,7 @@ public record SummonEntityEffect(Holder<EntityType<?>> entity, float chanceOnSuc
 
     @Override
     public ParticleOptions getParticle() {
-        return ParticleTypes.ANGRY_VILLAGER;
+        return ModParticles.SUMMON_ENTITY_EFFECT.get();
     }
 
     @Override

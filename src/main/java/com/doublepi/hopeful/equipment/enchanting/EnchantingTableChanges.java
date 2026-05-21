@@ -80,11 +80,11 @@ public class EnchantingTableChanges {
             ScrollHelper.addOrSpawn(player, ScrollItem.createFromScroll(CatalystHelper.generateScroll(state)));
         }else{
             player.makeSound(SoundEvents.AMETHYST_CLUSTER_BREAK);
-            player.displayClientMessage(Component.translatable(stateResult.translationKey)
-                    .withStyle(Style.EMPTY.withItalic(true)), true);
             ParticleUtils.spawnParticles(level, pos, 10,
                     0.5, 0.3, true, ParticleTypes.POOF);
         }
+        player.displayClientMessage(Component.translatable(stateResult.translationKey)
+                .withStyle(Style.EMPTY.withItalic(true)), true);
         if(stateResult.consequences) {
             if (!player.hasInfiniteMaterials()) {
                 int levels = stateResult == EnchantingState.StateResult.SUCCESS ? state.consumedXPLevelsOnSuccess : state.consumedXPLevelsOnFail;
